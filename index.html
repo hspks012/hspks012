@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>토익스피킹 파트5 플래시카드</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="header">
+  <div class="title">토익스피킹 파트5 암기</div>
+  <div class="counter" id="counter">1 / 18</div>
+</div>
+
+<div class="tab-bar">
+  <button class="tab-btn on" id="tabBtn-card" onclick="switchTab('card')">카드 학습</button>
+  <button class="tab-btn" id="tabBtn-chain" onclick="switchTab('chain')">주제 논리체인</button>
+  <button class="tab-btn" id="tabBtn-story" onclick="switchTab('story')">스토리 뱅크</button>
+  <button class="tab-btn" id="tabBtn-pattern" onclick="switchTab('pattern')">핵심 패턴</button>
+</div>
+
+<div class="tab-panel" id="tabPanel-card">
+<div class="progress-bar"><div class="progress-fill" id="pFill" style="width:5.5%"></div></div>
+<div class="stats-row">
+  <div class="stat"><div class="dot" style="background:#2563eb"></div><span id="sStat">전체 18</span></div>
+  <div class="stat"><div class="dot" style="background:#16a34a"></div><span id="mStat">외운 것 0</span></div>
+  <div class="stat"><div class="dot" style="background:#f59e0b"></div><span id="rStat">남은 것 18</span></div>
+</div>
+<div class="controls">
+  <button class="btn" id="filterBtn" onclick="toggleFilter()">못 외운 것만</button>
+  <button class="btn" onclick="shuffleCards()">순서 섞기</button>
+  <button class="btn red-outline" onclick="resetAll()">초기화</button>
+</div>
+
+<div class="card" id="card">
+  <div class="badge" id="badge"></div>
+  <div class="topic-label" id="topicLbl"></div>
+  <div class="q-text" id="qText"></div>
+  <div class="action-row">
+    <button class="btn" id="bKoQ"  onclick="tog('qko','bKoQ')">문제 번역</button>
+    <button class="btn" id="bHint" onclick="tog('hint','bHint')">힌트 보기</button>
+    <button class="btn" id="bAns"  onclick="tog('ans','bAns')">정답 보기</button>
+    <button class="btn" id="bKoA"  onclick="tog('ansko','bKoA')">한글 번역</button>
+    <button class="btn" id="bSim"  onclick="tog('sim','bSim')">유사문제</button>
+    <button class="btn" id="bMaster" onclick="toggleMaster()">외웠어요</button>
+    <span class="master-check" id="mCheck">완료</span>
+  </div>
+  <div class="divider"></div>
+  <div class="section s-qko"   id="sqko">  <div class="sec-label">문제 번역</div><div id="qkoText"></div></div>
+  <div class="section s-hint"  id="shint"> <div class="sec-label">논리 체인 힌트</div><div id="hintContent"></div></div>
+  <div class="section s-ans"   id="sans">  <div class="sec-label">영어 모범 답안</div><div id="ansText"></div></div>
+  <div class="section s-ansko" id="sansko"><div class="sec-label">한국어 번역</div><div id="ansKoText"></div></div>
+  <div class="section s-sim"   id="ssim">  <div class="sec-label">유사 문제</div><div id="simContent"></div></div>
+</div>
+
+<div class="nav-row">
+  <button class="nav-btn" id="prevBtn" onclick="nav(-1)">← 이전</button>
+  <button class="nav-btn" id="nextBtn" onclick="nav(1)">다음 →</button>
+</div>
+<div class="kb">
+  <kbd>←</kbd><kbd>→</kbd> 이동 &nbsp;
+  <kbd>Space</kbd> 정답 &nbsp;
+  <kbd>H</kbd> 힌트 &nbsp;
+  <kbd>T</kbd> 한글번역 &nbsp;
+  <kbd>Q</kbd> 문제번역 &nbsp;
+  <kbd>M</kbd> 외웠어요
+</div>
+</div>
+
+<div class="tab-panel hidden" id="tabPanel-chain">
+  <div class="panel-desc">18개 주제의 이유1 → 이유2 논리 체인을 한눈에 봅니다. 막히면 앞 단계 키워드만 떠올려도 뒤가 이어져야 정상입니다.</div>
+  <div id="chainList"></div>
+</div>
+
+<div class="tab-panel hidden" id="tabPanel-story">
+  <div class="panel-desc">여러 주제에서 반복 사용되는 "내 경험" 12개입니다. 이것부터 완벽히 외우면, 어느 주제가 나와도 여기서 골라 쓰면 됩니다.</div>
+  <div id="storyList"></div>
+</div>
+
+<div class="tab-panel hidden" id="tabPanel-pattern">
+  <div class="panel-desc">여러 답변에 공통으로 등장하는 표현 블록입니다. 뱃지는 실제 이 표현이 쓰인 주제 번호입니다.</div>
+  <div id="patternList"></div>
+</div>
+
+<script src="cards.js"></script>
+<script src="stories.js"></script>
+<script src="patterns.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
