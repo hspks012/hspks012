@@ -121,7 +121,9 @@ kbd { background: #f3f4f6; border: 1px solid #d1d5db; border-radius: 3px; paddin
   <button class="tab-btn" id="tabBtn-chain" onclick="switchTab('chain')">주제 논리체인</button>
   <button class="tab-btn" id="tabBtn-story" onclick="switchTab('story')">스토리 뱅크</button>
   <button class="tab-btn" id="tabBtn-pattern" onclick="switchTab('pattern')">핵심 패턴</button>
-  <button class="tab-btn" id="tabBtn-part3" onclick="switchTab('part3')">파트3 타이머 연습</button>
+  <button class="tab-btn" id="tabBtn-part3" onclick="switchTab('part3')">파트3 (1·2번)</button>
+  <button class="tab-btn" id="tabBtn-part3q3" onclick="switchTab('part3q3')">파트3 (3번)</button>
+  <button class="tab-btn" id="tabBtn-p3mind" onclick="switchTab('p3mind')">마인드맵</button>
 </div>
 
 <div class="tab-panel" id="tabPanel-card">
@@ -188,7 +190,7 @@ kbd { background: #f3f4f6; border: 1px solid #d1d5db; border-radius: 3px; paddin
 </div>
 
 <div class="tab-panel hidden" id="tabPanel-part3">
-  <div class="panel-desc">랜덤으로 문제가 나오고 20초 후 자동으로 정답이 10초간 표시됩니다. 이전 / 다음으로 직접 넘기거나, 정답 보기로 바로 확인할 수도 있어요.</div>
+  <div class="panel-desc">1·2번 문제(짧은 질문)가 랜덤으로 나오고 20초 후 자동으로 정답이 10초간 표시됩니다. 이전 / 다음으로 직접 넘기거나, 정답 보기로 바로 확인할 수도 있어요.</div>
 
   <div class="timer-box">
     <div class="timer-num" id="p3TimerNum">20</div>
@@ -216,7 +218,46 @@ kbd { background: #f3f4f6; border: 1px solid #d1d5db; border-radius: 3px; paddin
     <button class="nav-btn" id="p3PrevBtn" onclick="p3Prev()">← 이전</button>
     <button class="nav-btn" id="p3NextBtn" onclick="p3Next()">다음 →</button>
   </div>
-  <div class="counter" id="p3Counter" style="text-align:right;margin-top:6px;">1 / 204</div>
+  <div class="counter" id="p3Counter" style="text-align:right;margin-top:6px;">1 / 136</div>
+</div>
+
+<div class="tab-panel hidden" id="tabPanel-part3q3">
+  <div class="panel-desc">3번 문제(긴 의견형 질문)가 랜덤으로 나오고 35초 후 자동으로 정답이 10초간 표시됩니다. 이전 / 다음으로 직접 넘기거나, 정답 보기로 바로 확인할 수도 있어요.</div>
+
+  <div class="timer-box">
+    <div class="timer-num" id="p3q3TimerNum">35</div>
+    <div class="timer-label" id="p3q3TimerLabel">문제 준비</div>
+  </div>
+
+  <div class="card" id="p3q3Card">
+    <div class="badge" id="p3q3Badge"></div>
+    <div class="p3-scenario-en" id="p3q3ScenarioEn"></div>
+    <div class="p3-scenario-ko" id="p3q3ScenarioKo"></div>
+    <div class="q-text" id="p3q3QText"></div>
+    <div class="p3-q-ko" id="p3q3QKo"></div>
+
+    <div class="action-row">
+      <button class="btn" id="p3q3AnsBtn" onclick="p3q3ShowAnswerNow()">정답 보기</button>
+      <button class="btn" id="p3q3PauseBtn" onclick="p3q3Pause()">⏸ 멈춤</button>
+      <button class="btn" id="p3q3PlayBtn" onclick="p3q3Play()" disabled>▶ 재생</button>
+    </div>
+    <div class="divider"></div>
+    <div class="section s-ans" id="p3q3SAns"><div class="sec-label">영어 모범 답안</div><div id="p3q3AEn"></div></div>
+    <div class="section s-ansko" id="p3q3SAnsKo"><div class="sec-label">한국어 번역</div><div id="p3q3AKo"></div></div>
+  </div>
+
+  <div class="nav-row">
+    <button class="nav-btn" id="p3q3PrevBtn" onclick="p3q3Prev()">← 이전</button>
+    <button class="nav-btn" id="p3q3NextBtn" onclick="p3q3Next()">다음 →</button>
+  </div>
+  <div class="counter" id="p3q3Counter" style="text-align:right;margin-top:6px;">1 / 68</div>
+</div>
+
+<div class="tab-panel hidden" id="tabPanel-p3mind">
+  <div class="panel-desc">파트3의 3번 문제(의견형) 68개를 종합해서 뽑은 답변 유형 템플릿과 공통 표현입니다. 문제 유형을 먼저 알아채고, 맞는 템플릿에 표현만 갈아 끼우면 됩니다.</div>
+  <div id="p3TemplateList"></div>
+  <div class="panel-desc" style="margin-top:14px;">공통 표현 뱅크</div>
+  <div id="p3MindPatternList"></div>
 </div>
 
 <script>
@@ -853,13 +894,14 @@ function renderPatternList() {
   document.getElementById('patternList').innerHTML = html;
 }
 
-var TABS = ['card', 'chain', 'story', 'pattern', 'part3'];
+var TABS = ['card', 'chain', 'story', 'pattern', 'part3', 'part3q3', 'p3mind'];
 function switchTab(name) {
   TABS.forEach(function(t) {
     document.getElementById('tabPanel-' + t).classList.toggle('hidden', t !== name);
     document.getElementById('tabBtn-' + t).classList.toggle('on', t === name);
   });
   if (name === 'part3' && typeof p3EnsureStarted === 'function') p3EnsureStarted();
+  if (name === 'part3q3' && typeof p3q3EnsureStarted === 'function') p3q3EnsureStarted();
 }
 
 document.addEventListener('keydown', function(e) {
@@ -2178,12 +2220,23 @@ const P3_CARDS = [
 
 var P3_POOL = [];
 P3_CARDS.forEach(function(c) {
-  c.qas.forEach(function(qa) {
+  for (var i = 0; i < 2; i++) {
+    var qa = c.qas[i];
     P3_POOL.push({
       theme: c.theme, tc: c.tc,
       scenario: c.scenario, scenarioKo: c.scenarioKo,
       q: qa.q, qko: qa.qko, a: qa.a, ako: qa.ako
     });
+  }
+});
+
+var P3Q3_POOL = [];
+P3_CARDS.forEach(function(c) {
+  var qa = c.qas[2];
+  P3Q3_POOL.push({
+    theme: c.theme, tc: c.tc,
+    scenario: c.scenario, scenarioKo: c.scenarioKo,
+    q: qa.q, qko: qa.qko, a: qa.a, ako: qa.ako
   });
 });
 
@@ -2303,6 +2356,224 @@ function p3EnsureStarted() {
     p3Play();
   }
 }
+
+var p3q3Queue = p3Shuffle(P3Q3_POOL);
+var p3q3Idx = 0;
+var p3q3Phase = 'question';
+var p3q3Remaining = 35;
+var p3q3TimerId = null;
+var p3q3Started = false;
+
+function p3q3CurrentItem() { return p3q3Queue[p3q3Idx]; }
+
+function p3q3RenderItem() {
+  var it = p3q3CurrentItem();
+  document.getElementById('p3q3Counter').textContent = (p3q3Idx + 1) + ' / ' + P3Q3_POOL.length;
+  var badge = document.getElementById('p3q3Badge');
+  badge.textContent = it.theme;
+  badge.style.background = it.tc;
+  document.getElementById('p3q3ScenarioEn').textContent = it.scenario;
+  document.getElementById('p3q3ScenarioKo').textContent = it.scenarioKo;
+  document.getElementById('p3q3QText').textContent = it.q;
+  document.getElementById('p3q3QKo').textContent = it.qko;
+  document.getElementById('p3q3AEn').textContent = it.a;
+  document.getElementById('p3q3AKo').textContent = it.ako;
+  document.getElementById('p3q3SAns').classList.remove('vis');
+  document.getElementById('p3q3SAnsKo').classList.remove('vis');
+  document.getElementById('p3q3TimerLabel').textContent = '문제 준비';
+  document.getElementById('p3q3TimerNum').className = 'timer-num';
+  document.getElementById('p3q3TimerNum').textContent = p3q3Remaining;
+  document.getElementById('p3q3PrevBtn').disabled = (p3q3Idx === 0);
+}
+
+function p3q3RevealAnswer() {
+  document.getElementById('p3q3SAns').classList.add('vis');
+  document.getElementById('p3q3SAnsKo').classList.add('vis');
+  document.getElementById('p3q3TimerLabel').textContent = '정답 확인';
+  document.getElementById('p3q3TimerNum').className = 'timer-num answering';
+  document.getElementById('p3q3TimerNum').textContent = p3q3Remaining;
+}
+
+function p3q3ShowAnswerNow() {
+  if (p3q3Phase === 'answer') return;
+  p3q3Phase = 'answer';
+  p3q3Remaining = 10;
+  p3q3RevealAnswer();
+}
+
+function p3q3Next() {
+  p3q3Idx++;
+  if (p3q3Idx >= p3q3Queue.length) {
+    var last = p3q3Queue[p3q3Queue.length - 1];
+    var ns;
+    do { ns = p3Shuffle(P3Q3_POOL); } while (P3Q3_POOL.length > 1 && ns[0] === last);
+    p3q3Queue = ns;
+    p3q3Idx = 0;
+  }
+  p3q3Phase = 'question';
+  p3q3Remaining = 35;
+  p3q3RenderItem();
+}
+
+function p3q3Prev() {
+  if (p3q3Idx === 0) return;
+  p3q3Idx--;
+  p3q3Phase = 'question';
+  p3q3Remaining = 35;
+  p3q3RenderItem();
+}
+
+function p3q3Tick() {
+  p3q3Remaining--;
+  if (p3q3Remaining <= 0) {
+    if (p3q3Phase === 'question') {
+      p3q3Phase = 'answer';
+      p3q3Remaining = 10;
+      p3q3RevealAnswer();
+    } else {
+      p3q3Next();
+    }
+  } else {
+    document.getElementById('p3q3TimerNum').textContent = p3q3Remaining;
+  }
+}
+
+function p3q3StartTimer() {
+  if (p3q3TimerId) return;
+  p3q3TimerId = setInterval(p3q3Tick, 1000);
+}
+function p3q3StopTimer() {
+  if (p3q3TimerId) { clearInterval(p3q3TimerId); p3q3TimerId = null; }
+}
+
+function p3q3Pause() {
+  p3q3StopTimer();
+  document.getElementById('p3q3PauseBtn').disabled = true;
+  document.getElementById('p3q3PlayBtn').disabled = false;
+}
+function p3q3Play() {
+  p3q3StartTimer();
+  document.getElementById('p3q3PauseBtn').disabled = false;
+  document.getElementById('p3q3PlayBtn').disabled = true;
+}
+
+function p3q3EnsureStarted() {
+  if (!p3q3Started) {
+    p3q3Started = true;
+    p3q3RenderItem();
+    p3q3Play();
+  }
+}
+
+var P3_TEMPLATES = [
+  {
+    type: "① 최선호형 (Which is most important...? / 옵션 나열형)",
+    example: "Which of the following is most important to you when buying headphones and why? • Color • Sound quality • Comfort",
+    structure: "I think [고른 것] is most important (to me). First of all, ~ (편리함/시간절약). Also, ~ (신뢰/재미/저렴함). That's why I think so.",
+    topics: [1, 2, 3, 5, 35, 37, 41, 44, 47, 48, 54, 55]
+  },
+  {
+    type: "② 찬반형 (Yes/No, Would you...?, Do you think...?)",
+    example: "Do you think a library should provide e-books rather than paper books?",
+    structure: "Yes / No, I think ~. First of all, ~ (이유1). Also, ~ (이유2). That's why I think so.",
+    topics: [6, 7, 8, 9, 12, 13, 24, 30, 31, 32, 33, 34, 36, 46, 49, 50, 58, 65]
+  },
+  {
+    type: "③ 추천형 (상대방에게 추천/제안하는 상황극)",
+    example: "Where do you suggest I go near your town? Why?",
+    structure: "I recommend [장소/방법]. First of all, ~ (이유1). Also, ~ (이유2). I'm sure you will love it!",
+    topics: [14, 15, 18, 19, 20, 21, 50]
+  },
+  {
+    type: "④ 묘사형 (Describe / Tell me about...)",
+    example: "Describe your favorite exhibit at a zoo or an aquarium.",
+    structure: "이유 없이 경험을 시간순으로 서술. I will describe ~. First of all, ~. Also, ~. That's all.",
+    topics: [23, 39, 45, 59, 60, 61, 62, 68]
+  }
+];
+
+var P3_PATTERNS = [
+  {
+    group: "편리함 강조 (만능 이유 1순위)",
+    en: "It's convenient. / It's more convenient.",
+    ko: "그건 편리합니다 / 더 편리합니다.",
+    topics: [1, 4, 6, 7, 10, 17, 37, 46, 53, 58]
+  },
+  {
+    group: "시간·돈 절약",
+    en: "So I can save my time (and money).",
+    ko: "그래서 시간(과 돈)을 절약할 수 있습니다.",
+    topics: [5, 6, 9, 11, 17, 18, 19, 46, 50]
+  },
+  {
+    group: "재미 / 스트레스 해소",
+    en: "It's fun. / I can get rid of my stress.",
+    ko: "재미있습니다 / 스트레스를 해소할 수 있습니다.",
+    topics: [24, 26, 41, 43, 44, 48, 56, 66]
+  },
+  {
+    group: "신뢰 vs 과장 광고",
+    en: "Reviews are honest, but ads tend to exaggerate, so I don't trust them.",
+    ko: "리뷰는 정직하지만 광고는 과장하는 경향이 있어서 신뢰하지 않습니다.",
+    topics: [4, 34, 36, 37]
+  },
+  {
+    group: "대학생이라 바쁨 (페르소나)",
+    en: "I'm a senior in college, so I'm very busy with my schoolwork.",
+    ko: "저는 대학교 4학년이라 학업으로 매우 바쁩니다.",
+    topics: [3, 10, 33, 38, 46, 48, 53, 54]
+  },
+  {
+    group: "시간 끌기용 필러",
+    en: "Well… Let me think… / Um…",
+    ko: "음… 잠시 생각해볼게요…",
+    topics: [3, 5, 14, 26, 28]
+  },
+  {
+    group: "마무리 클리셰",
+    en: "That's why I think so. / That's all.",
+    ko: "그래서 그렇게 생각합니다. / 이상입니다.",
+    topics: [1, 2, 3, 39, 45, 59, 62]
+  }
+];
+
+function p3TopicChips(ids) {
+  return ids.map(function(n) {
+    var c = P3_CARDS[n - 1];
+    var bg = c ? c.tc : '#9ca3af';
+    var title = c ? c.theme : ('시나리오 ' + n);
+    return '<span class="topic-chip" style="background:' + bg + '" title="' + title + '">' + n + '</span>';
+  }).join('');
+}
+
+function renderP3TemplateList() {
+  var html = '';
+  P3_TEMPLATES.forEach(function(t) {
+    html += '<div class="chain-card">';
+    html += '<div class="chain-topic">' + t.type + '</div>';
+    html += '<div class="chain-step"><b>예시:</b> ' + t.example + '</div>';
+    html += '<div class="chain-step"><b>구조:</b> ' + t.structure + '</div>';
+    html += '<div class="badge-row" style="margin-top:6px;">' + p3TopicChips(t.topics) + '</div>';
+    html += '</div>';
+  });
+  document.getElementById('p3TemplateList').innerHTML = html;
+}
+
+function renderP3MindPatternList() {
+  var html = '';
+  P3_PATTERNS.forEach(function(p) {
+    html += '<div class="pattern-card">';
+    html += '<div class="pattern-group">' + p.group + '</div>';
+    html += '<div class="pattern-en">' + p.en + '</div>';
+    html += '<div class="pattern-ko">' + p.ko + '</div>';
+    html += '<div class="badge-row">' + p3TopicChips(p.topics) + '</div>';
+    html += '</div>';
+  });
+  document.getElementById('p3MindPatternList').innerHTML = html;
+}
+
+renderP3TemplateList();
+renderP3MindPatternList();
 </script>
 </body>
 </html>
