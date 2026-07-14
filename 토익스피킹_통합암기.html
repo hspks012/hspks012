@@ -1,0 +1,2308 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>토익스피킹 암기 (파트5 · 파트3)</title>
+<style>
+:root {
+  --font: Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --primary: #2563eb; --bg: #fff; --fg: #111827; --border: #d1d5db; --radius: 8px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font); background: #f9fafb; color: var(--fg); padding: 14px; }
+.header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 4px; }
+.title { font-size: 14px; font-weight: 700; }
+.counter { font-size: 12px; color: #6b7280; }
+.progress-bar { height: 4px; background: #e5e7eb; border-radius: 2px; margin-bottom: 8px; }
+.progress-fill { height: 100%; background: var(--primary); border-radius: 2px; transition: width 0.3s; }
+.stats-row { display: flex; gap: 10px; margin-bottom: 8px; font-size: 11px; color: #6b7280; }
+.stat { display: flex; align-items: center; gap: 3px; }
+.dot { width: 7px; height: 7px; border-radius: 50%; }
+.controls { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 8px; }
+.btn {
+  padding: 5px 10px; border: 1px solid var(--border); border-radius: 5px;
+  background: white; color: var(--fg); font-size: 11px; font-family: var(--font);
+  cursor: pointer; transition: background 0.1s;
+}
+.btn:hover:not(:disabled) { background: #f3f4f6; }
+.btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.btn.on { background: var(--primary); color: white; border-color: var(--primary); }
+.btn.green { background: #16a34a; color: white; border-color: #16a34a; }
+.btn.red-outline { color: #ef4444; border-color: #ef4444; }
+.btn.red-outline:hover { background: #fef2f2; }
+.card { background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; }
+.card.mastered { border-left: 4px solid #16a34a; }
+.badge { display: inline-block; padding: 2px 7px; border-radius: 4px; font-size: 10px; font-weight: 700; color: white; margin-bottom: 6px; }
+.topic-label { font-size: 10px; color: #9ca3af; margin-bottom: 2px; }
+.q-text { font-size: 14px; font-weight: 700; line-height: 1.55; white-space: pre-line; margin-bottom: 10px; }
+.action-row { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 8px; }
+.master-check { font-size: 11px; color: #16a34a; font-weight: 700; display: none; align-self: center; }
+.master-check.vis { display: inline; }
+.divider { height: 1px; background: #f3f4f6; margin: 8px 0; }
+.section { display: none; border-radius: 6px; padding: 10px; margin-bottom: 8px; font-size: 12px; line-height: 1.65; white-space: pre-line; }
+.section.vis { display: block; }
+.s-qko  { background: #f8fafc; border: 1px solid #e2e8f0; color: #334155; }
+.s-hint { background: #fffbeb; border: 1px solid #fcd34d; color: #78350f; }
+.s-ans  { background: #eff6ff; border: 1px solid #93c5fd; color: #1e40af; }
+.s-ansko{ background: #f0fdf4; border: 1px solid #86efac; color: #166534; }
+.s-sim  { background: #faf5ff; border: 1px solid #d8b4fe; color: #6d28d9; }
+.sec-label { font-size: 10px; font-weight: 700; margin-bottom: 5px; opacity: 0.65; }
+.hint-step { display: flex; align-items: flex-start; gap: 6px; padding: 4px 0; border-bottom: 1px dashed #fde68a; }
+.hint-step:last-child { border: none; }
+.hint-num { font-size: 10px; font-weight: 700; background: #f59e0b; color: white; border-radius: 3px; padding: 1px 5px; flex-shrink: 0; margin-top: 1px; }
+.sim-item { padding: 3px 0; border-bottom: 1px dashed rgba(109,40,217,0.2); font-size: 11px; }
+.sim-item:last-child { border: none; }
+.nav-row { display: flex; justify-content: space-between; margin-top: 10px; }
+.nav-btn { padding: 7px 18px; border: 1px solid var(--border); border-radius: 6px; background: white; font-size: 13px; font-family: var(--font); cursor: pointer; }
+.nav-btn:hover:not(:disabled) { background: #f3f4f6; }
+.nav-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+.kb { font-size: 10px; color: #9ca3af; margin-top: 6px; text-align: right; }
+kbd { background: #f3f4f6; border: 1px solid #d1d5db; border-radius: 3px; padding: 1px 4px; font-size: 9px; }
+
+.tab-bar { display: flex; gap: 4px; margin-bottom: 10px; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+.tab-btn {
+  padding: 8px 12px; border: none; background: none; color: #6b7280; font-size: 12px;
+  font-weight: 600; font-family: var(--font); cursor: pointer; border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+}
+.tab-btn:hover { color: var(--fg); }
+.tab-btn.on { color: var(--primary); border-bottom-color: var(--primary); }
+.tab-panel.hidden { display: none; }
+.panel-desc { font-size: 11px; color: #6b7280; margin-bottom: 10px; line-height: 1.5; }
+
+.chain-card {
+  background: white; border: 1px solid var(--border); border-radius: 6px;
+  padding: 10px 12px; margin-bottom: 8px; border-left: 4px solid #d1d5db;
+}
+.chain-topic { font-size: 12px; font-weight: 700; margin-bottom: 6px; }
+.chain-step { font-size: 12px; color: #374151; padding: 3px 0; }
+.chain-step b { color: var(--fg); }
+
+.story-card {
+  background: white; border: 1px solid var(--border); border-radius: 6px;
+  padding: 10px 12px; margin-bottom: 8px;
+}
+.story-title { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+.story-ko { font-size: 12px; color: #374151; line-height: 1.55; margin-bottom: 6px; }
+
+.pattern-card {
+  background: white; border: 1px solid var(--border); border-radius: 6px;
+  padding: 10px 12px; margin-bottom: 8px;
+}
+.pattern-group { font-size: 10px; font-weight: 700; color: #6d28d9; margin-bottom: 4px; }
+.pattern-en { font-size: 12px; font-weight: 600; margin-bottom: 3px; }
+.pattern-ko { font-size: 12px; color: #6b7280; margin-bottom: 6px; }
+
+.badge-row { display: flex; gap: 4px; flex-wrap: wrap; }
+.topic-chip {
+  font-size: 10px; font-weight: 700; color: white; background: #9ca3af;
+  border-radius: 4px; padding: 2px 6px;
+}
+
+.timer-box { text-align: center; margin-bottom: 12px; }
+.timer-num { font-size: 44px; font-weight: 800; color: var(--primary); line-height: 1; transition: color 0.2s; }
+.timer-num.answering { color: #16a34a; }
+.timer-label { font-size: 12px; color: #6b7280; margin-top: 2px; }
+.p3-scenario-en { font-size: 13px; color: #374151; margin-bottom: 3px; line-height: 1.5; }
+.p3-scenario-ko { font-size: 12px; color: #9ca3af; margin-bottom: 10px; line-height: 1.5; }
+.p3-q-ko { font-size: 12px; color: #6b7280; margin-bottom: 10px; white-space: pre-line; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="title">토익스피킹 암기 (파트5 · 파트3)</div>
+  <div class="counter" id="counter">1 / 18</div>
+</div>
+
+<div class="tab-bar">
+  <button class="tab-btn on" id="tabBtn-card" onclick="switchTab('card')">카드 학습</button>
+  <button class="tab-btn" id="tabBtn-chain" onclick="switchTab('chain')">주제 논리체인</button>
+  <button class="tab-btn" id="tabBtn-story" onclick="switchTab('story')">스토리 뱅크</button>
+  <button class="tab-btn" id="tabBtn-pattern" onclick="switchTab('pattern')">핵심 패턴</button>
+  <button class="tab-btn" id="tabBtn-part3" onclick="switchTab('part3')">파트3 타이머 연습</button>
+</div>
+
+<div class="tab-panel" id="tabPanel-card">
+<div class="progress-bar"><div class="progress-fill" id="pFill" style="width:5.5%"></div></div>
+<div class="stats-row">
+  <div class="stat"><div class="dot" style="background:#2563eb"></div><span id="sStat">전체 18</span></div>
+  <div class="stat"><div class="dot" style="background:#16a34a"></div><span id="mStat">외운 것 0</span></div>
+  <div class="stat"><div class="dot" style="background:#f59e0b"></div><span id="rStat">남은 것 18</span></div>
+</div>
+<div class="controls">
+  <button class="btn" id="filterBtn" onclick="toggleFilter()">못 외운 것만</button>
+  <button class="btn" onclick="shuffleCards()">순서 섞기</button>
+  <button class="btn red-outline" onclick="resetAll()">초기화</button>
+</div>
+
+<div class="card" id="card">
+  <div class="badge" id="badge"></div>
+  <div class="topic-label" id="topicLbl"></div>
+  <div class="q-text" id="qText"></div>
+  <div class="action-row">
+    <button class="btn" id="bKoQ"  onclick="tog('qko','bKoQ')">문제 번역</button>
+    <button class="btn" id="bHint" onclick="tog('hint','bHint')">힌트 보기</button>
+    <button class="btn" id="bAns"  onclick="tog('ans','bAns')">정답 보기</button>
+    <button class="btn" id="bKoA"  onclick="tog('ansko','bKoA')">한글 번역</button>
+    <button class="btn" id="bSim"  onclick="tog('sim','bSim')">유사문제</button>
+    <button class="btn" id="bMaster" onclick="toggleMaster()">외웠어요</button>
+    <span class="master-check" id="mCheck">완료</span>
+  </div>
+  <div class="divider"></div>
+  <div class="section s-qko"   id="sqko">  <div class="sec-label">문제 번역</div><div id="qkoText"></div></div>
+  <div class="section s-hint"  id="shint"> <div class="sec-label">논리 체인 힌트</div><div id="hintContent"></div></div>
+  <div class="section s-ans"   id="sans">  <div class="sec-label">영어 모범 답안</div><div id="ansText"></div></div>
+  <div class="section s-ansko" id="sansko"><div class="sec-label">한국어 번역</div><div id="ansKoText"></div></div>
+  <div class="section s-sim"   id="ssim">  <div class="sec-label">유사 문제</div><div id="simContent"></div></div>
+</div>
+
+<div class="nav-row">
+  <button class="nav-btn" id="prevBtn" onclick="nav(-1)">← 이전</button>
+  <button class="nav-btn" id="nextBtn" onclick="nav(1)">다음 →</button>
+</div>
+<div class="kb">
+  <kbd>←</kbd><kbd>→</kbd> 이동 &nbsp;
+  <kbd>Space</kbd> 정답 &nbsp;
+  <kbd>H</kbd> 힌트 &nbsp;
+  <kbd>T</kbd> 한글번역 &nbsp;
+  <kbd>Q</kbd> 문제번역 &nbsp;
+  <kbd>M</kbd> 외웠어요
+</div>
+</div>
+
+<div class="tab-panel hidden" id="tabPanel-chain">
+  <div class="panel-desc">18개 주제의 이유1 → 이유2 논리 체인을 한눈에 봅니다. 막히면 앞 단계 키워드만 떠올려도 뒤가 이어져야 정상입니다.</div>
+  <div id="chainList"></div>
+</div>
+
+<div class="tab-panel hidden" id="tabPanel-story">
+  <div class="panel-desc">여러 주제에서 반복 사용되는 "내 경험" 12개입니다. 이것부터 완벽히 외우면, 어느 주제가 나와도 여기서 골라 쓰면 됩니다.</div>
+  <div id="storyList"></div>
+</div>
+
+<div class="tab-panel hidden" id="tabPanel-pattern">
+  <div class="panel-desc">여러 답변에 공통으로 등장하는 표현 블록입니다. 뱃지는 실제 이 표현이 쓰인 주제 번호입니다.</div>
+  <div id="patternList"></div>
+</div>
+
+<div class="tab-panel hidden" id="tabPanel-part3">
+  <div class="panel-desc">랜덤으로 문제가 나오고 20초 후 자동으로 정답이 10초간 표시됩니다. 이전 / 다음으로 직접 넘기거나, 정답 보기로 바로 확인할 수도 있어요.</div>
+
+  <div class="timer-box">
+    <div class="timer-num" id="p3TimerNum">20</div>
+    <div class="timer-label" id="p3TimerLabel">문제 준비</div>
+  </div>
+
+  <div class="card" id="p3Card">
+    <div class="badge" id="p3Badge"></div>
+    <div class="p3-scenario-en" id="p3ScenarioEn"></div>
+    <div class="p3-scenario-ko" id="p3ScenarioKo"></div>
+    <div class="q-text" id="p3QText"></div>
+    <div class="p3-q-ko" id="p3QKo"></div>
+
+    <div class="action-row">
+      <button class="btn" id="p3AnsBtn" onclick="p3ShowAnswerNow()">정답 보기</button>
+      <button class="btn" id="p3PauseBtn" onclick="p3Pause()">⏸ 멈춤</button>
+      <button class="btn" id="p3PlayBtn" onclick="p3Play()" disabled>▶ 재생</button>
+    </div>
+    <div class="divider"></div>
+    <div class="section s-ans" id="p3SAns"><div class="sec-label">영어 모범 답안</div><div id="p3AEn"></div></div>
+    <div class="section s-ansko" id="p3SAnsKo"><div class="sec-label">한국어 번역</div><div id="p3AKo"></div></div>
+  </div>
+
+  <div class="nav-row">
+    <button class="nav-btn" id="p3PrevBtn" onclick="p3Prev()">← 이전</button>
+    <button class="nav-btn" id="p3NextBtn" onclick="p3Next()">다음 →</button>
+  </div>
+  <div class="counter" id="p3Counter" style="text-align:right;margin-top:6px;">1 / 204</div>
+</div>
+
+<script>
+
+// 토익스피킹 파트5 카드 데이터
+// 카드 추가/수정은 이 파일만 건드리면 됩니다. (index.html, app.js는 그대로 둬도 됨)
+const CARDS = [
+  {
+    theme: "성공/커리어", tc: "#2563eb",
+    topic: "01. 성공 조건 - 비즈니스 파트너",
+    q: "Which of the following is most important for a business partner?\n• Time management skills\n• An ability to adapt to changes\n• Effective communication skills",
+    qko: "다음 중 비즈니스 파트너에게 가장 중요한 것은?\n• 시간 관리 기술\n• 변화에 적응하는 능력\n• 효과적인 커뮤니케이션 기술",
+    hints: [
+      "이유1: 시간관리 선택 → 팀워크에 효과적 → 대학 팀프로젝트 → 문제가 있었지만 → 시간관리 덕분에 → 제시간에 완료 → 매우 도움됨",
+      "이유2: 요즘 비즈니스 환경 거침(코로나) → 업무가 시간에 민감 → 엄격한 마감기한 존재 → 시간관리 = 유익"
+    ],
+    ans: "First, I think it will be effective for teamwork. Actually, I'm a senior in college. When I was in college, I had many team projects and sometimes we had problems. But, my team members had time management skills. So we could finish work on time. It was very helpful.\n\nSecond, nowadays, the business environment is very tough because of Covid-19. So a lot of work is time-sensitive. I mean it has a strict deadline. Therefore, if you have time management skills, it will be beneficial.",
+    ansko: "첫째, 팀워크에 효과적일 것입니다. 저는 대학교 4학년입니다. 대학 때 팀 프로젝트가 많았고 문제가 생기기도 했습니다. 하지만 팀원들이 시간 관리 기술이 있어서 제시간에 끝낼 수 있었습니다. 매우 도움이 되었습니다.\n\n둘째, 요즘 비즈니스 환경은 코로나19로 매우 어렵습니다. 많은 업무가 시간에 민감하고 마감기한이 엄격합니다. 시간 관리 기술이 있다면 유익할 것입니다.",
+    sim: [
+      "For that job, which is more important for a new employee, educational background or relevant work experience?",
+      "Which of the following is most important for success in business: Leadership / Creativity / Communication?"
+    ]
+  },
+  {
+    theme: "교육/학교", tc: "#7c3aed",
+    topic: "02. 온라인/테크 - 인터넷과 교육",
+    q: "In your opinion, has the Internet had a positive or negative effect on education? Why?",
+    qko: "당신 생각에 인터넷은 교육에 긍정적인 영향을 미쳤나요, 아니면 부정적인 영향을 미쳤나요?",
+    hints: [
+      "이유1: 인터넷 = 긍정적 → 학교 갈 필요 없음 → 시간 절약 → 편리함 + 정보 풍부 → 매우 도움됨",
+      "이유2: 무료 or 저렴 → 돈 절약 → 요즘 경제 어렵고 젊은 사람 힘든 시간 → 매우 유익"
+    ],
+    ans: "I think the Internet has had a positive effect on education. First, people can save time because they don't have to go to school. It's very convenient. There is a lot of information on the Internet. It's very helpful. Second, they can save money because it's free or cheaper. Nowadays, the economy is really tough, so young people are having a hard time. I think it's very beneficial.",
+    ansko: "인터넷은 교육에 긍정적인 효과를 가져왔다고 생각합니다. 첫째, 학교에 갈 필요가 없어 시간을 절약할 수 있습니다. 매우 편리하고 인터넷에 정보도 많습니다. 둘째, 무료이거나 더 저렴해서 돈을 절약할 수 있습니다. 요즘 경제가 어렵고 젊은 사람들이 힘든 시간을 보내고 있습니다. 매우 유익합니다.",
+    sim: [
+      "What are the advantages of taking a university class online rather than in a classroom?",
+      "Agree/disagree: Due to advances in technology, students can study more effectively.",
+      "Do you think technology helps people maintain a balance between work and personal lives?"
+    ]
+  },
+  {
+    theme: "교육/학교", tc: "#7c3aed",
+    topic: "03. 아이들 사회생활 - 봉사/스포츠",
+    q: "Should university students be encouraged to spend their free time volunteering in the community? Why or why not?",
+    qko: "대학생들이 여가 시간을 지역사회 봉사에 사용하도록 장려되어야 할까요?",
+    hints: [
+      "이유1: 새로운 사람 만나 친구 사귐 → 대학 때 병원 봉사 경험 → 정보 공유 + 서로 도움 → 훌륭한 경험",
+      "이유2: 사회적 기술 + 팀워크 + 리더십 배울 수 있음 → 매우 유용"
+    ],
+    ans: "I think university students should be encouraged to spend their free time volunteering in the community. First, they can meet new people and make friends. When I was in college, I volunteered at a hospital near my house. We could share information and help each other. It was a great experience. Second, they can learn social skills, teamwork, and leadership. I think it will be very useful.",
+    ansko: "대학생들이 지역사회에서 봉사하며 여가를 보내도록 장려되어야 한다고 생각합니다. 첫째, 새로운 사람을 만나 친구를 사귈 수 있습니다. 대학 때 집 근처 병원에서 봉사했는데, 정보를 공유하고 서로 도울 수 있었습니다. 훌륭한 경험이었습니다. 둘째, 사회적 기술, 팀워크, 리더십을 배울 수 있습니다. 매우 유용할 것입니다.",
+    sim: [
+      "Should children be encouraged to spend their free time playing sports?",
+      "Agree/Disagree: Students should participate in organized activities such as soccer or group sports.",
+      "What are the benefits of participating in sports in elementary school?"
+    ]
+  },
+  {
+    theme: "생활/개인", tc: "#059669",
+    topic: "04. 혼자 VS 같이 - 가족과 함께 살기",
+    q: "For university students, what are the advantages of living at home with their families and commuting to school?",
+    qko: "대학생들에게 가족과 함께 집에 살면서 통학하는 것의 장점은 무엇입니까?",
+    hints: [
+      "이유1: 재미있고 흥미로움 → 사람 좋아하는 성격 → 가족과 저녁 식사 → 스트레스 해소",
+      "이유2: 정보 공유 + 서로 도움 가능 → 부모님 경험 많음 → 항상 조언 해주심 → 매우 도움됨"
+    ],
+    ans: "First, it's fun and interesting. I'm a people person, so I like spending time with others. I usually eat dinner with my family, and I can get rid of my stress. Second, we can share information and help each other. My parents have a lot of experience, so they always give me advice. It's very helpful.",
+    ansko: "첫째, 재미있고 흥미롭습니다. 저는 사람을 좋아하는 성격이라 다른 사람들과 시간 보내는 것을 좋아합니다. 가족과 저녁을 먹으며 스트레스를 해소할 수 있습니다. 둘째, 정보를 공유하고 서로 도울 수 있습니다. 부모님은 경험이 많으셔서 항상 조언을 해주십니다. 매우 도움이 됩니다.",
+    sim: [
+      "What are the advantages of living with parents instead of living alone?",
+      "If you were a recent university graduate, would you prefer living on your own or with your parents?",
+      "What are the disadvantages of exercising alone?"
+    ]
+  },
+  {
+    theme: "성공/커리어", tc: "#2563eb",
+    topic: "05. 조언자 - 가족 vs 상사",
+    q: "If you started your own business, who would be better to consult with, family or supervisor?",
+    qko: "사업을 시작한다면 가족과 상의하는 것이 나을까요, 상사와 상의하는 것이 나을까요?",
+    hints: [
+      "이유1: 가족 선택 → 나를 잘 안다 → 내 재능 + 기술 파악 → 경험도 많다 → 항상 좋은 조언 해줌",
+      "이유2: 편안함 느낌 → 정직할 수 있다 → 신뢰할 수 있다 → vs 타인은 신뢰 어려움"
+    ],
+    ans: "I think it would be better to consult with my family. First, they know me well. For example, my parents know my talents and skills, so they always give me advice. Also, they have a lot of experience. Second, I feel comfortable with them, so I can be honest. I cannot be honest with others because I cannot trust them.",
+    ansko: "가족과 상의하는 것이 더 나을 것 같습니다. 첫째, 그들은 저를 잘 압니다. 예를 들어 부모님은 제 재능과 기술을 알고 있어서 항상 조언을 해주십니다. 또한 경험도 많으십니다. 둘째, 그들과 함께 있으면 편안해서 솔직할 수 있습니다. 다른 사람들은 신뢰하기 어려워 솔직해지기가 힘듭니다.",
+    sim: [
+      "When you choose a job, what are the advantages of getting advice from family members?",
+      "When changing jobs, who is the best person to get advice from?",
+      "When learning new skills, who is better: co-workers or managers?",
+      "Should employees provide feedback on their manager's job performance?"
+    ]
+  },
+  {
+    theme: "성공/커리어", tc: "#2563eb",
+    topic: "06. 직장/학교 제공 - 소득 / 복지",
+    q: "Do you think it is good to have a high income for your happiness?",
+    qko: "행복을 위해 높은 소득을 갖는 것이 좋다고 생각합니까?",
+    hints: [
+      "이유1(경제 배경): 요즘 경제 어렵고 생활비 높음 → 젊은 사람 힘든 시간",
+      "이유2(개인 동기): 여행을 좋아함 → 돈을 벌고 싶음 → 스트레스 해소 → 업무 집중 → 생산성 향상"
+    ],
+    ans: "I think it's good to have a high income for my happiness. First, nowadays, the economy is really tough, and the cost of living is high. Young people are having a hard time. Second, I want to make money because I like traveling. I can get rid of my stress. Eventually, I can focus on my work better, which is effective for productivity.",
+    ansko: "행복을 위해 높은 소득을 갖는 것이 좋다고 생각합니다. 첫째, 요즘 경제가 정말 어렵고 생활비도 높습니다. 젊은 사람들이 힘든 시간을 보내고 있습니다. 둘째, 여행을 좋아하기 때문에 돈을 벌고 싶습니다. 스트레스를 해소할 수 있고, 결국 업무에 더 잘 집중하여 생산성이 높아집니다.",
+    sim: [
+      "What are the advantages of working as a doctor?",
+      "Should companies provide fitness classes or wellness programs for employees?"
+    ]
+  },
+  {
+    theme: "성공/커리어", tc: "#2563eb",
+    topic: "07. 잦은 이직 - 커리어 변경의 장점",
+    q: "For employees, what are the advantages of frequently changing careers throughout their working lives?",
+    qko: "직원들에게 직장 생활 전반에 걸쳐 자주 커리어를 바꾸는 것의 장점은 무엇입니까?",
+    hints: [
+      "이유1: 새로운 사람 만나 친구됨 → 대학 때 아르바이트 많이 함 → 새 사람 만남 → 정보 공유 → 경력에 도움",
+      "이유2: 사회적 기술 배울 수 있음 → 비즈니스에서 매우 중요 → 매우 유용"
+    ],
+    ans: "First, they can meet new people and become friends. When I was in college, I had many part-time jobs. I met new people, and we could share information. It was helpful for my career. Second, they can learn social skills, which are very important in business. I think it will be very useful.",
+    ansko: "첫째, 새로운 사람들을 만나 친구가 될 수 있습니다. 대학 시절 아르바이트를 많이 했는데, 새로운 사람들을 만나 정보를 공유할 수 있었습니다. 경력에 도움이 되었습니다. 둘째, 사회적 기술을 배울 수 있는데, 비즈니스에서 매우 중요합니다. 매우 유용할 것입니다.",
+    sim: [
+      "Some people frequently change companies. Do you think this is beneficial for a career?",
+      "What are the advantages of working in a different field than what you majored in?",
+      "During a vacation, what are the disadvantages of traveling to several locations?"
+    ]
+  },
+  {
+    theme: "사회/정책", tc: "#d97706",
+    topic: "08. 명절 전통 - 과거 vs 현재",
+    q: "Agree or disagree: 'Nowadays, people care less about holiday traditions than they did in the past.'",
+    qko: "동의 또는 반대: '요즘 사람들은 과거보다 명절 전통에 덜 신경 쓴다.'",
+    hints: [
+      "이유1: 동의 → 경쟁 높음 → 바쁘고 시간 없음 → 나도 공부로 바쁨 → 피곤하고 스트레스받음",
+      "이유2: 즐길 거리 많아짐 (인터넷, 소셜미디어) → 매우 재미있음 → 전통보다 이쪽에 집중"
+    ],
+    ans: "I agree that people care less about holiday traditions. First, many people are busy because competition is high, so they don't have time. I am busy with my studies, so I'm tired and stressed. Second, there are many things to enjoy, like the Internet and social media. It's very fun.",
+    ansko: "사람들이 명절 전통에 덜 신경 쓴다는 것에 동의합니다. 첫째, 경쟁이 치열해서 많은 사람들이 바쁘고 시간이 없습니다. 저도 공부로 바빠서 피곤하고 스트레스를 받습니다. 둘째, 인터넷과 소셜 미디어처럼 즐길 거리가 많아졌습니다. 매우 재미있습니다.",
+    sim: [
+      "Agree/Disagree: Nowadays, holiday traditions are less important than in the past.",
+      "Do you think people today have more time for relaxation than they did in the past?"
+    ]
+  },
+  {
+    theme: "교육/학교", tc: "#7c3aed",
+    topic: "09. 외국 살 때 장단점 - 해외 경험",
+    q: "Which of the following is the most effective way for university students to get experience?\n• Going abroad\n• Internship programs\n• Working as a research assistant",
+    qko: "다음 중 대학생들이 경험을 쌓는 가장 효과적인 방법은?\n• 해외로 나가기\n• 인턴십 프로그램\n• 연구 보조원으로 일하기",
+    hints: [
+      "이유1: 해외 선택 → 새로운 사람 만나 친구됨 → 캐나다 유학 경험 → 나와 다른 사람들 만남 → 훌륭한 경험",
+      "이유2: 외국어 기술 배울 수 있음 → 경력에 중요"
+    ],
+    ans: "I think going abroad is the most effective way for students to get experience. First, they can meet new people and become friends. When I studied in Canada, I met new people who were different from me. It was a great experience. Second, they can learn foreign language skills, which are important for their career.",
+    ansko: "해외로 나가는 것이 학생들이 경험을 쌓는 가장 효과적인 방법이라고 생각합니다. 첫째, 새로운 사람들을 만나 친구가 될 수 있습니다. 캐나다에서 공부할 때 나와 다른 새로운 사람들을 만났는데, 훌륭한 경험이었습니다. 둘째, 외국어 기술을 배울 수 있으며, 경력에 중요합니다.",
+    sim: [
+      "What are the advantages of living in several different cities over a lifetime?",
+      "If your company required you to work abroad, would you accept the offer?",
+      "For students, what are the advantages of studying in a foreign country?"
+    ]
+  },
+  {
+    theme: "사회/정책", tc: "#d97706",
+    topic: "10. 정부/환경 - 재활용 프로그램 지원",
+    q: "Do you think the government should fund a recycling program?",
+    qko: "정부가 재활용 프로그램에 자금을 지원해야 한다고 생각합니까?",
+    hints: [
+      "이유1: 정부 지원 = 좋음 → 환경에 좋음 → 환경 중요하지만 파괴되고 있음 → 우리가 신경 써야 함",
+      "이유2: 내 나라도 비슷한 정책 있음 → 사람들이 만족함 → 매우 효과적"
+    ],
+    ans: "Yes, I think the government should support recycling programs. First, it's good for the environment. Environment is important, but it is being destroyed, so we must care. My country has a similar policy, and people are satisfied. I think it's very effective.",
+    ansko: "네, 정부가 재활용 프로그램을 지원해야 한다고 생각합니다. 첫째, 환경에 좋습니다. 환경은 중요하지만 파괴되고 있어 신경 써야 합니다. 저의 나라도 비슷한 정책이 있고 사람들이 만족합니다. 매우 효과적입니다.",
+    sim: [
+      "What are the advantages of prohibiting the use of personal automobiles in a large city?",
+      "What are the advantages of local governments providing students with free university education?",
+      "Do you agree: Government should support filmmakers?"
+    ]
+  },
+  {
+    theme: "생활/개인", tc: "#059669",
+    topic: "11. 리뷰 - 인터넷 리뷰 vs 판매원",
+    q: "Do you think reading Internet reviews is more helpful than asking sales people when making a purchase?",
+    qko: "구매 결정 시 인터넷 리뷰를 읽는 것이 판매원에게 묻는 것보다 더 도움이 된다고 생각합니까?",
+    hints: [
+      "이유1: 인터넷 리뷰 선택 → 자세한 정보 얻을 수 있음 → 사진과 함께 정보 획득 → 결정 내리는 데 도움",
+      "이유2: 리뷰는 정직하고 정확함 → 신뢰 가능 → vs 판매원은 과장하는 경향 → 신뢰하기 어려움"
+    ],
+    ans: "First, I think reading Internet reviews is better because I can get detailed information. When I read reviews, I can get information with pictures. It's helpful for making a decision. Second, reviews are honest and accurate, so I can trust them. However, it's hard to trust sales people because they tend to exaggerate.",
+    ansko: "첫째, 자세한 정보를 얻을 수 있어서 인터넷 리뷰를 읽는 것이 더 낫다고 생각합니다. 리뷰를 읽으면 사진과 함께 정보를 얻을 수 있습니다. 결정을 내리는 데 도움이 됩니다. 둘째, 리뷰는 정직하고 정확해서 신뢰할 수 있습니다. 반면 판매원은 과장하는 경향이 있어 신뢰하기 어렵습니다.",
+    sim: [
+      "When making a purchase, do you prefer recommendations from friends or online reviews?",
+      "What are the advantages of reading customer reviews before buying a product?"
+    ]
+  },
+  {
+    theme: "생활/개인", tc: "#059669",
+    topic: "12. 집 소유/월세 - 소유의 단점",
+    q: "What are the disadvantages of owning a house or an apartment rather than renting?",
+    qko: "임대가 아니라 집이나 아파트를 소유하는 것의 단점은 무엇입니까?",
+    hints: [
+      "이유1: 도시에서 집 비쌈 → 경제 나쁘고 사람들 힘든 시간 → 돈 빌리면 이자 내야 함 → 부담",
+      "이유2: 집 유지하려면 시간 + 에너지 필요 → 렌트하면 유지보수 걱정 없음"
+    ],
+    ans: "First, buying a house is expensive in the city. In my country, the economy is bad, so people are having a hard time. Also, if you borrow money, you must pay interest, which is a burden. Second, maintaining a house takes time and energy. But if you rent, you don't have to worry about maintenance.",
+    ansko: "첫째, 도시에서 집을 사는 것은 비쌉니다. 저의 나라는 경제가 나빠서 사람들이 힘든 시간을 보내고 있습니다. 또한 돈을 빌리면 이자를 내야 하는데 부담이 됩니다. 둘째, 집을 유지하려면 시간과 에너지가 필요합니다. 하지만 임대하면 유지보수를 걱정할 필요가 없습니다.",
+    sim: [
+      "What are the advantages of renting an apartment rather than buying one?",
+      "Is it better to own or rent a home? Why?"
+    ]
+  },
+  {
+    theme: "사회/정책", tc: "#d97706",
+    topic: "13. 광고 - 대중교통 광고 효과",
+    q: "Do you think posting advertisements on public transportation is an effective way for companies to reach customers?",
+    qko: "대중교통에 광고를 게시하는 것이 기업이 고객에게 다가가는 효과적인 방법이라고 생각합니까?",
+    hints: [
+      "이유1: 아니오 → 사람들이 관심 없음 + 신경 안 씀 → 대신 인터넷/소셜미디어 사용",
+      "이유2: 온라인 광고가 더 효과적 → 성공적인 회사들이 소셜미디어 사용 → 젊은 사람들 끌어들임"
+    ],
+    ans: "No, I don't think posting ads on public transportation is effective. First, people are not interested in them; they don't care. Instead, many people use the Internet and social media. So, posting ads online is more effective. Many successful companies use social media, so they can attract young people.",
+    ansko: "아니요, 대중교통에 광고를 게시하는 것이 효과적이라고 생각하지 않습니다. 첫째, 사람들이 관심이 없고 신경 쓰지 않습니다. 대신 많은 사람들이 인터넷과 소셜 미디어를 사용합니다. 따라서 온라인 광고가 더 효과적입니다. 많은 성공 기업들이 소셜 미디어로 젊은 사람들을 끌어들입니다.",
+    sim: [
+      "What is the most effective way for a company to advertise its products?",
+      "Do you think social media is the most effective advertising platform today?"
+    ]
+  },
+  {
+    theme: "생활/개인", tc: "#059669",
+    topic: "14. 도시 - 대도시 생활의 장점",
+    q: "What are the advantages of living in a large city?",
+    qko: "대도시에 사는 것의 장점은 무엇입니까?",
+    hints: [
+      "이유1: 새로운 사람 많이 만남 → 재미있음 → 대도시로 이사했을 때 똑똑한 사람들 만남 → 정보 공유 → 훌륭한 경험",
+      "이유2: 즐길 거리 많음 (박물관, 식당) → 스트레스 해소 가능"
+    ],
+    ans: "First, they can meet many new people, which is fun. When I moved to a big city, I met smart people, and we shared information. It was a great experience. Second, there are many things to enjoy, like museums and restaurants. So, I can get rid of my stress.",
+    ansko: "첫째, 많은 새로운 사람들을 만날 수 있는데, 재미있습니다. 대도시로 이사했을 때 똑똑한 사람들을 만나 정보를 공유했습니다. 훌륭한 경험이었습니다. 둘째, 박물관과 식당 같이 즐길 거리가 많습니다. 스트레스를 해소할 수 있습니다.",
+    sim: [
+      "What are the advantages of living in a rural area compared to a city?",
+      "Would you prefer to live in a big city or a small town? Why?"
+    ]
+  },
+  {
+    theme: "생활/개인", tc: "#059669",
+    topic: "15. 돈 관리 - 아이들 금융 교육",
+    q: "Do you think children should be taught how to manage money? Why or why not?",
+    qko: "아이들에게 돈 관리 방법을 가르쳐야 한다고 생각합니까?",
+    hints: [
+      "이유1: 아이들에게 유용 → 자본주의 사회에 살고 있음 → 경제 어렵고 생활비 높음 → 돈 관리 기술 중요",
+      "이유2: 돈의 중요성 배움 → 낭비하지 않게 됨"
+    ],
+    ans: "First, it's very useful for children because we live in a capitalist society. In my country, the economy is tough and the cost of living is high, so money management skills are important. Second, they can learn the importance of money, so they won't waste it.",
+    ansko: "첫째, 우리가 자본주의 사회에 살고 있기 때문에 아이들에게 매우 유용합니다. 저의 나라는 경제가 어렵고 생활비가 높아 돈 관리 기술이 중요합니다. 둘째, 돈의 중요성을 배울 수 있어 낭비하지 않게 됩니다.",
+    sim: [
+      "Should financial education be a required subject in schools?",
+      "What are the benefits of teaching children about saving money?"
+    ]
+  },
+  {
+    theme: "사회/정책", tc: "#d97706",
+    topic: "16. 운전 - 운전 나이 제한",
+    q: "Do you think children under 21 should be allowed to drive? Why or why not?",
+    qko: "21세 미만이 운전을 허용되어야 한다고 생각합니까?",
+    hints: [
+      "이유1: 아니오 → 16세 미만은 미성숙 → 운전에 집중 못함 → 위험 → 내가 운전 시작했을 때 사고 → 끔찍했음",
+      "이유2: 대중교통 좋음 → 버스 이용 가능 → 운전할 필요 없음"
+    ],
+    ans: "No, I don't think children under 21 should be allowed to drive. First, children under 16 are immature, so they can't focus on driving. It can be dangerous. When I started driving, I had an accident, which was terrible. Second, public transportation is good, so they can use buses. They don't need to drive.",
+    ansko: "아니요, 21세 미만이 운전을 허용되어야 한다고 생각하지 않습니다. 첫째, 16세 미만은 미성숙해서 운전에 집중할 수 없습니다. 위험할 수 있습니다. 제가 운전을 처음 시작했을 때 사고가 났는데 끔찍했습니다. 둘째, 대중교통이 잘 되어 있어 버스를 이용할 수 있습니다. 운전할 필요가 없습니다.",
+    sim: [
+      "Should the legal driving age be raised to 21?",
+      "What are the dangers of allowing teenagers to drive?"
+    ]
+  },
+  {
+    theme: "생활/개인", tc: "#059669",
+    topic: "17. 여행 - 여러 도시 여행의 단점",
+    q: "During a vacation, what are the disadvantages of traveling to several different locations instead of staying in one location?",
+    qko: "휴가 중 한 곳에 머무는 대신 여러 곳을 여행하는 것의 단점은 무엇입니까?",
+    hints: [
+      "이유1: 시간 + 에너지 많이 듦 → 작년에 일주일에 여러 도시 방문 → 기차/비행기에서 시간 낭비",
+      "이유2: 그 지역 자세한 것 알 수 없음 → 현지인 만나기 어려움 → 언어 배우기 어려움 → 덜 흥미로움"
+    ],
+    ans: "First, it takes a lot of time and energy. Last year, I visited many cities in a week, and I wasted time on trains and airplanes. Second, I cannot learn details about the area. Also, it's hard to meet locals and learn their language. It's less interesting.",
+    ansko: "첫째, 시간과 에너지가 많이 듭니다. 작년에 일주일 동안 여러 도시를 방문했는데 기차와 비행기에서 시간을 낭비했습니다. 둘째, 그 지역에 대한 자세한 내용을 알 수 없습니다. 또한 현지인을 만나고 언어를 배우기가 어렵습니다. 덜 흥미롭습니다.",
+    sim: [
+      "What are the advantages of staying in one location during a vacation?",
+      "What are the disadvantages of working in a different field than what you majored in?"
+    ]
+  },
+  {
+    theme: "생활/개인", tc: "#059669",
+    topic: "18. 롤모델 - 롤모델의 중요성",
+    q: "Do you think it is important for young people to have a role model? Why or why not?",
+    qko: "젊은 사람들에게 롤모델을 갖는 것이 중요하다고 생각합니까?",
+    hints: [
+      "이유1: 네 → 롤모델 있으면 더 열심히 노력함 → 목표 달성에 효과적 → 고등학교 때 메시 보고 기술 공부",
+      "이유2: 동기 부여됨 → 유명한 운동선수들이 긍정적 에너지 줌 → 고난을 마주할 때 유용"
+    ],
+    ans: "Yes, first, if you have a role model, you will work harder to become like them. It's effective for achieving goals. When I was in high school, I watched Messi and studied his skills. Second, you get motivated. Famous athletes give positive energy. It's useful when you face hardship.",
+    ansko: "네, 첫째, 롤모델이 있으면 그들처럼 되기 위해 더 열심히 노력하게 됩니다. 목표 달성에 효과적입니다. 고등학생 때 메시를 보며 기술을 공부했습니다. 둘째, 동기 부여가 됩니다. 유명한 운동선수들은 긍정적인 에너지를 줍니다. 고난을 마주할 때 유용합니다.",
+    sim: [
+      "Who is your role model and why?",
+      "Do you agree: Famous athletes and entertainers make good role models for young people?"
+    ]
+  }
+];
+
+// 여러 주제에 반복 등장하는 "내 경험" 스토리 12개
+// topics: 실제로 이 경험이 ans에 등장하는 카드 번호(1-based, cards.js 배열 순서 기준)
+const STORIES = [
+  {
+    title: "대학 팀 프로젝트",
+    ko: "대학 시절 팀 프로젝트를 하며 문제가 있었지만, 팀원의 시간 관리 기술 덕분에 제시간에 끝낼 수 있었다.",
+    topics: [1]
+  },
+  {
+    title: "병원 봉사활동",
+    ko: "대학 때 집 근처 병원에서 봉사하며 새로운 사람들과 정보를 공유하고 서로 도왔다.",
+    topics: [3]
+  },
+  {
+    title: "가족과의 저녁 식사",
+    ko: "사람을 좋아하는 성격이라 가족과 저녁을 먹으며 스트레스를 해소한다.",
+    topics: [4]
+  },
+  {
+    title: "부모님의 조언",
+    ko: "부모님은 내 재능과 기술을 잘 알아서 항상 좋은 조언을 해준다. 편안한 사이라 솔직해질 수 있다.",
+    topics: [4, 5]
+  },
+  {
+    title: "여행을 좋아하는 나",
+    ko: "여행을 좋아해서 돈을 벌고 싶고, 그 돈으로 여행하며 스트레스를 해소한다.",
+    topics: [6]
+  },
+  {
+    title: "대학 시절 아르바이트",
+    ko: "아르바이트를 많이 하며 새로운 사람들을 만나 정보를 공유했고, 그것이 경력에 도움이 되었다.",
+    topics: [7]
+  },
+  {
+    title: "캐나다 유학 경험",
+    ko: "캐나다에서 공부하며 나와 다른 새로운 사람들을 만난 훌륭한 경험이 있었다.",
+    topics: [9]
+  },
+  {
+    title: "우리나라의 비슷한 정책",
+    ko: "내가 사는 나라에도 비슷한 정책이 있고, 사람들이 그 정책에 만족하고 있다.",
+    topics: [10]
+  },
+  {
+    title: "대도시로의 이사",
+    ko: "대도시로 이사했을 때 똑똑한 사람들을 만나 정보를 공유한 훌륭한 경험이 있었다.",
+    topics: [14]
+  },
+  {
+    title: "운전 사고 경험",
+    ko: "운전을 처음 시작했을 때 사고가 났었고, 그것은 끔찍한 경험이었다.",
+    topics: [16]
+  },
+  {
+    title: "작년 여러 도시 여행",
+    ko: "작년에 일주일 동안 여러 도시를 방문했는데, 기차와 비행기에서 시간을 낭비했다.",
+    topics: [17]
+  },
+  {
+    title: "메시를 보며 배운 것",
+    ko: "고등학생 때 메시를 보면서 그의 기술을 공부했다.",
+    topics: [18]
+  }
+];
+
+// 여러 주제 답변에 공통으로 등장하는 표현/논리 패턴
+// topics: 이 패턴이 실제 ans 문장에 등장하는 카드 번호(1-based)
+const PATTERNS = [
+  {
+    group: "도입 템플릿 (모든 주제 공통)",
+    en: "I think ... . I will give you some reasons and examples to support my opinion.",
+    ko: "저는 ~라고 생각합니다. 이유와 예시를 몇 가지 말씀드리겠습니다.",
+    topics: []
+  },
+  {
+    group: "마무리 템플릿 (모든 주제 공통)",
+    en: "That's why I think so. / That's why I think [주장 반복].",
+    ko: "그것이 제가 그렇게 생각하는 이유입니다. / 그래서 저는 ~라고 생각합니다.",
+    topics: []
+  },
+  {
+    group: "배경 설명",
+    en: "Nowadays, the economy is really tough (or bad), and the cost of living is high, so (young) people are having a hard time.",
+    ko: "요즘 경제가 정말 어렵고 생활비도 높아서, (젊은) 사람들이 힘든 시간을 보내고 있다.",
+    topics: [2, 6, 12, 15]
+  },
+  {
+    group: "경험 연결",
+    en: "I met new people, and we could share information (and help each other). It was a great experience.",
+    ko: "새로운 사람들을 만나 정보를 공유(하고 서로 도움을 주고받음)했다. 훌륭한 경험이었다.",
+    topics: [3, 7, 14]
+  },
+  {
+    group: "감정/효과",
+    en: "It helps me get rid of my stress.",
+    ko: "그것은 스트레스를 해소하는 데 도움이 된다.",
+    topics: [4, 6, 14]
+  },
+  {
+    group: "바쁨/압박",
+    en: "Competition is high, so people are busy and don't have time. / It has a strict deadline.",
+    ko: "경쟁이 치열해서 사람들이 바쁘고 시간이 없다 / 마감 기한이 엄격하다.",
+    topics: [1, 8]
+  },
+  {
+    group: "신뢰 대비",
+    en: "I can trust them because they are honest, but it's hard to trust others (they tend to exaggerate).",
+    ko: "그들은 정직해서 신뢰할 수 있지만, 다른 사람들은 신뢰하기 어렵다(과장하는 경향이 있음).",
+    topics: [5, 11]
+  },
+  {
+    group: "마무리 클리셰",
+    en: "I think it will be very useful / helpful / beneficial / effective.",
+    ko: "그것은 매우 유용/도움이 됨/유익함/효과적일 것이라고 생각한다.",
+    topics: [1, 2, 3, 4, 7, 10, 18]
+  }
+];
+
+var MASTERED_KEY = 'toeic_part5_mastered';
+
+var deck = CARDS.map(function(_, i) { return i; });
+var cur = 0;
+var mastered = loadMastered();
+var masteredCount = Object.keys(mastered).length;
+var filterMode = false;
+var openSections = {};
+
+function loadMastered() {
+  try {
+    return JSON.parse(localStorage.getItem(MASTERED_KEY)) || {};
+  } catch (e) {
+    return {};
+  }
+}
+
+function saveMastered() {
+  localStorage.setItem(MASTERED_KEY, JSON.stringify(mastered));
+}
+
+function getActiveDeck() {
+  if (!filterMode) return deck;
+  return deck.filter(function(i) { return !mastered[i]; });
+}
+
+function render() {
+  var ad = getActiveDeck();
+  if (ad.length === 0) {
+    document.getElementById('card').innerHTML = '<div style="text-align:center;padding:40px;color:#6b7280;font-size:14px;">모두 외웠습니다!<br><br>초기화 후 다시 복습하세요.</div>';
+    document.getElementById('counter').textContent = '완료';
+    document.getElementById('prevBtn').disabled = true;
+    document.getElementById('nextBtn').disabled = true;
+    return;
+  }
+  if (cur >= ad.length) cur = ad.length - 1;
+  var idx = ad[cur];
+  var d = CARDS[idx];
+
+  document.getElementById('counter').textContent = (cur + 1) + ' / ' + ad.length;
+  document.getElementById('pFill').style.width = (((cur + 1) / ad.length) * 100) + '%';
+
+  var badge = document.getElementById('badge');
+  badge.textContent = d.theme;
+  badge.style.background = d.tc;
+
+  document.getElementById('topicLbl').textContent = d.topic;
+  document.getElementById('qText').textContent = d.q;
+  document.getElementById('qkoText').textContent = d.qko;
+  document.getElementById('ansText').textContent = d.ans;
+  document.getElementById('ansKoText').textContent = d.ansko;
+
+  var hc = '';
+  for (var i = 0; i < d.hints.length; i++) {
+    var htext = d.hints[i].replace(/^이유\d+\(?\S*\)?[:：]\s*/, '');
+    hc += '<div class="hint-step"><span class="hint-num">이유' + (i + 1) + '</span><span>' + htext + '</span></div>';
+  }
+  document.getElementById('hintContent').innerHTML = hc;
+
+  var sc = '';
+  for (var j = 0; j < d.sim.length; j++) {
+    sc += '<div class="sim-item">' + d.sim[j] + '</div>';
+  }
+  document.getElementById('simContent').innerHTML = sc;
+
+  var isMastered = !!mastered[idx];
+  document.getElementById('card').className = 'card' + (isMastered ? ' mastered' : '');
+  document.getElementById('bMaster').className = 'btn' + (isMastered ? ' green' : '');
+  document.getElementById('bMaster').textContent = isMastered ? '완료됨' : '외웠어요';
+  document.getElementById('mCheck').className = 'master-check' + (isMastered ? ' vis' : '');
+
+  var key = 's' + idx;
+  var open = openSections[key] || {};
+  var secMap = { qko: 'bKoQ', hint: 'bHint', ans: 'bAns', ansko: 'bKoA', sim: 'bSim' };
+  var secs = ['qko', 'hint', 'ans', 'ansko', 'sim'];
+  for (var k = 0; k < secs.length; k++) {
+    var sec = secs[k];
+    var el = document.getElementById('s' + sec);
+    var btn = document.getElementById(secMap[sec]);
+    if (open[sec]) {
+      el.classList.add('vis');
+      btn.classList.add('on');
+    } else {
+      el.classList.remove('vis');
+      btn.classList.remove('on');
+    }
+  }
+
+  document.getElementById('prevBtn').disabled = (cur === 0);
+  document.getElementById('nextBtn').disabled = (cur === ad.length - 1);
+  updateStats();
+}
+
+function tog(sec, btnId) {
+  var ad = getActiveDeck();
+  if (ad.length === 0) return;
+  var idx = ad[cur];
+  var key = 's' + idx;
+  if (!openSections[key]) openSections[key] = {};
+  var el = document.getElementById('s' + sec);
+  var btn = document.getElementById(btnId);
+  var isOpen = el.classList.contains('vis');
+  el.classList.toggle('vis', !isOpen);
+  btn.classList.toggle('on', !isOpen);
+  openSections[key][sec] = !isOpen;
+}
+
+function nav(dir) {
+  var ad = getActiveDeck();
+  cur = Math.max(0, Math.min(ad.length - 1, cur + dir));
+  render();
+}
+
+function toggleMaster() {
+  var ad = getActiveDeck();
+  if (ad.length === 0) return;
+  var idx = ad[cur];
+  if (mastered[idx]) {
+    delete mastered[idx];
+    masteredCount--;
+  } else {
+    mastered[idx] = true;
+    masteredCount++;
+  }
+  saveMastered();
+  render();
+}
+
+function toggleFilter() {
+  filterMode = !filterMode;
+  cur = 0;
+  document.getElementById('filterBtn').className = 'btn' + (filterMode ? ' on' : '');
+  render();
+}
+
+function shuffleCards() {
+  for (var i = deck.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = deck[i];
+    deck[i] = deck[j];
+    deck[j] = tmp;
+  }
+  cur = 0;
+  render();
+}
+
+function resetAll() {
+  mastered = {};
+  masteredCount = 0;
+  saveMastered();
+  openSections = {};
+  deck = CARDS.map(function(_, i) { return i; });
+  cur = 0;
+  filterMode = false;
+  document.getElementById('filterBtn').className = 'btn';
+  render();
+}
+
+function updateStats() {
+  var total = CARDS.length;
+  var m = masteredCount;
+  document.getElementById('sStat').textContent = '전체 ' + total;
+  document.getElementById('mStat').textContent = '외운 것 ' + m;
+  document.getElementById('rStat').textContent = '남은 것 ' + (total - m);
+}
+
+function topicChips(topicNums) {
+  return topicNums.map(function(n) {
+    var c = CARDS[n - 1];
+    var bg = c ? c.tc : '#9ca3af';
+    var title = c ? c.topic : ('주제 ' + n);
+    return '<span class="topic-chip" style="background:' + bg + '" title="' + title + '">' + n + '</span>';
+  }).join('');
+}
+
+function renderChainList() {
+  var html = '';
+  CARDS.forEach(function(d, i) {
+    html += '<div class="chain-card" style="border-left-color:' + d.tc + '">';
+    html += '<div class="chain-topic">' + d.topic + '</div>';
+    d.hints.forEach(function(h) {
+      html += '<div class="chain-step">' + h + '</div>';
+    });
+    html += '</div>';
+  });
+  document.getElementById('chainList').innerHTML = html;
+}
+
+function renderStoryList() {
+  var html = '';
+  STORIES.forEach(function(s) {
+    html += '<div class="story-card">';
+    html += '<div class="story-title">' + s.title + '</div>';
+    html += '<div class="story-ko">' + s.ko + '</div>';
+    html += '<div class="badge-row">' + topicChips(s.topics) + '</div>';
+    html += '</div>';
+  });
+  document.getElementById('storyList').innerHTML = html;
+}
+
+function renderPatternList() {
+  var html = '';
+  PATTERNS.forEach(function(p) {
+    html += '<div class="pattern-card">';
+    html += '<div class="pattern-group">' + p.group + '</div>';
+    html += '<div class="pattern-en">' + p.en + '</div>';
+    html += '<div class="pattern-ko">' + p.ko + '</div>';
+    html += '<div class="badge-row">' + topicChips(p.topics) + '</div>';
+    html += '</div>';
+  });
+  document.getElementById('patternList').innerHTML = html;
+}
+
+var TABS = ['card', 'chain', 'story', 'pattern', 'part3'];
+function switchTab(name) {
+  TABS.forEach(function(t) {
+    document.getElementById('tabPanel-' + t).classList.toggle('hidden', t !== name);
+    document.getElementById('tabBtn-' + t).classList.toggle('on', t === name);
+  });
+  if (name === 'part3' && typeof p3EnsureStarted === 'function') p3EnsureStarted();
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+  if (e.key === 'ArrowLeft') nav(-1);
+  else if (e.key === 'ArrowRight') nav(1);
+  else if (e.key === ' ') { e.preventDefault(); tog('ans', 'bAns'); }
+  else if (e.key === 'h' || e.key === 'H') tog('hint', 'bHint');
+  else if (e.key === 't' || e.key === 'T') tog('ansko', 'bKoA');
+  else if (e.key === 'q' || e.key === 'Q') tog('qko', 'bKoQ');
+  else if (e.key === 'm' || e.key === 'M') toggleMaster();
+});
+
+render();
+renderChainList();
+renderStoryList();
+renderPatternList();
+
+// 토익스피킹 파트3 카드 데이터
+// 카드 추가/수정은 이 파일만 건드리면 됩니다. (index.html, app.js는 그대로 둬도 됨)
+const P3_CARDS = [
+{
+  id: 1, theme: "인터넷 서비스", tc: "#0891b2",
+  scenario: "Imagine that an Internet service company is doing research in your area. You have agreed to participate in a telephone interview about Internet service.",
+  scenarioKo: "인터넷 서비스 회사가 당신 지역에서 설문조사를 하고 있다고 가정합니다. 당신은 인터넷 서비스에 관한 전화 인터뷰에 참여하기로 했습니다.",
+  qas: [
+    { q: "How much time do you typically spend watching video on the Internet and what device do you use to watch it?",
+      qko: "인터넷에서 동영상을 보는 데 보통 얼마나 시간을 쓰고, 어떤 기기로 보시나요?",
+      a: "I typically spend two hours watching video on the Internet and I use a mobile phone. It's very convenient.",
+      ako: "저는 보통 인터넷으로 동영상을 보는 데 두 시간 정도 씁니다. 휴대폰으로 보는데 매우 편리합니다." },
+    { q: "When was the last time you signed up for the new Internet service company and what company did you choose?",
+      qko: "가장 최근에 새로운 인터넷 서비스 회사에 가입한 것은 언제였고, 어떤 회사를 선택했나요?",
+      a: "It was last year (because I moved to a new house) and I chose KTF. (It's a famous company in my country.)",
+      ako: "작년이었습니다 (새 집으로 이사했기 때문에), KTF를 선택했습니다. (우리나라에서 유명한 회사입니다.)" },
+    { q: "When you choose an Internet service company, besides the price, what is the most important feature to consider? And why?",
+      qko: "인터넷 서비스 회사를 고를 때, 가격 외에 가장 중요하게 고려하는 특징은 무엇이고 그 이유는 무엇인가요?",
+      a: "Um… besides the price, I think the speed/quality/brand is most important. I usually download movies and TV shows/play computer games on the Internet. So if the Internet is slow, it's very annoying/frustrating. So, when I chose the Internet service company last year, I chose the best company in my country. (And I'm very happy with it.) That's why I think so.",
+      ako: "음… 가격 외에는 속도/품질/브랜드가 가장 중요하다고 생각합니다. 저는 보통 인터넷으로 영화나 TV쇼를 다운받거나 컴퓨터 게임을 합니다. 그래서 인터넷이 느리면 정말 짜증나고 답답합니다. 그래서 작년에 인터넷 서비스 회사를 고를 때 우리나라 최고의 회사를 선택했습니다. (그리고 매우 만족하고 있습니다.) 그것이 제가 그렇게 생각하는 이유입니다." }
+  ]
+},
+{
+  id: 2, theme: "헤드폰 구매", tc: "#2563eb",
+  scenario: "Imagine that a British marketing firm is doing research in your country. You have agreed to participate in a telephone interview about headphones.",
+  scenarioKo: "영국 마케팅 회사가 당신 나라에서 설문조사를 하고 있다고 가정합니다. 당신은 헤드폰에 관한 전화 인터뷰에 참여하기로 했습니다.",
+  qas: [
+    { q: "How often do you listen to music with your headphones? And where do you usually do it?",
+      qko: "헤드폰으로 음악을 얼마나 자주 듣나요? 그리고 보통 어디서 듣나요?",
+      a: "I listen to music with my headphones every day and I usually do it in my room. I love listening to music.",
+      ako: "저는 매일 헤드폰으로 음악을 듣고, 보통 제 방에서 듣습니다. 저는 음악 듣는 것을 정말 좋아합니다." },
+    { q: "Do you plan on buying new headphones in the next six months? Why or why not?",
+      qko: "앞으로 6개월 안에 새 헤드폰을 살 계획이 있나요? 이유는 무엇인가요?",
+      a: "No, I don't plan on buying new headphones in the next six months because I like my (current) headphones. They are very good. (=They are working well.)",
+      ako: "아니요, 앞으로 6개월 안에 새 헤드폰을 살 계획은 없습니다. 지금 쓰는 헤드폰이 마음에 들기 때문입니다. 아주 좋습니다. (=잘 작동합니다.)" },
+    { q: "Which of the following is most important to you when buying headphones and why?\n• Color\n• Sound quality\n• Comfort",
+      qko: "헤드폰을 살 때 다음 중 가장 중요한 것은 무엇이고 이유는 무엇인가요?\n• 색상\n• 음질\n• 착용감",
+      a: "I think sound quality is most important to me. I love listening to music especially hip-hop music. So I need high quality headphones. Actually, I bought very nice headphones last year and they are very good. So I'm satisfied with them. That's why I think so.",
+      ako: "저에게는 음질이 가장 중요하다고 생각합니다. 저는 특히 힙합 음악 듣는 것을 좋아해서 고음질 헤드폰이 필요합니다. 사실 작년에 아주 좋은 헤드폰을 샀는데 정말 좋습니다. 그래서 만족하고 있습니다. 그것이 제가 그렇게 생각하는 이유입니다." }
+  ]
+},
+{
+  id: 3, theme: "학교/직장 카페테리아", tc: "#2563eb",
+  scenario: "Imagine that a food services company is doing research in your area. You have agreed to participate in a telephone interview about cafeterias at schools or work places.",
+  scenarioKo: "식품 서비스 회사가 당신 지역에서 설문조사를 하고 있다고 가정합니다. 당신은 학교나 직장의 카페테리아에 관한 전화 인터뷰에 참여하기로 했습니다.",
+  qas: [
+    { q: "When was the last time you bought food at a cafeteria at school or work and what did you buy?",
+      qko: "학교나 직장 카페테리아에서 마지막으로 음식을 산 것은 언제였고 무엇을 샀나요?",
+      a: "It (=the last time I bought food at a cafeteria at school) was last week and I bought chips and soda.",
+      ako: "지난주였고, 과자와 탄산음료를 샀습니다." },
+    { q: "If a cafeteria at your school or work place offered breakfast and lunch, what would you be more likely to buy?",
+      qko: "학교나 직장 카페테리아에서 아침과 점심을 모두 제공한다면, 어느 쪽을 더 살 것 같나요?",
+      a: "Well… I would be more likely to buy lunch because I usually eat breakfast at home. (My mom usually prepares it for me.)",
+      ako: "음… 저는 점심을 살 것 같습니다. 아침은 보통 집에서 먹기 때문입니다. (어머니가 보통 차려주십니다.)" },
+    { q: "Which of the following features is most important for a cafeteria at schools or work places to have? Why?\n• Quick service\n• Quality food\n• A large seating area",
+      qko: "학교나 직장 카페테리아에 다음 중 어떤 특징이 가장 중요한가요? 이유는 무엇인가요?\n• 빠른 서비스\n• 좋은 품질의 음식\n• 넓은 좌석 공간",
+      a: "Well… let me think… I think quick service is most important. Actually, many students are busy nowadays. So they want to save their time. In my case, I'm a senior in college. So I'm very busy with my schoolwork. So I usually eat at a school cafeteria because they offer fast service. It's very helpful. That's why I think so.",
+      ako: "음… 생각해 볼게요… 저는 빠른 서비스가 가장 중요하다고 생각합니다. 사실 요즘 많은 학생들이 바쁩니다. 그래서 시간을 아끼고 싶어합니다. 제 경우, 저는 대학교 4학년이라 학교 공부로 매우 바쁩니다. 그래서 보통 학교 카페테리아에서 먹는데, 빠른 서비스를 제공하기 때문입니다. 정말 도움이 됩니다. 그것이 제가 그렇게 생각하는 이유입니다." }
+  ]
+},
+{
+  id: 4, theme: "헤어숍/이발소", tc: "#db2777",
+  scenario: "Imagine that a Canadian marketing firm is doing research in your country. You have agreed to participate in a telephone interview about barbers and hair salons.",
+  scenarioKo: "캐나다 마케팅 회사가 당신 나라에서 설문조사를 하고 있다고 가정합니다. 당신은 이발소와 헤어숍에 관한 전화 인터뷰에 참여하기로 했습니다.",
+  qas: [
+    { q: "How often do you get your haircuts and who usually cuts it?",
+      qko: "머리는 얼마나 자주 자르고, 보통 누가 잘라주나요?",
+      a: "I get my haircuts once a month and my (favorite) hairdresser usually cuts it. I usually go to the same hair salon near my house.",
+      ako: "저는 한 달에 한 번 머리를 자르고, 제가 좋아하는 미용사가 보통 잘라줍니다. 저는 보통 집 근처의 같은 헤어숍에 갑니다." },
+    { q: "Where do people in your area usually go to get their haircuts?",
+      qko: "당신 지역 사람들은 보통 어디서 머리를 자르나요?",
+      a: "People in my area usually go to get their haircuts at hair salons near their houses/homes because it's convenient.",
+      ako: "저희 지역 사람들은 보통 집 근처의 헤어숍에 가서 머리를 자릅니다. 편리하기 때문입니다." },
+    { q: "What influences your choice about the hairdresser? Why?",
+      qko: "미용사를 선택할 때 무엇이 영향을 미치나요? 이유는 무엇인가요?",
+      a: "A friend's recommendation influences my choice about the hairdresser. First of all, it's convenient. I don't have to search information on the Internet. So I can save my time. Also, my friend and I have the same taste. So it's always useful. I mean I trust her.",
+      ako: "친구의 추천이 미용사 선택에 영향을 줍니다. 우선, 편리합니다. 인터넷에서 정보를 찾아볼 필요가 없어서 시간을 아낄 수 있습니다. 또한 저와 제 친구는 취향이 같아서 항상 유용합니다. 즉, 저는 그녀를 신뢰합니다." }
+  ]
+},
+{
+  id: 5, theme: "놀이공원", tc: "#7c3aed",
+  scenario: "Imagine that a marketing firm is doing research in your area. You have agreed to participate in a telephone interview about visiting amusement parks, which have attractions like roller coaster rides, games, or other entertainment.",
+  scenarioKo: "마케팅 회사가 당신 지역에서 설문조사를 하고 있다고 가정합니다. 당신은 롤러코스터, 게임 등의 놀이기구가 있는 놀이공원 방문에 관한 전화 인터뷰에 참여하기로 했습니다.",
+  qas: [
+    { q: "When was the last time that you visited an amusement park, and how far away was it?",
+      qko: "마지막으로 놀이공원에 간 것은 언제였고, 거리는 얼마나 멀었나요?",
+      a: "The last time that I visited an amusement park was last year and it was 20 minutes (=1 mile/kilometer) away from my house.",
+      ako: "마지막으로 놀이공원에 간 것은 작년이었고, 집에서 20분(=1마일/1킬로미터) 거리였습니다." },
+    { q: "Do you plan to visit an amusement park in the next twelve months, why or why not?",
+      qko: "앞으로 12개월 안에 놀이공원에 갈 계획이 있나요? 이유는 무엇인가요?",
+      a: "No, I don't plan to visit an amusement park in the next twelve months because I'm very busy with my work nowadays.",
+      ako: "아니요, 앞으로 12개월 안에는 놀이공원에 갈 계획이 없습니다. 요즘 일 때문에 매우 바쁘기 때문입니다." },
+    { q: "If you were choosing an amusement park to visit, which of the following park features would be most important to you, and why?\n• Location\n• Types of attractions\n• Hours of operations",
+      qko: "방문할 놀이공원을 고른다면, 다음 중 어떤 특징이 가장 중요할까요? 이유는 무엇인가요?\n• 위치\n• 놀이기구 종류\n• 운영 시간",
+      a: "I think the location is (most) important to me. I will give you reasons. First of all, I am very busy with my work nowadays. So I can't go far away. I mean I have to save my time. So I usually go to the one near my house. It's very convenient. That's why I think so.",
+      ako: "저에게는 위치가 가장 중요합니다. 이유를 말씀드리겠습니다. 우선 요즘 일 때문에 매우 바빠서 멀리 갈 수 없습니다. 시간을 아껴야 합니다. 그래서 저는 보통 집 근처에 있는 곳에 갑니다. 매우 편리합니다. 그것이 제가 그렇게 생각하는 이유입니다." }
+  ]
+},
+{
+  id: 6, theme: "내비게이션 기기", tc: "#dc2626",
+  scenario: "Imagine that a U.S. marketing firm is doing research in your country. You have agreed to participate in a telephone interview about navigation devices.",
+  scenarioKo: "미국 마케팅 회사가 당신 나라에서 설문조사를 하고 있다고 가정합니다. 당신은 내비게이션 기기에 관한 전화 인터뷰에 참여하기로 했습니다.",
+  qas: [
+    { q: "When was the last time that you traveled outside of your town or city, and what kind of transportation did you use?",
+      qko: "마지막으로 사는 동네나 도시 밖으로 나간 것은 언제였고, 어떤 교통수단을 이용했나요?",
+      a: "The last time that I traveled outside of my town or city was last week. And I used the subway. It was convenient.",
+      ako: "마지막으로 동네 밖으로 나간 것은 지난주였고, 지하철을 이용했습니다. 편리했습니다." },
+    { q: "How often do you use an electronic navigation device? Why?",
+      qko: "전자 내비게이션 기기를 얼마나 자주 사용하나요? 이유는 무엇인가요?",
+      a: "I usually use an electronic navigation device once a week when I go on a trip because it's convenient. I can get to the destination fast.",
+      ako: "저는 보통 여행 갈 때 일주일에 한 번 전자 내비게이션을 사용합니다. 편리하고 목적지에 빨리 도착할 수 있기 때문입니다." },
+    { q: "Would you use an electronic navigation device when traveling to a place that you have been to before? Why or why not?",
+      qko: "예전에 가본 적 있는 곳으로 이동할 때도 전자 내비게이션을 사용할 건가요? 이유는 무엇인가요?",
+      a: "Yes, I would still use an electronic navigation device when traveling to a place that I have been to before. First of all, it's convenient. I don't have to search the direction on the map. So, I can save my time. Also, I can get to the destination fast. So, it's very helpful. That's why I would use it.",
+      ako: "네, 예전에 가본 곳이라도 여전히 전자 내비게이션을 사용할 것입니다. 우선 편리합니다. 지도에서 길을 찾아볼 필요가 없어 시간을 아낄 수 있습니다. 또한 목적지에 빨리 도착할 수 있어 매우 도움이 됩니다. 그것이 제가 사용하는 이유입니다." }
+  ]
+},
+{
+  id: 7, theme: "전자책(e-book)", tc: "#0891b2",
+  scenario: "Imagine that a U.S. marketing firm is doing research in your country. You have agreed to participate in a telephone interview about reading electronic books.",
+  scenarioKo: "미국 마케팅 회사가 당신 나라에서 설문조사를 하고 있다고 가정합니다. 당신은 전자책 읽기에 관한 전화 인터뷰에 참여하기로 했습니다.",
+  qas: [
+    { q: "When was the last time you read an electronic book (e-book)? What was it?",
+      qko: "마지막으로 전자책(e-book)을 읽은 것은 언제였고, 무엇이었나요?",
+      a: "The last time I read an electronic book (=it) was last week, and it was a novel.",
+      ako: "마지막으로 전자책을 읽은 것은 지난주였고, 소설이었습니다." },
+    { q: "Do you think an electronic book is more convenient to read than a paper book? Why?",
+      qko: "전자책이 종이책보다 읽기에 더 편리하다고 생각하나요? 이유는 무엇인가요?",
+      a: "Yes, it is more convenient because I can read it anytime anywhere if I bring my I-pad.",
+      ako: "네, 더 편리합니다. 아이패드만 가져가면 언제 어디서나 읽을 수 있기 때문입니다." },
+    { q: "Do you think a library should provide e-books rather than paper books?",
+      qko: "도서관이 종이책보다 전자책을 제공해야 한다고 생각하나요?",
+      a: "Yes, I think a library should provide e-books. First of all, e-books are very popular nowadays because they are convenient. People don't have to carry heavy books. Also, e-books are cheaper. So libraries can save their money. That's why I think so.",
+      ako: "네, 도서관이 전자책을 제공해야 한다고 생각합니다. 우선 전자책은 편리해서 요즘 매우 인기가 많습니다. 무거운 책을 들고 다닐 필요가 없습니다. 또한 전자책이 더 저렴해서 도서관이 비용을 아낄 수 있습니다. 그것이 제가 그렇게 생각하는 이유입니다." }
+  ]
+},
+{
+  id: 8, theme: "잡지", tc: "#0891b2",
+  scenario: "Imagine that a marketing firm is doing research in your area. You have agreed to participate in a telephone interview about magazines.",
+  scenarioKo: "마케팅 회사가 당신 지역에서 설문조사를 하고 있다고 가정합니다. 당신은 잡지에 관한 전화 인터뷰에 참여하기로 했습니다.",
+  qas: [
+    { q: "When was the last time you purchased a magazine and what did you buy?",
+      qko: "마지막으로 잡지를 산 것은 언제였고, 무엇을 샀나요?",
+      a: "The last time I purchased a magazine was last month and I bought a business magazine (called Business Week.)",
+      ako: "마지막으로 잡지를 산 것은 지난달이었고, 비즈니스 잡지(Business Week)를 샀습니다." },
+    { q: "Do you look at the advertisements in magazines carefully? Why or why not?",
+      qko: "잡지에 있는 광고를 꼼꼼히 보는 편인가요? 이유는 무엇인가요?",
+      a: "No, I don't look at the advertisements in magazines carefully because they are overstated (exaggerated.) So, I don't trust them.",
+      ako: "아니요, 잡지 광고를 꼼꼼히 보지 않습니다. 과장되어 있어서 신뢰하지 않기 때문입니다." },
+    { q: "Would you use an e-reader to read magazines?",
+      qko: "잡지를 읽는 데 전자책 리더기(e-reader)를 사용하시겠어요?",
+      a: "Yes, I would use an e-reader to read magazines because it's convenient. I can just carry my i-pad instead of carrying magazines/books. Sometimes, it's too heavy to carry some magazines/books. Also, e-magazines/e-books are cheaper than printed magazines/books. So I can save my money. That's why I think so.",
+      ako: "네, 잡지를 읽는 데 전자책 리더기를 사용할 것입니다. 편리하기 때문입니다. 잡지나 책을 들고 다니는 대신 아이패드 하나만 가지고 다니면 됩니다. 가끔 잡지나 책은 들고 다니기에 너무 무겁습니다. 또한 전자잡지/전자책은 인쇄본보다 저렴해서 돈을 아낄 수 있습니다. 그것이 제가 그렇게 생각하는 이유입니다." }
+  ]
+},
+{
+  id: 9, theme: "음악 구매", tc: "#0891b2",
+  scenario: "Imagine that a music distribution company is conducting research in your country. You have agreed to participate in a telephone interview about buying music.",
+  scenarioKo: "음악 유통 회사가 당신 나라에서 설문조사를 하고 있다고 가정합니다. 당신은 음악 구매에 관한 전화 인터뷰에 참여하기로 했습니다.",
+  qas: [
+    { q: "When was the last time you purchased music and where did you purchase the music from?",
+      qko: "마지막으로 음악을 산 것은 언제였고, 어디서 샀나요?",
+      a: "It (=the last time I purchased music) was last week and I purchased the music from the Internet/from the online website. It's very convenient.",
+      ako: "지난주였고, 인터넷/온라인 사이트에서 샀습니다. 매우 편리합니다." },
+    { q: "What style of music do you typically purchase for yourself and do you usually buy CDs or downloads?",
+      qko: "보통 어떤 스타일의 음악을 사고, CD를 사나요 아니면 다운로드를 하나요?",
+      a: "I typically purchase hip-hop music for myself and I usually buy downloads because it's more convenient.",
+      ako: "저는 보통 힙합 음악을 사고, 다운로드로 삽니다. 더 편리하기 때문입니다." },
+    { q: "If a musical group that you like were releasing a new album, would you pay more to get that album early? Why or why not?",
+      qko: "좋아하는 뮤지션이 새 앨범을 낸다면, 그 앨범을 일찍 받기 위해 돈을 더 낼 건가요? 이유는 무엇인가요?",
+      a: "No, I would not pay more to get that album early. Actually, I'm a job seeker now, so I don't have much money. I mean I cannot spend too much money on my hobbies. Also, usually I'm not in a hurry (I'm patient.) So, I think I can wait. That's why I think so.",
+      ako: "아니요, 그 앨범을 일찍 받기 위해 돈을 더 내지는 않을 것입니다. 사실 저는 지금 구직자라 돈이 많지 않습니다. 취미에 너무 많은 돈을 쓸 수 없습니다. 또한 저는 보통 서두르지 않는 편이라(인내심이 있어서) 기다릴 수 있다고 생각합니다. 그것이 제가 그렇게 생각하는 이유입니다." }
+  ]
+},
+{
+  id: 10, theme: "이사/집 수리", tc: "#db2777",
+  scenario: "Imagine that a life style magazine is preparing an article about making improvements at your home. You have agreed to participate in a telephone interview.",
+  scenarioKo: "라이프스타일 잡지가 집 개선(리모델링)에 관한 기사를 준비하고 있다고 가정합니다. 당신은 이에 관한 전화 인터뷰에 참여하기로 했습니다.",
+  qas: [
+    { q: "How long have you lived in your current home? And is it a house or an apartment?",
+      qko: "지금 사는 곳에 얼마나 오래 살았나요? 그리고 주택인가요, 아파트인가요?",
+      a: "I have lived in my current home for two years and it is a house. (And I love my place. It's very comfortable.)",
+      ako: "지금 사는 곳에서 2년째 살고 있고, 주택입니다. (저는 제 집이 아주 편안해서 마음에 듭니다.)" },
+    { q: "If you wanted to make improvements to one part of your home, which part would you choose? Why?",
+      qko: "집의 한 부분을 개선한다면 어느 부분을 선택할 건가요? 이유는 무엇인가요?",
+      a: "If I wanted to make improvements to one part of my house, I would choose the kitchen because it's very old and small/I love cooking. (I want to make it nicer.)",
+      ako: "집의 한 부분을 개선한다면 부엌을 선택할 것입니다. 부엌이 너무 오래되고 작기 때문이고, 저는 요리를 좋아하기 때문입니다. (더 좋게 만들고 싶습니다.)" },
+    { q: "Would you prefer to hire someone to make improvements or repair your home or would you like to do it yourself? Why?",
+      qko: "집 개선이나 수리를 할 때 사람을 고용하는 것과 직접 하는 것 중 어느 쪽을 선호하나요? 이유는 무엇인가요?",
+      a: "I would prefer to hire someone to make improvements because it's more convenient. Actually, I'm a senior in college now so I'm very busy with my schoolwork. So I don't have time to do that. Also, I'm not good at repairing a house. (Actually, I don't know how to do it.) It's very difficult. That's why I think so.",
+      ako: "사람을 고용해서 개선하는 것을 선호할 것입니다. 더 편리하기 때문입니다. 사실 저는 지금 대학교 4학년이라 학교 공부로 매우 바빠서 그것을 할 시간이 없습니다. 또한 저는 집을 수리하는 데 소질이 없습니다. (사실 하는 방법도 모릅니다.) 매우 어렵습니다. 그것이 제가 그렇게 생각하는 이유입니다." }
+  ]
+},
+{
+  id: 11, theme: "해외여행", tc: "#7c3aed",
+  scenario: "Imagine that a lifestyle magazine is doing research in your area. You have agreed to participate in a telephone interview about traveling to foreign countries.",
+  scenarioKo: "라이프스타일 잡지가 당신 지역에서 설문조사를 하고 있다고 가정합니다. 당신은 해외여행에 관한 전화 인터뷰에 참여하기로 했습니다.",
+  qas: [
+    { q: "When was the last time you traveled to a foreign country and who did you go with?",
+      qko: "마지막으로 외국에 간 것은 언제였고, 누구와 함께 갔나요?",
+      a: "The last time I traveled to a foreign country was last year and I went there with my friend.",
+      ako: "마지막으로 외국에 간 것은 작년이었고, 친구와 함께 갔습니다." },
+    { q: "What is one foreign country you would like to visit in the future?",
+      qko: "앞으로 가보고 싶은 나라가 있다면 어디인가요?",
+      a: "One foreign country I would like to visit in the future is Italy because (I heard) it's beautiful.",
+      ako: "앞으로 가보고 싶은 나라는 이탈리아입니다. 아름답다고 들었기 때문입니다." },
+    { q: "If you were planning to travel to a foreign country, would you prefer to plan the trip yourself or have someone else plan it? Why?",
+      qko: "외국 여행을 계획한다면, 직접 계획하는 것과 다른 사람에게 맡기는 것 중 어느 쪽을 선호하나요? 이유는 무엇인가요?",
+      a: "If I were planning to travel to a foreign country, I would prefer to plan the trip myself. First of all, I can save my money. I'm a college student now, so I'm on a tight budget. Therefore, I don't want to spend extra money on planning. Also, nowadays, planning is easier because I can search for information on the Internet.",
+      ako: "외국 여행을 계획한다면 직접 계획하는 것을 선호할 것입니다. 우선 돈을 아낄 수 있습니다. 저는 지금 대학생이라 예산이 빠듯해서 계획하는 데 추가 비용을 쓰고 싶지 않습니다. 또한 요즘은 인터넷에서 정보를 찾아볼 수 있어서 계획하기가 더 쉽습니다." }
+  ]
+},
+{
+  id: 12, theme: "장보기", tc: "#db2777",
+  scenario: "Imagine that a lifestyle magazine is doing research in your area. You have agreed to participate in a telephone interview about grocery shopping.",
+  scenarioKo: "라이프스타일 잡지가 당신 지역에서 설문조사를 하고 있다고 가정합니다. 당신은 장보기에 관한 전화 인터뷰에 참여하기로 했습니다.",
+  qas: [
+    { q: "How often do you shop for groceries?",
+      qko: "장은 얼마나 자주 보나요?",
+      a: "I shop for groceries once a week on weekends.",
+      ako: "저는 주말에 일주일에 한 번 장을 봅니다." },
+    { q: "Do you usually shop at the same grocery store or do you try different ones? Why?",
+      qko: "보통 같은 마트에서 장을 보나요, 아니면 여러 곳을 다녀보나요? 이유는 무엇인가요?",
+      a: "I usually shop at the same grocery store because it's convenient. I usually shop at a supermarket near my house.",
+      ako: "저는 보통 같은 마트에서 장을 봅니다. 편리하기 때문입니다. 집 근처의 슈퍼마켓에서 보통 장을 봅니다." },
+    { q: "Would you be willing to pay extra to have groceries delivered to your home? Why or why not?",
+      qko: "장 본 것을 집으로 배달받기 위해 추가 비용을 낼 의향이 있나요? 이유는 무엇인가요?",
+      a: "Yes, I would be willing to pay extra to have groceries delivered to my home. First of all, it's very convenient. Nowadays, I don't even have to go to the store. I can just order over the phone. Then, they will deliver to my home. Also, I don't have to carry heavy items. Sometime, groceries are very heavy.",
+      ako: "네, 장 본 것을 집으로 배달받기 위해 추가 비용을 낼 의향이 있습니다. 우선 매우 편리합니다. 요즘은 가게에 갈 필요도 없이 전화로 주문하면 집까지 배달해 줍니다. 또한 무거운 물건을 들 필요가 없습니다. 가끔 장 본 것은 아주 무겁습니다." }
+  ]
+},
+{
+  id: 13, theme: "자판기", tc: "#2563eb",
+  scenario: "Imagine that a marketing firm is doing research in your area. You have agreed to participate in a telephone interview about vending machines.",
+  scenarioKo: "마케팅 회사가 당신 지역에서 설문조사를 하고 있다고 가정합니다. 당신은 자판기에 관한 전화 인터뷰에 참여하기로 했습니다.",
+  qas: [
+    { q: "When was the last time you used a vending machine and where was it located?",
+      qko: "마지막으로 자판기를 이용한 것은 언제였고, 어디에 있었나요?",
+      a: "It (=the last time I used a vending machine) was last week and it was located near my house/at school/in the office.",
+      ako: "지난주였고, 집 근처/학교/사무실에 있었습니다." },
+    { q: "What types of products can be purchased from vending machines at your school or workplace?",
+      qko: "학교나 직장의 자판기에서는 어떤 종류의 제품을 살 수 있나요?",
+      a: "I think soda/coke/beverages/drinks (and chips/chocolate bars) can be purchased from vending machines.",
+      ako: "탄산음료나 음료수(그리고 과자나 초콜릿바)를 자판기에서 살 수 있는 것 같습니다." },
+    { q: "Do you think your company or school should have more vending machines? Why or why not?",
+      qko: "당신의 회사나 학교에 자판기가 더 많이 있어야 한다고 생각하나요? 이유는 무엇인가요?",
+      a: "Yes, I think my school should have more vending machines. Actually, there are not many vending machines in my school. So it's very inconvenient. Sometimes, I have to walk/go far away (to find one.) It takes too much time and energy. (I think it would be very convenient for many students.) That's why I think so.",
+      ako: "네, 저희 학교에는 자판기가 더 많아야 한다고 생각합니다. 사실 학교에 자판기가 많지 않아 매우 불편합니다. 가끔 자판기를 찾으려면 멀리까지 걸어가야 해서 시간과 에너지가 너무 많이 듭니다. (많은 학생들에게 매우 편리할 것 같습니다.) 그것이 제가 그렇게 생각하는 이유입니다." }
+  ]
+},
+{
+  id: 14, theme: "근교 여행", tc: "#7c3aed",
+  scenario: "Imagine that you are talking on a telephone to a new neighbor who likes to travel. You are talking about short trips people can take to nearby places.",
+  scenarioKo: "여행을 좋아하는 새 이웃과 전화 통화를 한다고 가정합니다. 당신은 근처로 떠날 수 있는 짧은 여행에 관해 이야기하고 있습니다.",
+  qas: [
+    { q: "When was the last time you took a short trip and who did you travel with?",
+      qko: "마지막으로 짧은 여행을 간 것은 언제였고, 누구와 함께 갔나요?",
+      a: "It was last weekend and I traveled with my family/friends. It was very fun.",
+      ako: "지난 주말이었고, 가족/친구와 함께 갔습니다. 정말 재미있었습니다." },
+    { q: "What kind of transportation do you usually use when you go on a short trip? Why?",
+      qko: "짧은 여행을 갈 때 보통 어떤 교통수단을 이용하나요? 이유는 무엇인가요?",
+      a: "I usually use the train (when I go on a short trip) because it's very fast convenient. (Also, I can just relax in the train.)",
+      ako: "저는 보통 기차를 이용합니다. 빠르고 편리하기 때문입니다. (또한 기차 안에서 편히 쉴 수 있습니다.)" },
+    { q: "Tell me about a popular place for a short trip in the area and what kinds of things to do there.",
+      qko: "그 지역에서 짧은 여행으로 인기 있는 곳과 그곳에서 할 수 있는 것들을 알려주세요.",
+      a: "Well… Let me think… I think Busan/Pohang is a popular place for a short trip (=I recommend Busan/Pohang.) First of all, there are many (seafood) restaurants. So you can enjoy seafood. It's very fresh and delicious. Also, there is a big market. So you can enjoy shopping there. It will be fun! (I'm sure you will like it! = I highly recommend it!)",
+      ako: "음… 생각해볼게요… 부산이나 포항이 짧은 여행지로 인기가 많은 것 같습니다(=부산/포항을 추천합니다). 우선 해산물 식당이 많아서 신선하고 맛있는 해산물을 즐길 수 있습니다. 또한 큰 시장이 있어 쇼핑도 즐길 수 있습니다. 재미있을 거예요! (분명 마음에 드실 거예요! = 적극 추천합니다!)" }
+  ]
+},
+{
+  id: 15, theme: "여행지 추천 (역사 유적)", tc: "#7c3aed",
+  scenario: "Imagine that you are talking on the telephone with a friend. You are talking about your friend's upcoming trip to your city.",
+  scenarioKo: "친구와 전화 통화를 한다고 가정합니다. 당신은 친구가 곧 당신의 도시로 여행 올 것에 관해 이야기하고 있습니다.",
+  qas: [
+    { q: "What do you think is the best historical site to visit in your town? And when was the last time you went there?",
+      qko: "당신 동네에서 가볼 만한 최고의 역사 유적지는 어디라고 생각하나요? 그리고 마지막으로 그곳에 간 것은 언제였나요?",
+      a: "I think it (=the best historical site to visit in my town) is Mountain Pal-gong because there is a beautiful temple. And the last time I went there was last summer. It was fun.",
+      ako: "저는 팔공산이라고 생각합니다. 아름다운 절이 있기 때문입니다. 마지막으로 그곳에 간 것은 작년 여름이었고 재미있었습니다." },
+    { q: "Where do you suggest I go to take photographs in your town? Why?",
+      qko: "당신 동네에서 사진 찍기 좋은 곳으로 어디를 추천하나요? 이유는 무엇인가요?",
+      a: "I think 수성 Lake is the best place because it's very beautiful. (There are many cherry blossom trees nowadays.) I love it.",
+      ako: "수성못이 최고의 장소라고 생각합니다. 매우 아름답기 때문입니다. (요즘 벚꽃나무가 많습니다.) 저는 그곳을 정말 좋아합니다." },
+    { q: "Where do you suggest I go near your town? Why?",
+      qko: "당신 동네 근처에서 어디로 가볼 것을 추천하나요? 이유는 무엇인가요?",
+      a: "I recommend you to go to Busan. There are many things to do. First of all, there are many seafood restaurants and you can try Korean seafood dishes. They are delicious. Also, you can enjoy shopping. Last month, I went there with my friend and I enjoyed shopping and took lots of pictures. It was very fun. I'm sure you will love it too!",
+      ako: "부산에 가볼 것을 추천합니다. 할 것이 많습니다. 우선 해산물 식당이 많아서 한국식 해산물 요리를 맛볼 수 있고 아주 맛있습니다. 또한 쇼핑도 즐길 수 있습니다. 지난달에 친구와 함께 가서 쇼핑도 하고 사진도 많이 찍었는데 정말 재미있었습니다. 분명 당신도 좋아할 거예요!" }
+  ]
+},
+{
+  id: 16, theme: "지역 문화행사", tc: "#d97706",
+  scenario: "Imagine that a Canadian marketing firm is doing research in your country. You have agreed to participate in a telephone interview about community cultural events such as shows, parties, or exhibits.",
+  scenarioKo: "캐나다 마케팅 회사가 당신 나라에서 설문조사를 하고 있다고 가정합니다. 당신은 공연, 파티, 전시 같은 지역 문화행사에 관한 전화 인터뷰에 참여하기로 했습니다.",
+  qas: [
+    { q: "How regularly do you enjoy community cultural events in your city?",
+      qko: "당신 도시의 지역 문화행사를 얼마나 자주 즐기나요?",
+      a: "I enjoy community cultural events in my city once a month. I usually go to a concert.",
+      ako: "저는 한 달에 한 번 지역 문화행사를 즐깁니다. 보통 콘서트에 갑니다." },
+    { q: "How do you get some information about community cultural events in your city?",
+      qko: "지역 문화행사에 관한 정보는 어떻게 얻나요?",
+      a: "I get some information on the Internet and local newspapers/magazines. It's convenient (and informative.)",
+      ako: "인터넷과 지역 신문/잡지에서 정보를 얻습니다. 편리하고 (유익합니다.)" },
+    { q: "What was the last community cultural event you enjoyed and how did you like it?",
+      qko: "마지막으로 즐긴 지역 문화행사는 무엇이었고, 어땠나요?",
+      a: "The last community cultural event I enjoyed was a concert and I really liked it. First of all, it was my favorite singer's concert. His name is Psy. As you know, he's so funny. So, I had a great time. Also, I went there with my girlfriend/boyfriend. So I was very happy. That's why I liked it so much.",
+      ako: "마지막으로 즐긴 지역 문화행사는 콘서트였고 정말 좋았습니다. 우선 제가 가장 좋아하는 가수의 콘서트였습니다. 이름은 싸이입니다. 아시다시피 정말 재미있는 사람이라 즐거운 시간을 보냈습니다. 또한 여자친구/남자친구와 함께 가서 매우 행복했습니다. 그것이 제가 그렇게 좋아했던 이유입니다." }
+  ]
+},
+{
+  id: 17, theme: "우리 동네 (식료품점)", tc: "#db2777",
+  scenario: "Imagine that a friend will be moving to your neighborhood. You are having a telephone conversation about where you live.",
+  scenarioKo: "친구가 당신 동네로 이사 올 예정이라고 가정합니다. 당신은 사는 곳에 관해 전화로 이야기하고 있습니다.",
+  qas: [
+    { q: "How many grocery stores are in your neighborhood, and can you walk to them?",
+      qko: "당신 동네에는 식료품점이 몇 개 있고, 걸어서 갈 수 있나요?",
+      a: "There are about 2 grocery stores in my neighborhood, and (yes) I can walk to them.",
+      ako: "저희 동네에는 식료품점이 2개 정도 있고, 걸어서 갈 수 있습니다." },
+    { q: "What's the best time of day to go to the grocery store, and why?",
+      qko: "식료품점에 가기 가장 좋은 시간대는 언제이고, 이유는 무엇인가요?",
+      a: "Well... (I think) the best time of day to go to the grocery store is around noon (or in the afternoon about 3) because there are not many people. (It's convenient.)",
+      ako: "음… 식료품점에 가기 가장 좋은 시간은 정오 무렵(또는 오후 3시쯤)이라고 생각합니다. 사람이 많지 않기 때문입니다. (편리합니다.)" },
+    { q: "Do you usually buy all your groceries from the same store? Why or why not?",
+      qko: "보통 같은 가게에서 모든 장을 보나요? 이유는 무엇인가요?",
+      a: "(Yes,) I usually buy all my groceries from the same store because it's convenient. I usually go to the one near my house. It's really close. Actually it takes only 5 minutes. Also, I can get mileage points there.",
+      ako: "네, 저는 보통 같은 가게에서 모든 장을 봅니다. 편리하기 때문입니다. 보통 집 근처의 가게에 가는데 정말 가깝습니다. 사실 5분밖에 안 걸립니다. 또한 그곳에서 마일리지 포인트도 받을 수 있습니다." }
+  ]
+},
+{
+  id: 18, theme: "해외 동료 방문", tc: "#4f46e5",
+  scenario: "Imagine that a colleague from overseas will be visiting your office. You are having a telephone conversation about her visit.",
+  scenarioKo: "해외에서 온 동료가 당신 사무실을 방문할 예정이라고 가정합니다. 당신은 그녀의 방문에 관해 전화로 이야기하고 있습니다.",
+  qas: [
+    { q: "What's the weather like at this time of year?",
+      qko: "이맘때 날씨는 어떤가요?",
+      a: "The weather is very nice these days. (It's spring in Korea and it's getting warm.)",
+      ako: "요즘 날씨가 아주 좋습니다. (한국은 봄이고 점점 따뜻해지고 있습니다.)" },
+    { q: "What kind of clothing do people wear to work at this time of year?",
+      qko: "이맘때 사람들은 출근할 때 어떤 옷을 입나요?",
+      a: "People wear long-sleeved shirts and light jackets because it's getting warm.",
+      ako: "날씨가 따뜻해지고 있어서 사람들은 긴팔 셔츠와 얇은 재킷을 입습니다." },
+    { q: "If I needed to buy any clothing during my visit, where would you suggest I go, and why?",
+      qko: "방문 중에 옷을 사야 한다면 어디로 가는 것을 추천하나요? 이유는 무엇인가요?",
+      a: "Well… If you needed to buy clothing during your visit, I would suggest you go to a shopping mall near our office. First of all, it's really close. It only takes 5 minutes. So, you can save time. Also, it has many kinds of clothing stores and restaurant. It's very convenient. I'm sure you will love it.",
+      ako: "음… 방문 중에 옷을 사야 한다면 사무실 근처의 쇼핑몰에 가는 것을 추천합니다. 우선 정말 가까워서 5분밖에 안 걸리니 시간을 아낄 수 있습니다. 또한 다양한 옷가게와 식당이 있어 매우 편리합니다. 분명 마음에 드실 거예요." }
+  ]
+},
+{
+  id: 19, theme: "주말", tc: "#4f46e5",
+  scenario: "Imagine that you are talking to a friend on the telephone. You are talking about the weekend.",
+  scenarioKo: "친구와 전화로 이야기한다고 가정합니다. 당신은 주말에 관해 이야기하고 있습니다.",
+  qas: [
+    { q: "What did you do last weekend, and where did you do it?",
+      qko: "지난 주말에 무엇을 했고, 어디서 했나요?",
+      a: "I went shopping last weekend, and I went to a new shopping mall near my house.",
+      ako: "지난 주말에 쇼핑을 했고, 집 근처의 새로 생긴 쇼핑몰에 갔습니다." },
+    { q: "And what about your plans for next weekend?",
+      qko: "다음 주말 계획은 어떻게 되나요?",
+      a: "I will visit a new restaurant near my house with my friend. We will enjoy brunch there.",
+      ako: "친구와 함께 집 근처의 새로 생긴 식당에 갈 예정입니다. 그곳에서 브런치를 즐길 것입니다." },
+    { q: "I don't have anything planned, but I want to do something with my family next weekend. What do you suggest I do with them?",
+      qko: "저는 아무 계획이 없는데, 다음 주말에 가족과 함께 무언가 하고 싶어요. 무엇을 추천하나요?",
+      a: "Well… I suggest you go to a new shopping mall near your house. It's really close to your house. It only takes 5 minutes. So, you can save time. Also, it has many kinds of clothing stores and restaurant. It's very convenient. I'm sure you (and your family) will love it.",
+      ako: "음… 집 근처의 새로 생긴 쇼핑몰에 가보는 것을 추천합니다. 집에서 정말 가까워서 5분밖에 안 걸리니 시간을 아낄 수 있습니다. 또한 다양한 옷가게와 식당이 있어 매우 편리합니다. 분명 당신과 가족 모두 마음에 들어 하실 거예요." }
+  ]
+},
+{
+  id: 20, theme: "우리 동네 (맛집/배달)", tc: "#db2777",
+  scenario: "Imagine that you are talking on a phone call to your friend. She's asking questions about your area.",
+  scenarioKo: "친구와 전화 통화를 한다고 가정합니다. 그녀는 당신이 사는 지역에 관해 질문하고 있습니다.",
+  qas: [
+    { q: "How far away is the nearest store that sells international foods? And when did you last go there?",
+      qko: "외국 식료품을 파는 가장 가까운 가게는 얼마나 먼가요? 마지막으로 그곳에 간 것은 언제였나요?",
+      a: "The nearest store (=it) is 15 minutes away (from my house.) and I went there last weekend.",
+      ako: "가장 가까운 가게는 집에서 15분 거리이고, 지난 주말에 갔었습니다." },
+    { q: "In your area, what kinds of restaurants have delivery services? And do you use them often?",
+      qko: "당신 지역에서는 어떤 종류의 식당이 배달 서비스를 하나요? 자주 이용하나요?",
+      a: "In my area, Chinese restaurants have delivery services and yes, I use them often because it's very convenient.",
+      ako: "저희 지역에서는 중식당이 배달 서비스를 하고, 저는 매우 편리해서 자주 이용합니다." },
+    { q: "What restaurants do you go to most frequently? Why?",
+      qko: "가장 자주 가는 식당은 어디인가요? 이유는 무엇인가요?",
+      a: "I go to Korean restaurants most frequently because there are many Korean restaurants near my house. So it's very convenient. Also, I love Korean food because it's delicious and healthy. Finally, it's not (that) expensive. So, I can save money.",
+      ako: "저는 한식당에 가장 자주 갑니다. 집 근처에 한식당이 많아서 편리하기 때문입니다. 또한 저는 한식을 좋아하는데 맛있고 건강에도 좋습니다. 마지막으로 그렇게 비싸지 않아서 돈을 아낄 수 있습니다." }
+  ]
+},
+{
+  id: 21, theme: "관광명소 추천", tc: "#7c3aed",
+  scenario: "Imagine that you are talking on a phone call to your friend. She's asking questions about your area, and she is planning to visit as a tourist.",
+  scenarioKo: "친구와 전화 통화를 계속한다고 가정합니다. 그녀는 관광객으로서 당신 지역을 방문할 계획이며 질문하고 있습니다.",
+  qas: [
+    { q: "What's a fun place for a tourist to visit in your city, and what do people do there?",
+      qko: "당신 도시에서 관광객이 가볼 만한 재미있는 곳은 어디이고, 사람들은 그곳에서 무엇을 하나요?",
+      a: "I think a fun place for a tourist to visit in my city is Gangnam (Dongsung-ro) and people usually enjoy shopping and eating. There are many good stores and restaurants.",
+      ako: "제 생각에 관광객이 가볼 만한 재미있는 곳은 강남(동성로)이고, 사람들은 보통 그곳에서 쇼핑과 식사를 즐깁니다. 좋은 가게와 식당이 많습니다." },
+    { q: "That sounds like fun. How do I get there from the train station?",
+      qko: "재미있겠네요. 기차역에서 그곳까지는 어떻게 가나요?",
+      a: "Well… You can take the subway from the train station. It will take about 30 min. It's very fast and convenient.",
+      ako: "음… 기차역에서 지하철을 타면 됩니다. 약 30분 정도 걸리고, 아주 빠르고 편리합니다." },
+    { q: "Thanks. I'll need to eat, too. Could you describe a few places to eat lunch near that area?",
+      qko: "고마워요. 점심도 먹어야 하는데, 그 근처에서 점심 먹을 만한 곳을 몇 군데 소개해 줄래요?",
+      a: "Sure. There are many good restaurants in Gangnam. First of all, I recommend a Korean BBQ restaurant called Melanie's. The chef is really famous. She was on the famous TV show. Also, there is a famous bibibop place. Bibibap is a healthy dish and it's not that expensive. I'm sure you will love them.",
+      ako: "물론이죠. 강남에는 좋은 식당이 많습니다. 우선 'Melanie's'라는 한국식 바비큐 식당을 추천합니다. 셰프가 아주 유명한데 유명 TV쇼에도 출연했습니다. 또한 유명한 비빔밥 가게도 있는데, 비빔밥은 건강에 좋고 그렇게 비싸지도 않습니다. 분명 마음에 드실 거예요." }
+  ]
+},
+{
+  id: 22, theme: "영화관", tc: "#0891b2",
+  scenario: "Imagine that a U.S. marketing firm is doing research in your country. You have agreed to participate in a telephone interview about movie theaters.",
+  scenarioKo: "미국 마케팅 회사가 당신 나라에서 설문조사를 하고 있다고 가정합니다. 당신은 영화관에 관한 전화 인터뷰에 참여하기로 했습니다.",
+  qas: [
+    { q: "What time of day do you usually go to the movie theater and why?",
+      qko: "보통 하루 중 언제 영화관에 가나요? 이유는 무엇인가요?",
+      a: "I usually go to the movie theater in the evening around 8 P.M. because I can go there (=I have free time) after school/work.",
+      ako: "저는 보통 저녁 8시쯤 영화관에 갑니다. 학교나 일이 끝난 후 시간이 나기 때문입니다." },
+    { q: "Do you prefer to go to the movie theaters by yourself or with other people? Why?",
+      qko: "영화관에 혼자 가는 것과 다른 사람과 함께 가는 것 중 무엇을 선호하나요? 이유는 무엇인가요?",
+      a: "I prefer to go the movie theaters with other people because it's more fun. I usually go there with my boyfriend/girlfriend/family.",
+      ako: "저는 다른 사람과 함께 가는 것을 선호합니다. 더 재미있기 때문입니다. 보통 남자친구/여자친구/가족과 함께 갑니다." },
+    { q: "Did you enjoy the last movie you saw in a movie theater? Why or why not?",
+      qko: "영화관에서 마지막으로 본 영화가 좋았나요? 이유는 무엇인가요?",
+      a: "Yes, I enjoyed the last movie. Actually, last week, I watched Zootopia. It was very funny and I loved the story. Also, I could learn English (while watching the movie.) Finally, I went there with my girlfriend/boyfriend. So I was very happy. (I had a great time.)",
+      ako: "네, 마지막에 본 영화가 좋았습니다. 사실 지난주에 '주토피아'를 봤는데 정말 재미있었고 스토리도 좋았습니다. 또한 영화를 보면서 영어 공부도 할 수 있었습니다. 마지막으로 여자친구/남자친구와 함께 가서 매우 행복했습니다. (정말 즐거운 시간이었습니다.)" }
+  ]
+},
+{
+  id: 23, theme: "TV 프로그램", tc: "#0891b2",
+  scenario: "Imagine that you are talking on the telephone with a friend. You are talking about television programs.",
+  scenarioKo: "친구와 전화로 이야기한다고 가정합니다. 당신은 TV 프로그램에 관해 이야기하고 있습니다.",
+  qas: [
+    { q: "Who do you watch television with most often? And when do you usually watch television?",
+      qko: "TV는 주로 누구와 함께 보나요? 그리고 보통 언제 TV를 보나요?",
+      a: "Well… I usually watch television with my family most often and I usually watch it in the evening (or on weekends.)",
+      ako: "음… 저는 보통 가족과 함께 가장 자주 TV를 보고, 보통 저녁에(혹은 주말에) 봅니다." },
+    { q: "Do you usually watch television shows on television or on other devices? Why?",
+      qko: "TV 프로그램을 TV로 보나요, 아니면 다른 기기로 보나요? 이유는 무엇인가요?",
+      a: "Well… I usually watch television shows on other devices (such as my laptop computer, smartphone, or I-pad) because it's convenient/portable. I can watch it anytime anywhere.",
+      ako: "음… 저는 보통 다른 기기(노트북, 스마트폰, 아이패드 등)로 TV 프로그램을 봅니다. 편리하고 휴대하기 쉬워서 언제 어디서든 볼 수 있기 때문입니다." },
+    { q: "Tell me about your favorite television show.",
+      qko: "가장 좋아하는 TV 프로그램에 관해 이야기해 주세요.",
+      a: "(Well… I will tell you about my favorite television show.) It's a Korean comedy show called 무한도전. It's about 6 comedians and they (=who) challenge themselves every episode (in different areas.) It's so funny and I laugh a lot. So I watch it almost every weekend. I'm sure you will love it too. (I highly recommend it!)",
+      ako: "제가 가장 좋아하는 TV 프로그램은 '무한도전'이라는 한국 코미디 쇼입니다. 6명의 코미디언이 매 회 다양한 분야에서 도전하는 내용입니다. 정말 재미있어서 많이 웃게 되고, 그래서 거의 매주 주말마다 봅니다. 분명 당신도 좋아하게 될 거예요. (적극 추천합니다!)" }
+  ]
+},
+{
+  id: 24, theme: "버스 이용", tc: "#dc2626",
+  scenario: "Imagine that a bus service company is planning to expand the bus service in your area. You have agreed to participate in a telephone interview about traveling by the bus.",
+  scenarioKo: "버스 서비스 회사가 당신 지역의 버스 서비스를 확장할 계획이라고 가정합니다. 당신은 버스 이용에 관한 전화 인터뷰에 참여하기로 했습니다.",
+  qas: [
+    { q: "How long was the last bus ride you took and did you travel alone?",
+      qko: "마지막으로 버스를 탄 것은 얼마나 걸렸고, 혼자 이동했나요?",
+      a: "The last bus ride I took (=it) was 20 minutes and I traveled alone.",
+      ako: "마지막 버스 이용은 20분 걸렸고, 혼자 이동했습니다." },
+    { q: "Where are you most likely to ride a bus and why?",
+      qko: "주로 어디를 갈 때 버스를 타나요? 이유는 무엇인가요?",
+      a: "I am most likely to ride a bus when I go to school because it's fast and convenient. Also, it's cheap.",
+      ako: "저는 주로 학교에 갈 때 버스를 탑니다. 빠르고 편리하며 저렴하기 때문입니다." },
+    { q: "Do you enjoy riding buses? Why or why not?",
+      qko: "버스를 타는 것을 즐기나요? 이유는 무엇인가요?",
+      a: "Yes, I enjoy riding buses because it's fast and convenient. There are (=we have) bus (only) lanes, so we can avoid traffic (jams.) Also, I can enjoy the view through the window. So it's less boring (=It's very fun.) That's why I enjoy riding buses.",
+      ako: "네, 버스 타는 것을 즐깁니다. 빠르고 편리하기 때문입니다. 버스 전용차로가 있어서 교통 체증을 피할 수 있습니다. 또한 창밖 풍경도 즐길 수 있어 덜 지루합니다(아주 재미있습니다). 그것이 제가 버스 타는 것을 즐기는 이유입니다." }
+  ]
+},
+{
+  id: 25, theme: "버스 시스템 개선", tc: "#dc2626",
+  scenario: "Imagine that a marketing company is doing research in your area. You have agreed to participate in a telephone interview about traveling by the bus.",
+  scenarioKo: "마케팅 회사가 당신 지역에서 설문조사를 하고 있다고 가정합니다. 당신은 버스 이용에 관한 전화 인터뷰에 참여하기로 했습니다.",
+  qas: [
+    { q: "When was the last time you rode the bus and where did you go?",
+      qko: "마지막으로 버스를 탄 것은 언제였고, 어디에 갔나요?",
+      a: "The last time I rode the bus (=it) was yesterday and I went to school. It's very fast and convenient.",
+      ako: "마지막으로 버스를 탄 것은 어제였고, 학교에 갔습니다. 아주 빠르고 편리합니다." },
+    { q: "What is one advantage of traveling by the bus instead of using other forms of transportation?",
+      qko: "다른 교통수단 대신 버스로 이동하는 것의 장점 하나는 무엇인가요?",
+      a: "I think it's very fast because there is a bus (only) lane in my city. (So, I can avoid the traffic jam.) (I think I can enjoy the views through the windows. So it's less boring than the subway.)",
+      ako: "제 도시에는 버스 전용차로가 있어서 매우 빠르다고 생각합니다 (교통 체증을 피할 수 있습니다). (또한 창밖 풍경을 즐길 수 있어 지하철보다 덜 지루합니다.)" },
+    { q: "If you could improve one thing about the bus system in your area, what would you improve? Why?",
+      qko: "당신 지역의 버스 시스템에서 한 가지를 개선할 수 있다면 무엇을 개선하겠나요? 이유는 무엇인가요?",
+      a: "If I could improve one thing about the bus system in my area, I would add more bus stops. In my town, there are not many bus stops. So it's very inconvenient. Sometimes, I have to walk far away to find a bus stop. I mean it takes too much time and energy. Also, I have to transfer to the subway or taxi. That's why I think so.",
+      ako: "제 지역의 버스 시스템에서 한 가지를 개선할 수 있다면 버스 정류장을 더 늘리고 싶습니다. 저희 동네에는 버스 정류장이 많지 않아 매우 불편합니다. 가끔 정류장을 찾으려면 멀리 걸어가야 해서 시간과 에너지가 너무 많이 듭니다. 또한 지하철이나 택시로 갈아타야 합니다. 그것이 제가 그렇게 생각하는 이유입니다." }
+  ]
+},
+{
+  id: 26, theme: "이웃과의 우정", tc: "#db2777",
+  scenario: "Imagine that you are having a telephone conversation with a friend. You are talking about neighbors.",
+  scenarioKo: "친구와 전화로 대화한다고 가정합니다. 당신은 이웃에 관해 이야기하고 있습니다.",
+  qas: [
+    { q: "Who is your closest friend in your neighborhood and how did you meet him or her?",
+      qko: "당신 동네에서 가장 친한 친구는 누구이고, 어떻게 만났나요?",
+      a: "My closest friend in my neighborhood is Jessa and I met her at a park near my house (when I was walking my dog.)",
+      ako: "저희 동네에서 가장 친한 친구는 제사(Jessa)이고, 집 근처 공원에서(강아지를 산책시키다가) 만났습니다." },
+    { q: "How often do you spend time with your neighbors and what do you usually do with them?",
+      qko: "이웃과 얼마나 자주 시간을 보내고, 보통 무엇을 함께 하나요?",
+      a: "I spend time with my neighbors once a week (on weekends) and I usually walk my dog with them at a park. It's very fun.",
+      ako: "저는 이웃과 일주일에 한 번(주말에) 시간을 보내고, 보통 공원에서 함께 강아지를 산책시킵니다. 아주 재미있습니다." },
+    { q: "I might move to a new neighborhood soon. What are some things I can do to make friends in a new neighborhood and why?",
+      qko: "저는 곧 새 동네로 이사할 것 같아요. 새 동네에서 친구를 사귀려면 무엇을 할 수 있을까요? 이유는 무엇인가요?",
+      a: "Well… let me think… There are some things you can do. First of all, you can arrange a party and invite some people. And you can prepare some food and games. And at the party, you can introduce yourself. I think it will be great. Also, people can have a great time at the party. I'm sure they will like it. That's why I think so.",
+      ako: "음… 생각해볼게요… 할 수 있는 몇 가지가 있습니다. 우선 파티를 열어서 사람들을 초대할 수 있습니다. 음식과 게임을 준비해서 파티에서 자기소개를 할 수 있습니다. 아주 좋을 것 같습니다. 사람들도 파티에서 즐거운 시간을 보낼 수 있어 분명 좋아할 거예요. 그것이 제가 그렇게 생각하는 이유입니다." }
+  ]
+},
+{
+  id: 27, theme: "카메라", tc: "#2563eb",
+  scenario: "Imagine that a Canadian marketing firm is doing research in your country. You have agreed to participate in a telephone interview about a camera.",
+  scenarioKo: "캐나다 마케팅 회사가 당신 나라에서 설문조사를 하고 있다고 가정합니다. 당신은 카메라에 관한 전화 인터뷰에 참여하기로 했습니다.",
+  qas: [
+    { q: "When was the last time you bought a camera and what brand is it?",
+      qko: "마지막으로 카메라를 산 것은 언제였고, 어떤 브랜드인가요?",
+      a: "The last time I bought a camera was last year and it was a Canon.",
+      ako: "마지막으로 카메라를 산 것은 작년이었고, 캐논 제품이었습니다." },
+    { q: "On which occasions do you usually take pictures?",
+      qko: "보통 어떤 경우에 사진을 찍나요?",
+      a: "I usually take pictures when I meet my friends or when I find something interesting. (I usually take pictures on special days such as a birthday or during Christmas.)",
+      ako: "저는 보통 친구를 만날 때나 흥미로운 것을 발견했을 때 사진을 찍습니다. (생일이나 크리스마스 같은 특별한 날에도 보통 사진을 찍습니다.)" },
+    { q: "What is the best way to share pictures with others?",
+      qko: "사진을 다른 사람들과 공유하는 가장 좋은 방법은 무엇인가요?",
+      a: "I think the best way to share pictures with others is by posting pictures on online websites such as Google Drive. First of all, it's free. So I don't have to pay for using the website or buy a USB stick. I can save my money. Also, it's easy to download pictures anytime anywhere. It's very convenient. That's why I think so.",
+      ako: "구글 드라이브 같은 온라인 사이트에 사진을 올리는 것이 가장 좋은 방법이라고 생각합니다. 우선 무료라서 사이트 이용료를 내거나 USB를 살 필요가 없어 돈을 아낄 수 있습니다. 또한 언제 어디서나 쉽게 사진을 내려받을 수 있어 매우 편리합니다. 그것이 제가 그렇게 생각하는 이유입니다." }
+  ]
+},
+{
+  id: 28, theme: "카풀(출퇴근/통학)", tc: "#dc2626",
+  scenario: "Imagine that a U.S. marketing firm is doing research in your country. You have agreed to participate in a telephone interview about sharing a ride to work or school.",
+  scenarioKo: "미국 마케팅 회사가 당신 나라에서 설문조사를 하고 있다고 가정합니다. 당신은 통근/통학 카풀에 관한 전화 인터뷰에 참여하기로 했습니다.",
+  qas: [
+    { q: "How do you usually travel to work or school? And how much time does it take?",
+      qko: "보통 어떻게 출근/통학하나요? 시간은 얼마나 걸리나요?",
+      a: "I usually travel (=commute) to school by a subway/bus and it takes 20 minutes to get there. It's convenient.",
+      ako: "저는 보통 지하철이나 버스로 통학하고 도착하는 데 20분이 걸립니다. 편리합니다." },
+    { q: "Would you consider sharing a ride to work or school? Why or why not?",
+      qko: "출퇴근/통학할 때 카풀을 고려해 볼 건가요? 이유는 무엇인가요?",
+      a: "Yes, I would consider sharing a ride to school because I can save my money (and it's more fun.)",
+      ako: "네, 통학할 때 카풀을 고려할 것입니다. 돈을 아낄 수 있고 (더 재미있기도) 하기 때문입니다." },
+    { q: "What can your company or school do to encourage more people to share a ride?",
+      qko: "더 많은 사람들이 카풀을 하도록 회사나 학교가 무엇을 할 수 있을까요?",
+      a: "Well... Let me think... First of all, (I think) my company can support gas fees. As you know, gas is really expensive nowadays. So, many people will like it. Also, my company can offer free parking spaces to participants. I think it will be effective.",
+      ako: "음… 생각해볼게요… 우선 회사가 기름값을 지원할 수 있습니다. 아시다시피 요즘 기름값이 정말 비싸서 많은 사람들이 좋아할 것입니다. 또한 회사가 참여자들에게 무료 주차 공간을 제공할 수도 있습니다. 효과적일 것 같습니다." }
+  ]
+},
+{
+  id: 29, theme: "카풀 장단점", tc: "#dc2626",
+  scenario: "Imagine that a U.S. marketing firm is doing research in your country. You have agreed to participate in a telephone interview about sharing a ride to work or school.",
+  scenarioKo: "미국 마케팅 회사가 당신 나라에서 설문조사를 하고 있다고 가정합니다. 당신은 통근/통학 카풀에 관한 전화 인터뷰에 참여하기로 했습니다.",
+  qas: [
+    { q: "When traveling to work or school, how often do you share car rides with others?",
+      qko: "출퇴근/통학할 때 다른 사람과 카풀을 얼마나 자주 하나요?",
+      a: "When traveling to school, I share car rides with others every day. It's convenient. (Actually I don't share a ride because I usually take the subway.)",
+      ako: "통학할 때 저는 매일 다른 사람과 카풀을 합니다. 편리합니다. (혹은: 사실 저는 보통 지하철을 타서 카풀은 하지 않습니다.)" },
+    { q: "Besides going to work or school, what other times would you consider sharing a ride?",
+      qko: "출퇴근/통학 외에 또 언제 카풀을 고려해 볼 건가요?",
+      a: "Besides going to work or school, I would consider sharing a ride when I go on a vacation or go shopping with my mom.",
+      ako: "출퇴근/통학 외에는 휴가를 갈 때나 엄마와 쇼핑하러 갈 때 카풀을 고려할 것입니다." },
+    { q: "What are some disadvantages of sharing car rides with other people?",
+      qko: "다른 사람과 카풀을 하는 것의 단점은 무엇인가요?",
+      a: "Here are some disadvantages. First of all, it's inconvenient. Sometimes, I have to wait for others. So, I might waste my time. Also, I feel uncomfortable. I don't want to care about others. Sometimes, it's annoying.",
+      ako: "몇 가지 단점이 있습니다. 우선 불편합니다. 가끔 다른 사람을 기다려야 해서 시간을 낭비할 수도 있습니다. 또한 불편하게 느껴집니다. 다른 사람을 신경 쓰고 싶지 않은데, 가끔 짜증날 때가 있습니다." }
+  ]
+},
+{
+  id: 30, theme: "지역사회 활동", tc: "#d97706",
+  scenario: "Imagine that a U. S. marketing firm is doing research in your country. You have agreed to participate in a telephone interview about educational and recreational activities in your community.",
+  scenarioKo: "미국 마케팅 회사가 당신 나라에서 설문조사를 하고 있다고 가정합니다. 당신은 지역사회의 교육 및 여가 활동에 관한 전화 인터뷰에 참여하기로 했습니다.",
+  qas: [
+    { q: "How often do you participate in community activities and what kind of activities do you usually participate in?",
+      qko: "지역사회 활동에 얼마나 자주 참여하고, 보통 어떤 활동에 참여하나요?",
+      a: "I participate in community activities once a month and I usually participate in sports activities. Actually, I played soccer/baseball every Sunday.",
+      ako: "저는 한 달에 한 번 지역사회 활동에 참여하고, 보통 스포츠 활동에 참여합니다. 사실 매주 일요일에 축구나 야구를 했습니다." },
+    { q: "In your area, what types of places do people go to for community activities and why?",
+      qko: "당신 지역에서 사람들은 지역사회 활동을 위해 어떤 장소에 가나요? 이유는 무엇인가요?",
+      a: "In my area, people usually go to community centers or parks because there are many events and activities (organized.) So, people can participate in many activities easily.",
+      ako: "저희 지역에서는 사람들이 보통 주민센터나 공원에 갑니다. 많은 행사와 활동이 마련되어 있어서 쉽게 참여할 수 있기 때문입니다." },
+    { q: "Would you like for there to be more community activities organized in your area? Why or why not?",
+      qko: "당신 지역에 지역사회 활동이 더 많이 마련되면 좋겠나요? 이유는 무엇인가요?",
+      a: "Yes, I would like for there to be more community activities organized in my area because I can meet many new people and make some friends. I'm a people person. So I love meeting new people. Also, I can learn about my community and teamwork. It will be very useful (and meaningful.) That's why I think so.",
+      ako: "네, 저희 지역에 지역사회 활동이 더 많이 마련되면 좋겠습니다. 많은 새로운 사람들을 만나 친구를 사귈 수 있기 때문입니다. 저는 사람 만나는 것을 좋아하는 성격이라 새로운 사람을 만나는 것을 좋아합니다. 또한 지역사회와 팀워크에 관해 배울 수 있어 매우 유용하고 의미 있을 것입니다. 그것이 제가 그렇게 생각하는 이유입니다." }
+  ]
+},
+{
+  id: 31, theme: "봉사활동", tc: "#d97706",
+  scenario: "Imagine that a U.S. marketing firm is doing research in your country. You have agreed to participate in a telephone interview about volunteering.",
+  scenarioKo: "미국 마케팅 회사가 당신 나라에서 설문조사를 하고 있다고 가정합니다. 당신은 봉사활동에 관한 전화 인터뷰에 참여하기로 했습니다.",
+  qas: [
+    { q: "When was the last time you volunteered and where did you do it?",
+      qko: "마지막으로 봉사활동을 한 것은 언제였고, 어디서 했나요?",
+      a: "The last time I volunteered was last year and I did it in my neighborhood. I helped clean the parks in my neighborhood.",
+      ako: "마지막으로 봉사활동을 한 것은 작년이었고, 저희 동네에서 했습니다. 동네 공원 청소를 도왔습니다." },
+    { q: "Have you ever volunteered in a foreign country?",
+      qko: "외국에서 봉사활동을 해본 적이 있나요?",
+      a: "Yes, I volunteered in the U.S. I delivered lunch to elderly people/senior citizen who lived alone.",
+      ako: "네, 미국에서 봉사활동을 했습니다. 혼자 사시는 독거노인분들께 점심을 배달해드렸습니다." },
+    { q: "Do you think all students should participate in volunteer work? Why?",
+      qko: "모든 학생이 봉사활동에 참여해야 한다고 생각하나요? 이유는 무엇인가요?",
+      a: "Yes, I think all students should participate in volunteer work because it has many advantages. First of all, they will feel rewarded and learn more about their communities. Also, they can make friends and help others. That's why I think so.",
+      ako: "네, 모든 학생이 봉사활동에 참여해야 한다고 생각합니다. 많은 장점이 있기 때문입니다. 우선 보람을 느끼고 지역사회에 관해 더 배울 수 있습니다. 또한 친구를 사귀고 다른 사람을 도울 수 있습니다. 그것이 제가 그렇게 생각하는 이유입니다." }
+  ]
+},
+{
+  id: 32, theme: "재활용 (개인)", tc: "#d97706",
+  scenario: "Imagine that a Canadian marketing firm is doing research in your country. You have agreed to participate in a telephone interview about recycling.",
+  scenarioKo: "캐나다 마케팅 회사가 당신 나라에서 설문조사를 하고 있다고 가정합니다. 당신은 재활용에 관한 전화 인터뷰에 참여하기로 했습니다.",
+  qas: [
+    { q: "Would you use a plastic water bottle more than once? Why or why not?",
+      qko: "플라스틱 물병을 한 번 이상 사용할 건가요? 이유는 무엇인가요?",
+      a: "Yes, I would use a plastic water bottle more than once because I care about the environment.",
+      ako: "네, 플라스틱 물병을 한 번 이상 사용할 것입니다. 환경을 신경 쓰기 때문입니다." },
+    { q: "Do you separate newspaper, cans, and bottles at your home for recycling? Why or why not?",
+      qko: "집에서 신문, 캔, 병을 재활용을 위해 분리하나요? 이유는 무엇인가요?",
+      a: "Yes, I separate newspaper, cans, and bottles at my home for recycling because (again) I care about the environment.",
+      ako: "네, 집에서 신문, 캔, 병을 재활용을 위해 분리합니다. 역시 환경을 신경 쓰기 때문입니다." },
+    { q: "Do you think people should get money back for recycling? Why or why not?",
+      qko: "사람들이 재활용에 대해 돈을 돌려받아야 한다고 생각하나요? 이유는 무엇인가요?",
+      a: "Yes, I think people should get money back for recycling. If people get money back for recycling, they will recycle more. Then, it will be good for the environment. As you know, the environment is really important to us. (But, it's destroyed.) So, we should care about it. That's why I think it is a good policy.",
+      ako: "네, 사람들이 재활용에 대해 돈을 돌려받아야 한다고 생각합니다. 돈을 돌려받으면 사람들이 재활용을 더 많이 할 것이고, 그러면 환경에도 좋을 것입니다. 아시다시피 환경은 우리에게 정말 중요합니다 (하지만 파괴되고 있습니다). 그래서 우리는 환경을 신경 써야 합니다. 그것이 제가 좋은 정책이라고 생각하는 이유입니다." }
+  ]
+},
+{
+  id: 33, theme: "재활용 (지역사회)", tc: "#d97706",
+  scenario: "Imagine that a Canadian marketing firm is doing research in your country. You have agreed to participate in a telephone interview about recycling in your community.",
+  scenarioKo: "캐나다 마케팅 회사가 당신 나라에서 설문조사를 하고 있다고 가정합니다. 당신은 지역사회의 재활용에 관한 전화 인터뷰에 참여하기로 했습니다.",
+  qas: [
+    { q: "In your community, what kind of materials are recycled or reused?",
+      qko: "당신 지역사회에서는 어떤 종류의 재료가 재활용되거나 재사용되나요?",
+      a: "In my community, cans and bottles are recycled or reused.",
+      ako: "저희 지역사회에서는 캔과 병이 재활용되거나 재사용됩니다." },
+    { q: "Does your community encourage recycling? If so, how?",
+      qko: "당신 지역사회는 재활용을 장려하나요? 그렇다면 어떻게 하나요?",
+      a: "Yes, my community encourages recycling. People get money back for recycling.",
+      ako: "네, 저희 지역사회는 재활용을 장려합니다. 재활용을 하면 돈을 돌려받습니다." },
+    { q: "Would you pay more for a product that is made of recycled materials? Why or why not?",
+      qko: "재활용 재료로 만든 제품에 더 많은 돈을 지불할 건가요? 이유는 무엇인가요?",
+      a: "No, I wouldn't pay more. First of all, I'm on a tight budget because I'm a college student. So I can't spend more money on items. Also, generally, recycled materials are not (that) good. I mean the quality is less good. That's why I think so.",
+      ako: "아니요, 더 많은 돈을 내지는 않을 것입니다. 우선 저는 대학생이라 예산이 빠듯해서 물건에 돈을 더 쓸 수 없습니다. 또한 대체로 재활용 재료는 품질이 그렇게 좋지 않습니다. 그것이 제가 그렇게 생각하는 이유입니다." }
+  ]
+},
+{
+  id: 34, theme: "운동복", tc: "#2563eb",
+  scenario: "Imagine that a Canadian marketing firm is doing research in your country. You have agreed to participate in a telephone interview about exercise clothing.",
+  scenarioKo: "캐나다 마케팅 회사가 당신 나라에서 설문조사를 하고 있다고 가정합니다. 당신은 운동복에 관한 전화 인터뷰에 참여하기로 했습니다.",
+  qas: [
+    { q: "When was the last time you bought exercise clothes, and where did you buy them?",
+      qko: "마지막으로 운동복을 산 것은 언제였고, 어디서 샀나요?",
+      a: "The last time I bought exercise clothes was last month and I bought them on the Internet.",
+      ako: "마지막으로 운동복을 산 것은 지난달이었고, 인터넷에서 샀습니다." },
+    { q: "What types of exercise clothing are most popular among the people you know?",
+      qko: "당신이 아는 사람들 사이에서 가장 인기 있는 운동복 종류는 무엇인가요?",
+      a: "Well… (Nike) shorts are popular among my friends (=among people I know.) They are very comfortable.",
+      ako: "음… 제 친구들 사이에서는 나이키 반바지가 인기가 많습니다. 아주 편안합니다." },
+    { q: "When you buy exercise clothes, does an advertisement influence you? Why or why not?",
+      qko: "운동복을 살 때 광고가 영향을 미치나요? 이유는 무엇인가요?",
+      a: "No, it doesn't influence me. First of all, nowadays, ads are exaggerated. And sometimes they contain wrong information. So, I don't trust them. Instead, I usually read product reviews. Reviews are pretty honest and correct. (It's very useful.) So, I can trust them. That's why I think so.",
+      ako: "아니요, 광고는 저에게 영향을 미치지 않습니다. 우선 요즘 광고는 과장되어 있고 가끔 잘못된 정보를 담고 있어서 신뢰하지 않습니다. 대신 저는 보통 제품 리뷰를 읽습니다. 리뷰는 꽤 솔직하고 정확해서(매우 유용합니다) 신뢰할 수 있습니다. 그것이 제가 그렇게 생각하는 이유입니다." }
+  ]
+},
+{
+  id: 35, theme: "스포츠용품 쇼핑", tc: "#2563eb",
+  scenario: "Imagine that a sporting equipment company is thinking of opening a store in your area. You have agreed to participate in a telephone interview about shopping for sporting equipment.",
+  scenarioKo: "스포츠용품 회사가 당신 지역에 매장을 열 계획이라고 가정합니다. 당신은 스포츠용품 쇼핑에 관한 전화 인터뷰에 참여하기로 했습니다.",
+  qas: [
+    { q: "What was the last piece of sporting equipment you bought and when did you buy it?",
+      qko: "마지막으로 산 스포츠용품은 무엇이었고, 언제 샀나요?",
+      a: "The last piece of sporting equipment I bought (=it) was a baseball and I bought it last year.",
+      ako: "마지막으로 산 스포츠용품은 야구공이었고, 작년에 샀습니다." },
+    { q: "How often do you visit sporting equipment stores and do you spend a lot of time in them?",
+      qko: "스포츠용품점을 얼마나 자주 방문하고, 그곳에서 시간을 많이 보내나요?",
+      a: "I visit sporting equipment stores once a month/year and no I don't spend a lot of time in them (because I'm busy and I'm not that interested in sporting equipment.)",
+      ako: "저는 스포츠용품점을 한 달에(또는 일 년에) 한 번 방문하고, 시간을 많이 보내지는 않습니다 (바쁘고 스포츠용품에 그렇게 관심이 많지 않기 때문입니다)." },
+    { q: "Where is the best place in your area to buy sporting equipment and why?",
+      qko: "당신 지역에서 스포츠용품을 사기에 가장 좋은 곳은 어디이고, 이유는 무엇인가요?",
+      a: "I think the best place is H mall near my house. Here's why. First, there are many kinds of products. So it's very convenient. Also, employees are very kind. So, I can get a lot of information and advice. Finally, there's a food court. So I can eat after shopping. That's why I think so.",
+      ako: "집 근처의 H몰이 가장 좋은 곳이라고 생각합니다. 이유는 이렇습니다. 우선 다양한 종류의 제품이 있어 매우 편리합니다. 또한 직원들이 아주 친절해서 많은 정보와 조언을 얻을 수 있습니다. 마지막으로 푸드코트가 있어 쇼핑 후 식사도 할 수 있습니다. 그것이 제가 그렇게 생각하는 이유입니다." }
+  ]
+},
+{
+  id: 36, theme: "독서 습관", tc: "#0891b2",
+  scenario: "Imagine that a marketing firm is doing research in your area. You have agreed to participate in a telephone interview about books.",
+  scenarioKo: "마케팅 회사가 당신 지역에서 설문조사를 하고 있다고 가정합니다. 당신은 책에 관한 전화 인터뷰에 참여하기로 했습니다.",
+  qas: [
+    { q: "How often do you buy books and what type of books do you usually buy?",
+      qko: "책은 얼마나 자주 사고, 보통 어떤 종류의 책을 사나요?",
+      a: "I buy books once a month and I usually buy essays (novels.)",
+      ako: "저는 한 달에 한 번 책을 사고, 보통 에세이(소설)를 삽니다." },
+    { q: "What would make you want to own a book rather than borrow it from a library or a friend?",
+      qko: "도서관이나 친구에게 빌리는 대신 책을 소유하고 싶게 만드는 것은 무엇인가요?",
+      a: "I want to own a book rather than borrow it when I really like the book/author. Then, I want to own it and read it again.",
+      ako: "그 책이나 작가를 정말 좋아할 때는 빌리는 대신 소유하고 싶습니다. 그러면 소유해서 다시 읽고 싶어집니다." },
+    { q: "Some people learn about books by reading book reviews. Do you read reviews before deciding to purchase a book? Why or why not?",
+      qko: "어떤 사람들은 서평을 읽고 책에 관해 알게 됩니다. 책을 구매하기 전에 서평을 읽나요? 이유는 무엇인가요?",
+      a: "Yes I read reviews before deciding to purchase a book. If I read customer reviews, I can get more information. It's very helpful to make a decision. Also, customer reviews are pretty correct and accurate. So, I can trust them. That's why I would read them.",
+      ako: "네, 책을 구매하기 전에 서평을 읽습니다. 고객 리뷰를 읽으면 더 많은 정보를 얻을 수 있어 결정을 내리는 데 매우 도움이 됩니다. 또한 고객 리뷰는 꽤 정확해서 신뢰할 수 있습니다. 그것이 제가 리뷰를 읽는 이유입니다." }
+  ]
+},
+{
+  id: 37, theme: "책 구매 방법", tc: "#0891b2",
+  scenario: "Imagine that a marketing firm is doing research in your area. You have agreed to participate in a telephone interview about buying books.",
+  scenarioKo: "마케팅 회사가 당신 지역에서 설문조사를 하고 있다고 가정합니다. 당신은 책 구매에 관한 전화 인터뷰에 참여하기로 했습니다.",
+  qas: [
+    { q: "Where do you usually buy books?",
+      qko: "책은 보통 어디서 사나요?",
+      a: "I usually buy books on the Internet because it's convenient and cheap.",
+      ako: "저는 보통 인터넷에서 책을 삽니다. 편리하고 저렴하기 때문입니다." },
+    { q: "Do you usually buy the same type of books or do you buy a variety of books? Why?",
+      qko: "보통 같은 종류의 책을 사나요, 아니면 다양한 책을 사나요? 이유는 무엇인가요?",
+      a: "I usually buy a variety of books because I need a variety of information.",
+      ako: "저는 보통 다양한 책을 삽니다. 다양한 정보가 필요하기 때문입니다." },
+    { q: "If you were to purchase a new book, which of the following would most influence on your decision? Why?\n• A friend's recommendation\n• The book's author\n• The book's usefulness for work or study",
+      qko: "새 책을 산다면 다음 중 무엇이 결정에 가장 큰 영향을 미칠까요? 이유는 무엇인가요?\n• 친구의 추천\n• 책의 저자\n• 업무나 공부에 대한 유용성",
+      a: "If I were to purchase a new book a friend's recommendation would most influence my decision. First of all, it's convenient. I don't have to search information on the Internet. So I can save my time. Also, my friend and I have the same/similar taste. So it's always useful. I mean I trust her opinions.",
+      ako: "새 책을 산다면 친구의 추천이 결정에 가장 큰 영향을 미칠 것입니다. 우선 편리합니다. 인터넷에서 정보를 찾아볼 필요가 없어 시간을 아낄 수 있습니다. 또한 저와 친구는 취향이 비슷해서 항상 유용합니다. 즉, 저는 그녀의 의견을 신뢰합니다." }
+  ]
+},
+{
+  id: 38, theme: "취업", tc: "#059669",
+  scenario: "Imagine that a career development office at an English speaking university is doing research. You have agreed to participate in a telephone interview about getting a job.",
+  scenarioKo: "영어권 대학의 진로개발센터가 설문조사를 하고 있다고 가정합니다. 당신은 취업에 관한 전화 인터뷰에 참여하기로 했습니다.",
+  qas: [
+    { q: "What kind of job do you have now or are you interested in having?",
+      qko: "지금 어떤 일을 하고 있나요, 아니면 어떤 일에 관심이 있나요?",
+      a: "I have an engineering job (I'm an engineer.) I like my job.",
+      ako: "저는 엔지니어링 관련 일을 하고 있습니다 (저는 엔지니어입니다). 제 일을 좋아합니다." },
+    { q: "What skills are needed for the job you have now or for the job you want?",
+      qko: "지금 하는 일이나 원하는 일에는 어떤 기술이 필요한가요?",
+      a: "Well… communication skills are needed for the job I have now. It's very important in business nowadays.",
+      ako: "음… 지금 제가 하는 일에는 커뮤니케이션 능력이 필요합니다. 요즘 비즈니스에서 매우 중요합니다." },
+    { q: "Do you feel that your studies in school have prepared you well for your career? Why or why not?",
+      qko: "학교에서의 공부가 커리어를 위한 준비가 잘 되었다고 느끼나요? 이유는 무엇인가요?",
+      a: "Yes. Actually, while I was in college, I had many team projects. And I learned leadership and communication skills through teamwork. It's very helpful. As you know, nowadays, those skills are very important at work. That's why I think so.",
+      ako: "네. 사실 대학 시절 팀 프로젝트가 많았는데, 팀워크를 통해 리더십과 커뮤니케이션 능력을 배웠습니다. 매우 도움이 됩니다. 아시다시피 요즘 직장에서 이런 능력이 매우 중요합니다. 그것이 제가 그렇게 생각하는 이유입니다." }
+  ]
+},
+{
+  id: 39, theme: "리더십", tc: "#059669",
+  scenario: "Imagine that a Canadian marketing firm is doing research in your country. You have agreed to participate in a telephone interview about leaders.",
+  scenarioKo: "캐나다 마케팅 회사가 당신 나라에서 설문조사를 하고 있다고 가정합니다. 당신은 리더에 관한 전화 인터뷰에 참여하기로 했습니다.",
+  qas: [
+    { q: "How often do you work on team projects at work or school?",
+      qko: "직장이나 학교에서 팀 프로젝트를 얼마나 자주 하나요?",
+      a: "I work on team projects at school once a month. It's challenging but fun.",
+      ako: "저는 학교에서 한 달에 한 번 팀 프로젝트를 합니다. 힘들지만 재미있습니다." },
+    { q: "When was the last time you were a leader and how were you selected?",
+      qko: "마지막으로 리더였던 것은 언제였고, 어떻게 선정되었나요?",
+      a: "The last time I was a leader was last year and I was selected by a vote.",
+      ako: "마지막으로 리더였던 것은 작년이었고, 투표로 선정되었습니다." },
+    { q: "What was the biggest challenge as a leader?",
+      qko: "리더로서 가장 큰 어려움은 무엇이었나요?",
+      a: "Well… Let me think… First of all, a leader has to work harder than others. Sometimes, it's too much. I think it's too stressful. Second, it is hard to communicate with all members. Sometimes, there are too many people. And everyone has different ideas. So it's always difficult. That's all.",
+      ako: "음… 생각해볼게요… 우선 리더는 다른 사람보다 더 열심히 일해야 합니다. 가끔은 너무 힘들고 스트레스가 많습니다. 둘째, 모든 팀원과 소통하기가 어렵습니다. 가끔 사람이 너무 많고 모두 생각이 달라서 항상 어렵습니다. 그게 다입니다." }
+  ]
+},
+{
+  id: 40, theme: "교육/공부", tc: "#059669",
+  scenario: "Imagine that a marketing firm is doing research about education. You have agreed to participate in a telephone interview.",
+  scenarioKo: "마케팅 회사가 교육에 관해 설문조사를 하고 있다고 가정합니다. 당신은 이에 관한 전화 인터뷰에 참여하기로 했습니다.",
+  qas: [
+    { q: "How close to your home is the nearest university and does it offer evening courses?",
+      qko: "집에서 가장 가까운 대학교는 얼마나 가깝고, 저녁 수업을 제공하나요?",
+      a: "It (=the nearest university) is twenty minutes far (away) and (yes) it offers evening courses.",
+      ako: "가장 가까운 대학교는 20분 거리에 있고, 저녁 수업을 제공합니다." },
+    { q: "How long has it been since you were a student and where was the last place you studied?",
+      qko: "학생이었던 지 얼마나 되었고, 마지막으로 공부한 곳은 어디였나요?",
+      a: "It has been 2 years since I was a student and the last place I studied was ABC University. (Actually, I am a senior in college now (=I'm still a student) and the last place I studied was ABC University.)",
+      ako: "학생이었던 지 2년이 되었고, 마지막으로 공부한 곳은 ABC 대학교였습니다. (사실 저는 지금 대학교 4학년으로 아직 학생이고, 마지막으로 공부한 곳은 ABC 대학교였습니다.)" },
+    { q: "If you had the chance to study something new, what would you study and why?",
+      qko: "새로운 것을 공부할 기회가 있다면 무엇을 공부하고 싶고, 이유는 무엇인가요?",
+      a: "If I had the chance to study something new, I would study Chinese. (Here's why.) First of all, I'm interested in China. So it will be very fun. Also, nowadays, a foreign language skill is very important in business. So I think it will be very useful (for my career.) That's why I think so.",
+      ako: "새로운 것을 공부할 기회가 있다면 중국어를 공부하고 싶습니다. 이유는 이렇습니다. 우선 저는 중국에 관심이 있어서 아주 재미있을 것입니다. 또한 요즘 외국어 능력이 비즈니스에서 매우 중요해서 제 커리어에도 매우 유용할 것 같습니다. 그것이 제가 그렇게 생각하는 이유입니다." }
+  ]
+},
+{
+  id: 41, theme: "직장과 학교", tc: "#059669",
+  scenario: "Imagine that a marketing firm is doing research in your area. You have agreed to participate in a telephone interview about work and school.",
+  scenarioKo: "마케팅 회사가 당신 지역에서 설문조사를 하고 있다고 가정합니다. 당신은 직장과 학교에 관한 전화 인터뷰에 참여하기로 했습니다.",
+  qas: [
+    { q: "What kind of work do you do now or if you are a student, what do you study?",
+      qko: "지금 어떤 일을 하나요, 혹은 학생이라면 무엇을 공부하나요?",
+      a: "I study business and I like my major. It's interesting.",
+      ako: "저는 경영학을 공부하고 있고, 제 전공을 좋아합니다. 흥미롭습니다." },
+    { q: "If you could arrange your own schedule, what time would you start and end your workday?",
+      qko: "본인 일정을 직접 정할 수 있다면, 근무를 몇 시에 시작하고 몇 시에 끝내고 싶나요?",
+      a: "I would start at 9 am and end at 5 pm. It would be convenient for me.",
+      ako: "오전 9시에 시작해서 오후 5시에 끝내고 싶습니다. 저에게 편리할 것 같습니다." },
+    { q: "Which of the following would be more important when choosing a job and why?\n• A nice office\n• A lot of vacation time",
+      qko: "직업을 선택할 때 다음 중 무엇이 더 중요할까요? 이유는 무엇인가요?\n• 좋은 사무실\n• 많은 휴가 시간",
+      a: "I think a lot of vacation time would be more important to me. Actually, I like traveling. So I want to travel to many foreign countries during my vacation. Then, I can get rid of my stress and focus on work better. That's why a lot of vacation time is very important to me.",
+      ako: "저에게는 많은 휴가 시간이 더 중요하다고 생각합니다. 사실 저는 여행을 좋아해서 휴가 동안 여러 외국을 여행하고 싶습니다. 그러면 스트레스를 해소하고 업무에 더 잘 집중할 수 있습니다. 그것이 저에게 많은 휴가 시간이 중요한 이유입니다." }
+  ]
+},
+{
+  id: 42, theme: "이직", tc: "#059669",
+  scenario: "Imagine that a marketing firm is doing research in your area. You have agreed to participate in a telephone interview about how often people change jobs.",
+  scenarioKo: "마케팅 회사가 당신 지역에서 설문조사를 하고 있다고 가정합니다. 당신은 사람들의 이직 빈도에 관한 전화 인터뷰에 참여하기로 했습니다.",
+  qas: [
+    { q: "What kinds of jobs have you had in your life?",
+      qko: "지금까지 어떤 일들을 해봤나요?",
+      a: "I have had some part-time jobs at clothing stores and cafes in my life.",
+      ako: "저는 지금까지 옷가게와 카페에서 아르바이트를 몇 번 해봤습니다." },
+    { q: "Where did you work for the longest time? And how long did you work there?",
+      qko: "가장 오래 일한 곳은 어디였고, 얼마나 오래 일했나요?",
+      a: "I worked at a café for the longest time and I worked there for a year.",
+      ako: "카페에서 가장 오래 일했고, 1년 동안 일했습니다." },
+    { q: "What are some reasons that people change jobs?",
+      qko: "사람들이 이직하는 이유는 무엇인가요?",
+      a: "Here are some reasons that people change jobs. First of all, they don't like their work. Actually, many of my friends hated their work, so they changed jobs. Also, they are not satisfied with their salary and benefits. Nowadays, people care about money and benefits a lot.",
+      ako: "사람들이 이직하는 이유는 이렇습니다. 우선 자기 일을 좋아하지 않기 때문입니다. 사실 제 친구들 중 많은 사람들이 자기 일을 싫어해서 이직했습니다. 또한 급여와 복지에 만족하지 못하기 때문입니다. 요즘 사람들은 돈과 복지를 많이 신경 씁니다." }
+  ]
+},
+{
+  id: 43, theme: "헬스장/운동", tc: "#4f46e5",
+  scenario: "Imagine that a Canadian marketing firm is doing research in your country. You have agreed to participate in a telephone interview about exercise.",
+  scenarioKo: "캐나다 마케팅 회사가 당신 나라에서 설문조사를 하고 있다고 가정합니다. 당신은 운동에 관한 전화 인터뷰에 참여하기로 했습니다.",
+  qas: [
+    { q: "Are you a member of the gym or fitness club? Why or why not?",
+      qko: "헬스장이나 피트니스클럽 회원인가요? 이유는 무엇인가요?",
+      a: "No, I am not a member of the gym because I don't have time. I am very busy with my work nowadays.",
+      ako: "아니요, 저는 헬스장 회원이 아닙니다. 시간이 없기 때문입니다. 요즘 일 때문에 매우 바쁩니다." },
+    { q: "How do people in your area usually find out about gyms or fitness clubs?",
+      qko: "당신 지역 사람들은 보통 헬스장이나 피트니스클럽에 관해 어떻게 알게 되나요?",
+      a: "People in my area usually find out about gyms on the Internet or banners/flyers.",
+      ako: "저희 지역 사람들은 보통 인터넷이나 현수막/전단지를 통해 헬스장에 관해 알게 됩니다." },
+    { q: "If you were exercising at a gym, would you take a group lesson or exercise alone? Why?",
+      qko: "헬스장에서 운동한다면 그룹 수업을 받을 건가요, 아니면 혼자 운동할 건가요? 이유는 무엇인가요?",
+      a: "If I were exercising at a gym, I would take a group lesson. First of all, it's more fun. I can enjoy talking to them while exercising. So, it would be less boring. Also, I can get help from others or we can share information. It would be very useful.",
+      ako: "헬스장에서 운동한다면 그룹 수업을 받을 것입니다. 우선 더 재미있습니다. 운동하면서 사람들과 이야기 나누는 것을 즐길 수 있어 덜 지루할 것입니다. 또한 다른 사람들에게 도움을 받거나 정보를 공유할 수 있어 매우 유용할 것입니다." }
+  ]
+},
+{
+  id: 44, theme: "휴식시간", tc: "#4f46e5",
+  scenario: "Imagine that a marketing firm is doing research in your area. You have agreed to participate in a telephone interview about taking breaks.",
+  scenarioKo: "마케팅 회사가 당신 지역에서 설문조사를 하고 있다고 가정합니다. 당신은 휴식시간에 관한 전화 인터뷰에 참여하기로 했습니다.",
+  qas: [
+    { q: "How often do you take breaks during the work or school day and is there a break room at school or workplace?",
+      qko: "근무일이나 학교 수업 중 얼마나 자주 휴식을 취하고, 학교나 직장에 휴게실이 있나요?",
+      a: "I take breaks during the work at school every hour and there is a break room at my workplace.",
+      ako: "저는 매시간 휴식을 취하고, 제 직장에는 휴게실이 있습니다." },
+    { q: "What time do you usually take your first break of the day and how long does it usually last?",
+      qko: "하루 중 첫 휴식은 보통 몇 시에 취하고, 보통 얼마나 지속되나요?",
+      a: "I usually take my first break of the day at eleven am and it usually lasts for ten minutes.",
+      ako: "저는 보통 오전 11시에 첫 휴식을 취하고, 보통 10분 정도 지속됩니다." },
+    { q: "Which of the following are you most likely to do during your break? Why?\n• Go for a walk\n• Play a game\n• Take a nap",
+      qko: "휴식 시간에 다음 중 무엇을 가장 많이 하나요? 이유는 무엇인가요?\n• 산책하기\n• 게임하기\n• 낮잠 자기",
+      a: "I am most likely to play a game. I will give you some reasons. It's fun and interesting. If I play a game, I can get rid of my stress. So I can focus on my work (better.) But my break (time) is short so I can't go outside or take a nap.",
+      ako: "저는 주로 게임을 하는 것 같습니다. 이유를 말씀드리겠습니다. 재미있고 흥미롭습니다. 게임을 하면 스트레스를 해소할 수 있어 업무에 더 잘 집중할 수 있습니다. 하지만 휴식 시간이 짧아서 밖에 나가거나 낮잠을 잘 수는 없습니다." }
+  ]
+},
+{
+  id: 45, theme: "생일파티", tc: "#db2777",
+  scenario: "Imagine that someone wants to open a party planning company in your area. You have agreed to participate in a telephone interview about birthdays and birthday parties.",
+  scenarioKo: "누군가 당신 지역에 파티 기획 회사를 열고 싶어한다고 가정합니다. 당신은 생일과 생일파티에 관한 전화 인터뷰에 참여하기로 했습니다.",
+  qas: [
+    { q: "When was the last time you went to a birthday party and did you help plan the party?",
+      qko: "마지막으로 생일파티에 간 것은 언제였고, 파티 계획을 도왔나요?",
+      a: "It was last weekend and yes, I helped plan the party. It was very fun.",
+      ako: "지난 주말이었고, 네, 파티 계획을 도왔습니다. 아주 재미있었습니다." },
+    { q: "What do you think is the best kind of food to serve at a birthday party and why?",
+      qko: "생일파티에 내기 가장 좋은 음식은 무엇이라고 생각하나요? 이유는 무엇인가요?",
+      a: "I think it (=the best kind of food to serve) is sushi/pizza because many people like it and it's easy to serve.",
+      ako: "초밥이나 피자가 좋다고 생각합니다. 많은 사람들이 좋아하고 준비하기도 쉽기 때문입니다." },
+    { q: "What are some advantages of having a birthday party at a restaurant?",
+      qko: "식당에서 생일파티를 여는 것의 장점은 무엇인가요?",
+      a: "Here are some advantages of having a birthday party at a restaurant. First of all, it's convenient because I don't have to prepare some food. So I can save my time and energy. I mean it's really difficult to cook a lot of food. Also, there are many tables and chairs at a restaurant. (It's spacious) So, many people will feel comfortable. That's all.",
+      ako: "식당에서 생일파티를 여는 것의 장점은 이렇습니다. 우선 음식을 준비할 필요가 없어 편리하고 시간과 에너지를 아낄 수 있습니다. 많은 음식을 요리하는 것은 정말 어렵습니다. 또한 식당에는 테이블과 의자가 많아서 (공간이 넓어서) 많은 사람들이 편안함을 느낄 것입니다. 그게 다입니다." }
+  ]
+},
+{
+  id: 46, theme: "음식 배달", tc: "#db2777",
+  scenario: "Imagine that a marketing firm is doing research in your area. You have agreed to participate in a telephone interview about restaurant deliveries.",
+  scenarioKo: "마케팅 회사가 당신 지역에서 설문조사를 하고 있다고 가정합니다. 당신은 음식 배달에 관한 전화 인터뷰에 참여하기로 했습니다.",
+  qas: [
+    { q: "What was the last meal that you have delivered to your home or office and where did you order it from?",
+      qko: "마지막으로 집이나 사무실로 배달시킨 음식은 무엇이었고, 어디서 주문했나요?",
+      a: "The last meal that I have delivered to my home (=it) was chicken and I ordered it from a (chicken) restaurant near my house.",
+      ako: "마지막으로 배달시킨 음식은 치킨이었고, 집 근처 치킨집에서 주문했습니다." },
+    { q: "What kinds of restaurants in your area offer food delivery service? And do you order from them often?",
+      qko: "당신 지역에서는 어떤 종류의 식당이 배달 서비스를 제공하나요? 자주 주문하나요?",
+      a: "Well… (Fried) chicken and Chinese restaurants offer food deliver service and (yes) I order from them often. (It's very convenient.)",
+      ako: "음… 치킨집과 중식당이 배달 서비스를 제공하고, 저는 자주 주문합니다 (매우 편리합니다)." },
+    { q: "Would you prefer to eat at your favorite restaurant or have the restaurant deliver the food to your home? Why?",
+      qko: "좋아하는 식당에서 직접 먹는 것과 배달시켜 먹는 것 중 어느 쪽을 선호하나요? 이유는 무엇인가요?",
+      a: "I would prefer to have the restaurant deliver the food to my home because it's very convenient. I can save my time and energy. Actually, (I'm a senior in college so) I'm very busy with my (school)work. So, I want to save my time. That's why I think so.",
+      ako: "식당에서 집으로 배달시키는 것을 선호할 것입니다. 매우 편리해서 시간과 에너지를 아낄 수 있기 때문입니다. 사실 (저는 대학교 4학년이라) 학업으로 매우 바빠서 시간을 아끼고 싶습니다. 그것이 제가 그렇게 생각하는 이유입니다." }
+  ]
+},
+{
+  id: 47, theme: "신발가게", tc: "#2563eb",
+  scenario: "Imagine someone wants to open a new shoe store in your area. You have agreed to participate in a telephone interview about shoe stores.",
+  scenarioKo: "누군가 당신 지역에 새 신발가게를 열고 싶어한다고 가정합니다. 당신은 신발가게에 관한 전화 인터뷰에 참여하기로 했습니다.",
+  qas: [
+    { q: "How often do you shop for shoes? And do you ever buy more than one pair at a time?",
+      qko: "신발은 얼마나 자주 사고, 한 번에 두 켤레 이상 사기도 하나요?",
+      a: "Well… I shop for shoes once a month (about four times a year/once in two or three months.) And yes, I buy more than one pair at a time.",
+      ako: "음… 저는 한 달에 한 번(또는 일 년에 4번, 두세 달에 한 번) 신발을 삽니다. 그리고 네, 한 번에 두 켤레 이상 사기도 합니다." },
+    { q: "Where is the best place to buy shoes in your area? Why?",
+      qko: "당신 지역에서 신발 사기에 가장 좋은 곳은 어디인가요? 이유는 무엇인가요?",
+      a: "I think the best place to buy shoes in my area is a shopping mall near my house/the city center because there are many shoe stores in that shopping mall. So it's very convenient.",
+      ako: "집 근처의 쇼핑몰이나 시내가 신발 사기에 가장 좋은 곳이라고 생각합니다. 그 쇼핑몰에는 신발가게가 많아서 매우 편리합니다." },
+    { q: "If a shoe store offered discounts, how would you prefer to learn about these discounts? Why?\n• Newspaper advertisements\n• Advertisements sent by traditional mail\n• Advertisements sent by email",
+      qko: "신발가게가 할인을 한다면, 그 할인 소식을 어떻게 알고 싶나요? 이유는 무엇인가요?\n• 신문 광고\n• 우편으로 오는 광고\n• 이메일로 오는 광고",
+      a: "I would prefer to learn about these discounts through advertisements sent by email. First of all, it's convenient. I can check my email easily using my mobile phone. Also, it's good for the environment. I think newspaper advertisements and traditional mail are a waste of paper. That's why I think so.",
+      ako: "이메일로 오는 광고를 통해 할인 소식을 알고 싶습니다. 우선 편리합니다. 휴대폰으로 쉽게 이메일을 확인할 수 있습니다. 또한 환경에도 좋습니다. 신문 광고나 우편 광고는 종이 낭비라고 생각합니다. 그것이 제가 그렇게 생각하는 이유입니다." }
+  ]
+},
+{
+  id: 48, theme: "생일선물", tc: "#db2777",
+  scenario: "Imagine that a lifestyle magazine is conducting research in your area. You have agreed to participate in a telephone interview about birthdays and birthday parties.",
+  scenarioKo: "라이프스타일 잡지가 당신 지역에서 설문조사를 하고 있다고 가정합니다. 당신은 생일과 생일파티에 관한 전화 인터뷰에 참여하기로 했습니다.",
+  qas: [
+    { q: "When was the last time you bought a birthday gift and where did you buy it?",
+      qko: "마지막으로 생일선물을 산 것은 언제였고, 어디서 샀나요?",
+      a: "The last time I bought a birthday gift was last weekend and I bought it at Hyundai mall near my house.",
+      ako: "마지막으로 생일선물을 산 것은 지난 주말이었고, 집 근처의 현대백화점에서 샀습니다." },
+    { q: "Do you prefer to wrap a birthday gift yourself or have it wrapped? Why?",
+      qko: "생일선물을 직접 포장하는 것과 포장을 맡기는 것 중 어느 쪽을 선호하나요? 이유는 무엇인가요?",
+      a: "I prefer to wrap a birthday gift myself because I can save my money. (I don't have to pay for wrapping service.)",
+      ako: "저는 생일선물을 직접 포장하는 것을 선호합니다. 돈을 아낄 수 있기 때문입니다 (포장 서비스 비용을 낼 필요가 없습니다)." },
+    { q: "Which of the following would be the best birthday gift for a friend? Why?\n• Clothes\n• Music\n• A book",
+      qko: "친구에게 줄 생일선물로 다음 중 무엇이 가장 좋을까요? 이유는 무엇인가요?\n• 옷\n• 음악\n• 책",
+      a: "I think music would be the best birthday gift for a friend. Here's why. First, many people like music. So, I think they will be happy. Also, they can get rid of stress and refresh themselves. Finally, it's not that expensive. Actually, I'm a college student. So I don't have much money. That's why I think so.",
+      ako: "음악이 친구에게 가장 좋은 생일선물이라고 생각합니다. 이유는 이렇습니다. 우선 많은 사람들이 음악을 좋아해서 기뻐할 것 같습니다. 또한 스트레스를 해소하고 재충전할 수 있습니다. 마지막으로 그렇게 비싸지 않습니다. 사실 저는 대학생이라 돈이 많지 않습니다. 그것이 제가 그렇게 생각하는 이유입니다." }
+  ]
+},
+{
+  id: 49, theme: "스포츠 관람", tc: "#0891b2",
+  scenario: "Imagine that a U.S. language sports magazine is doing research in your country. You have agreed to participate in a telephone interview about watching sports.",
+  scenarioKo: "미국 스포츠 잡지가 당신 나라에서 설문조사를 하고 있다고 가정합니다. 당신은 스포츠 관람에 관한 전화 인터뷰에 참여하기로 했습니다.",
+  qas: [
+    { q: "When was the last time you watched a sporting event? And what was it?",
+      qko: "마지막으로 스포츠 경기를 본 것은 언제였고, 무엇이었나요?",
+      a: "The last time I watched a sporting event was last week and it was a soccer game. It was very fun.",
+      ako: "마지막으로 스포츠 경기를 본 것은 지난주였고, 축구 경기였습니다. 아주 재미있었습니다." },
+    { q: "Would you prefer to watch sporting events alone or with friends? Why?",
+      qko: "스포츠 경기를 혼자 보는 것과 친구와 함께 보는 것 중 어느 쪽을 선호하나요? 이유는 무엇인가요?",
+      a: "I would prefer to watch sporting events with my friends because it's more fun and we can talk about the game and share information.",
+      ako: "친구와 함께 보는 것을 선호합니다. 더 재미있고 경기에 관해 이야기를 나누며 정보를 공유할 수 있기 때문입니다." },
+    { q: "What are the advantages of watching a sporting event on television rather than attending a sporting event live?",
+      qko: "경기장에 직접 가는 것보다 TV로 스포츠 경기를 보는 것의 장점은 무엇인가요?",
+      a: "Here are the advantages. First of all, it is convenient because I don't have to go to the stadium. So I can save my time. Also, I can save money. As you know, tickets are pretty expensive nowadays. But I don't have to waste my money. That's all.",
+      ako: "장점은 이렇습니다. 우선 경기장에 갈 필요가 없어 편리하고 시간을 아낄 수 있습니다. 또한 돈을 아낄 수 있습니다. 아시다시피 요즘 티켓이 꽤 비싼데, 그 돈을 쓸 필요가 없습니다. 그게 다입니다." }
+  ]
+},
+{
+  id: 50, theme: "휴가여행", tc: "#7c3aed",
+  scenario: "Imagine that you are talking to a friend on the telephone. You are talking about traveling on vacation.",
+  scenarioKo: "친구와 전화로 이야기한다고 가정합니다. 당신은 휴가 여행에 관해 이야기하고 있습니다.",
+  qas: [
+    { q: "When was the last time you took a vacation? And where did you go?",
+      qko: "마지막으로 휴가를 간 것은 언제였고, 어디에 갔나요?",
+      a: "It (=The last time I took a vacation) was last week and I went to Jeju Island (in my country.) It was great!",
+      ako: "지난주였고, (우리나라의) 제주도에 갔습니다. 정말 좋았습니다!" },
+    { q: "What kinds of things would you like to do when you go on a vacation?",
+      qko: "휴가를 갈 때 어떤 것들을 하고 싶나요?",
+      a: "I would like to visit famous restaurants and take pictures (I just walk around the place, enjoy the view, and relax.)",
+      ako: "유명한 식당에 가고 사진을 찍고 싶습니다 (그냥 이곳저곳 걸어다니며 풍경을 즐기고 쉬고 싶습니다)." },
+    { q: "I'm traveling to France in a few weeks. But I don't speak French. Do you think I should take a French class before I leave? Why or why not?",
+      qko: "몇 주 후에 프랑스로 여행을 가는데 프랑스어를 못해요. 떠나기 전에 프랑스어 수업을 들어야 할까요? 이유는 무엇인가요?",
+      a: "No, I don't think you should take a French class. First, it takes too much time and energy. And you don't have enough time (for that.) So, I recommend a book. You can learn basic words from a book. It's cheaper and easier. This way, you can save your time and money. I think it will be very useful and helpful. That's why I think so.",
+      ako: "아니요, 프랑스어 수업을 들을 필요는 없다고 생각합니다. 우선 시간과 에너지가 너무 많이 들고, 그럴 시간도 충분하지 않습니다. 대신 책을 추천합니다. 책으로 기본 단어를 배울 수 있고 더 저렴하고 쉽습니다. 이렇게 하면 시간과 돈을 아낄 수 있어 매우 유용하고 도움이 될 것입니다. 그것이 제가 그렇게 생각하는 이유입니다." }
+  ]
+},
+{
+  id: 51, theme: "요리", tc: "#db2777",
+  scenario: "Imagine that you are talking to a friend on the telephone. You are talking about cooking.",
+  scenarioKo: "친구와 전화로 이야기한다고 가정합니다. 당신은 요리에 관해 이야기하고 있습니다.",
+  qas: [
+    { q: "Where do you eat most of your meals and who prepares them?",
+      qko: "대부분의 식사는 어디서 하고, 누가 준비하나요?",
+      a: "I eat most of my meals at home and my mom prepares them.",
+      ako: "저는 대부분의 식사를 집에서 하고, 어머니가 준비해주십니다." },
+    { q: "What type of food would you like to learn how to cook and why?",
+      qko: "어떤 종류의 음식을 요리하는 법을 배우고 싶고, 이유는 무엇인가요?",
+      a: "I would like to learn how to cook Korean food because I love Korean food (=because I'm Korean.) It's very healthy and delicious.",
+      ako: "한식 요리하는 법을 배우고 싶습니다. 한식을 좋아하기 때문입니다(=한국인이기 때문입니다). 매우 건강하고 맛있습니다." },
+    { q: "Would you prefer learning how to cook from your family or friends or by taking a class? Why?",
+      qko: "요리를 가족이나 친구에게 배우는 것과 수업을 듣는 것 중 어느 쪽을 선호하나요? 이유는 무엇인가요?",
+      a: "I would prefer learning how to cook from my family or friends because it's more convenient. My mom is very good at cooking and she always cooks for me. So I can cook with her and learn from her (easily.) But, taking a class costs a lot and it sounds boring to me. (And I don't have time to go to a class.) That's why I think so.",
+      ako: "가족이나 친구에게 배우는 것을 선호합니다. 더 편리하기 때문입니다. 어머니가 요리를 아주 잘 하시고 항상 저를 위해 요리해 주셔서 함께 요리하며 쉽게 배울 수 있습니다. 하지만 수업을 듣는 것은 비용이 많이 들고 지루하게 느껴집니다 (수업 들을 시간도 없습니다). 그것이 제가 그렇게 생각하는 이유입니다." }
+  ]
+},
+{
+  id: 52, theme: "레스토랑", tc: "#db2777",
+  scenario: "Imagine that someone wants to open a new restaurant in your area. You have agreed to participate in a telephone survey about restaurants.",
+  scenarioKo: "누군가 당신 지역에 새 식당을 열고 싶어한다고 가정합니다. 당신은 식당에 관한 전화 설문에 참여하기로 했습니다.",
+  qas: [
+    { q: "What is a popular restaurant in your area? And what kind of food do they serve?",
+      qko: "당신 지역에서 인기 있는 식당은 어디이고, 어떤 음식을 파나요?",
+      a: "A popular restaurant in my area is (called) 개정. They serve Korean food. It's very good.",
+      ako: "저희 지역에서 인기 있는 식당은 '개정'이라는 곳입니다. 한식을 팝니다. 아주 맛있습니다." },
+    { q: "When was the last time you went to a new restaurant? And how did you find out about it?",
+      qko: "마지막으로 새로 생긴 식당에 간 것은 언제였고, 어떻게 알게 되었나요?",
+      a: "The last time I went to a new restaurant (=it) was last week and I found out about it on the Internet. It's convenient.",
+      ako: "마지막으로 새로 생긴 식당에 간 것은 지난주였고, 인터넷에서 알게 되었습니다. 편리합니다." },
+    { q: "If a new restaurant were going to open in my area, what kind of restaurant would you like it to be? Why?",
+      qko: "당신 지역에 새 식당이 생긴다면, 어떤 종류의 식당이었으면 좋겠나요? 이유는 무엇인가요?",
+      a: "If a new restaurant were going to open in my area, I would like it to be a Korean restaurant because I love Korean food. Korea food is very healthy. Nowadays, I care about my health. Also, it's delicious. Finally, it's not that expensive. That's why I love it!",
+      ako: "새 식당이 생긴다면 한식당이었으면 좋겠습니다. 한식을 좋아하기 때문입니다. 한식은 매우 건강에 좋은데 요즘 저는 건강을 신경 쓰고 있습니다. 또한 맛있고 마지막으로 그렇게 비싸지도 않습니다. 그것이 제가 한식을 좋아하는 이유입니다!" }
+  ]
+},
+{
+  id: 53, theme: "등교/출근 습관", tc: "#4f46e5",
+  scenario: "Imagine that you are getting to know about your coworker or classmate. You are talking on the telephone about work or school day habits.",
+  scenarioKo: "직장 동료나 반 친구에 관해 알아가는 중이라고 가정합니다. 당신은 직장이나 학교 생활 습관에 관해 전화로 이야기하고 있습니다.",
+  qas: [
+    { q: "How do you get to work or school? And how long does it take you?",
+      qko: "직장이나 학교에 어떻게 가고, 시간은 얼마나 걸리나요?",
+      a: "I usually take the subway (to school.) And it takes about 20 minutes. (It's very fast and convenient.)",
+      ako: "저는 보통 지하철을 타고 학교에 갑니다. 약 20분 정도 걸립니다 (아주 빠르고 편리합니다)." },
+    { q: "What do you usually bring with you when you go to work or school?",
+      qko: "직장이나 학교에 갈 때 보통 무엇을 가지고 가나요?",
+      a: "I usually bring my laptop computer with me when I go to school (because it's very useful.)",
+      ako: "저는 학교에 갈 때 보통 노트북을 가지고 갑니다 (아주 유용하기 때문입니다)." },
+    { q: "During the week, do you usually eat lunch at work or school or do you go somewhere else? Why?",
+      qko: "평일에는 보통 직장이나 학교에서 점심을 먹나요, 아니면 다른 곳에 가나요? 이유는 무엇인가요?",
+      a: "Well… during the week, I usually eat lunch at school because it's convenient. Actually, I'm a senior in college now. So I'm very busy with my schoolwork. I mean I have to save my time. So I usually eat at a (school) cafeteria. This way, I can save my time and energy. (Also, it's cheap.) That's why I think so.",
+      ako: "음… 평일에는 보통 학교에서 점심을 먹습니다. 편리하기 때문입니다. 사실 저는 지금 대학교 4학년이라 학업으로 매우 바빠서 시간을 아껴야 합니다. 그래서 보통 학교 카페테리아에서 먹는데, 이렇게 하면 시간과 에너지를 아낄 수 있습니다 (또한 저렴합니다). 그것이 제가 그렇게 생각하는 이유입니다." }
+  ]
+},
+{
+  id: 54, theme: "기부", tc: "#d97706",
+  scenario: "Imagine that an economics professor is doing research in your area about giving money to charity organizations. You have agreed to participate in a telephone interview about donating money.",
+  scenarioKo: "경제학 교수가 당신 지역에서 자선단체 기부에 관해 설문조사를 하고 있다고 가정합니다. 당신은 돈 기부에 관한 전화 인터뷰에 참여하기로 했습니다.",
+  qas: [
+    { q: "What kinds of organizations most often ask you for donations? And do you often give to them?",
+      qko: "어떤 종류의 단체가 가장 자주 기부를 요청하나요? 자주 기부하나요?",
+      a: "I think [children organizations/schools/UN] most often ask me for donations. And (yes) I often give to them.",
+      ako: "아동단체나 학교, UN 같은 곳이 가장 자주 기부를 요청하는 것 같습니다. 그리고 네, 저는 자주 기부합니다." },
+    { q: "Which would be more likely to convince you to donate money to an organization; a television advertisement or a radio advertisement? Why?",
+      qko: "TV 광고와 라디오 광고 중 어느 쪽이 단체에 기부하도록 더 설득할 것 같나요? 이유는 무엇인가요?",
+      a: "I think a television advertisement would be more likely to convince me to donate money to an organization because I usually watch TV so it's more effective.",
+      ako: "TV 광고가 더 설득력이 있을 것 같습니다. 저는 보통 TV를 보기 때문에 더 효과적입니다." },
+    { q: "If you were going to make a donation, which of the following types of organizations would you most likely want to donate to? Why?\n• An organization that supports the arts\n• A library\n• A science museum",
+      qko: "기부를 한다면 다음 중 어떤 단체에 가장 기부하고 싶나요? 이유는 무엇인가요?\n• 예술 지원 단체\n• 도서관\n• 과학박물관",
+      a: "I would most likely want to donate to a library. Here's why. Actually, I'm a senior in college so I go to the library often. And there are not enough books. I think it will be very helpful (and beneficial) for many students. That's why I think so.",
+      ako: "저는 도서관에 기부하고 싶습니다. 이유는 이렇습니다. 사실 저는 대학교 4학년이라 도서관에 자주 가는데 책이 충분하지 않습니다. 많은 학생들에게 매우 도움이 될 것이라고 생각합니다. 그것이 제가 그렇게 생각하는 이유입니다." }
+  ]
+},
+{
+  id: 55, theme: "커피/차", tc: "#2563eb",
+  scenario: "Imagine that an Australian marketing firm is doing research in your community. You have agreed to participate in a telephone interview about drinking coffee or tea.",
+  scenarioKo: "호주 마케팅 회사가 당신 지역사회에서 설문조사를 하고 있다고 가정합니다. 당신은 커피나 차 마시기에 관한 전화 인터뷰에 참여하기로 했습니다.",
+  qas: [
+    { q: "When do you drink coffee or tea and where do you normally drink it?",
+      qko: "언제 커피나 차를 마시고, 보통 어디서 마시나요?",
+      a: "I drink coffee every morning and I normally drink it at work.",
+      ako: "저는 매일 아침 커피를 마시고, 보통 직장에서 마십니다." },
+    { q: "Do you usually eat something when you drink coffee or tea? Why or why not?",
+      qko: "커피나 차를 마실 때 보통 무언가 함께 먹나요? 이유는 무엇인가요?",
+      a: "I don't eat something when I drink coffee because I'm on a diet.",
+      ako: "저는 커피를 마실 때 뭔가를 먹지는 않습니다. 다이어트 중이기 때문입니다." },
+    { q: "Which feature do you think is most important in a coffee shop or teahouse? And why?\n• Free Internet\n• Comfortable seating\n• Large selection of products",
+      qko: "커피숍이나 찻집에서 다음 중 어떤 특징이 가장 중요하다고 생각하나요? 이유는 무엇인가요?\n• 무료 인터넷\n• 편안한 좌석\n• 다양한 제품 선택",
+      a: "I think free Internet is the most important feature in a coffee shop or teahouse. Actually, I usually bring my laptop or smart phone to a coffee shop. And I use the Internet while drinking coffee. For example, I always go to Starbucks because they offer free Internet. It's very useful.",
+      ako: "커피숍이나 찻집에서 무료 인터넷이 가장 중요한 특징이라고 생각합니다. 사실 저는 보통 커피숍에 노트북이나 스마트폰을 가지고 가서 커피를 마시며 인터넷을 사용합니다. 예를 들어 스타벅스는 무료 인터넷을 제공해서 항상 그곳에 갑니다. 매우 유용합니다." }
+  ]
+},
+{
+  id: 56, theme: "날씨", tc: "#4f46e5",
+  scenario: "Imagine that a Canadian marketing firm is doing research in your country. You have agreed to participate in a telephone interview about the weather.",
+  scenarioKo: "캐나다 마케팅 회사가 당신 나라에서 설문조사를 하고 있다고 가정합니다. 당신은 날씨에 관한 전화 인터뷰에 참여하기로 했습니다.",
+  qas: [
+    { q: "What kind of weather do you like?",
+      qko: "어떤 날씨를 좋아하나요?",
+      a: "I like sunny/warm weather because I like outdoor activities. (I love going to a beach.)",
+      ako: "저는 맑고 따뜻한 날씨를 좋아합니다. 야외 활동을 좋아하기 때문입니다 (해변에 가는 것을 정말 좋아합니다)." },
+    { q: "How does the weather affect your mood or emotion?",
+      qko: "날씨가 당신의 기분이나 감정에 어떤 영향을 미치나요?",
+      a: "Well… Actually, it affects me a lot. When the weather is nice, I feel good.",
+      ako: "음… 사실 날씨는 저에게 큰 영향을 미칩니다. 날씨가 좋으면 기분이 좋아집니다." },
+    { q: "Would you prefer to live in a place where the weather is same all the time or a place where the weather changes with the seasons?",
+      qko: "날씨가 항상 같은 곳과 계절에 따라 날씨가 변하는 곳 중 어디에 살고 싶나요?",
+      a: "I would prefer to live in a place where the weather changes with seasons. First of all, I can enjoy a variety of activities. For example, I can go swimming in summer and I can go skiing in winter. It's really fun. Also, I can enjoy beautiful scenery. (Actually, in my country, there are 4 seasons. So, it's really beautiful and I love it.) That's why I think so.",
+      ako: "계절에 따라 날씨가 변하는 곳에 살고 싶습니다. 우선 다양한 활동을 즐길 수 있습니다. 예를 들어 여름에는 수영을 하고 겨울에는 스키를 탈 수 있어 정말 재미있습니다. 또한 아름다운 풍경도 즐길 수 있습니다 (사실 우리나라는 사계절이 있어서 정말 아름답고 저는 그것을 좋아합니다). 그것이 제가 그렇게 생각하는 이유입니다." }
+  ]
+},
+{
+  id: 57, theme: "옷 쇼핑", tc: "#2563eb",
+  scenario: "Imagine that a marketing firm is doing research in your area. You have agreed to participate in a telephone interview about shopping for clothes.",
+  scenarioKo: "마케팅 회사가 당신 지역에서 설문조사를 하고 있다고 가정합니다. 당신은 옷 쇼핑에 관한 전화 인터뷰에 참여하기로 했습니다.",
+  qas: [
+    { q: "How close is the nearest clothing store to your home and do you like to shop there?",
+      qko: "집에서 가장 가까운 옷가게는 얼마나 가깝고, 그곳에서 쇼핑하는 것을 좋아하나요?",
+      a: "The nearest clothing store is 10 min far/away and yes I like to shop there. It's very nice.",
+      ako: "가장 가까운 옷가게는 10분 거리이고, 네, 그곳에서 쇼핑하는 것을 좋아합니다. 아주 좋습니다." },
+    { q: "Who do you usually go shopping with you when you're buying clothes? Why?",
+      qko: "옷을 살 때 보통 누구와 함께 쇼핑하나요? 이유는 무엇인가요?",
+      a: "I usually go shopping with my best friend (Jessa) because it's fun and she can give me advice.",
+      ako: "저는 보통 가장 친한 친구(제사)와 함께 쇼핑합니다. 재미있고 조언도 해주기 때문입니다." },
+    { q: "When you are shopping for clothes, do you pay more attention to how the clothes look or how comfortable they are? Why?",
+      qko: "옷을 살 때 디자인과 편안함 중 어느 쪽에 더 신경 쓰나요? 이유는 무엇인가요?",
+      a: "When I'm shopping for clothes, I pay more attention to how comfortable they are. I usually shop clothes for school (or work.) If I don't feel comfortable (=if I wear uncomfortable clothes,) I cannot focus on my study (or work.) It can be annoying. (Also, it's good for my body.) That's why I think so.",
+      ako: "옷을 살 때 저는 편안함에 더 신경 씁니다. 보통 학교(또는 직장)용으로 옷을 삽니다. 불편한 옷을 입으면 공부(또는 일)에 집중할 수 없고 짜증날 수 있습니다 (또한 몸에도 좋습니다). 그것이 제가 그렇게 생각하는 이유입니다." }
+  ]
+},
+{
+  id: 58, theme: "면접", tc: "#059669",
+  scenario: "Imagine that you are talking to a friend on the telephone. You are talking about a job interview.",
+  scenarioKo: "친구와 전화로 이야기한다고 가정합니다. 당신은 취업 면접에 관해 이야기하고 있습니다.",
+  qas: [
+    { q: "I have a job interview soon. How early do you think I should arrive at the interview and why?",
+      qko: "곧 취업 면접이 있는데, 면접 장소에 얼마나 일찍 도착해야 할까요? 이유는 무엇인가요?",
+      a: "I think you should arrive at the interview twenty minutes early because you need to prepare for the interview (and relax.)",
+      ako: "면접에 20분 일찍 도착해야 한다고 생각합니다. 면접을 준비하고 (마음을 가라앉힐) 시간이 필요하기 때문입니다." },
+    { q: "Do you think it is important for me to send an email or a note after the interview to thank the interviewers? Why or why not?",
+      qko: "면접 후에 면접관들에게 감사 이메일이나 쪽지를 보내는 것이 중요하다고 생각하나요? 이유는 무엇인가요?",
+      a: "(Yes) I think it is important for you to send an email or a note after the interview to thank the interviewers because you can give a good impression.",
+      ako: "네, 면접 후 감사 이메일이나 쪽지를 보내는 것이 중요하다고 생각합니다. 좋은 인상을 줄 수 있기 때문입니다." },
+    { q: "If you had a job interview, would you be more comfortable being interviewed by one person or by a group of people? Why?",
+      qko: "취업 면접을 본다면 한 사람에게 면접받는 것과 여러 사람에게 면접받는 것 중 어느 쪽이 더 편할까요? 이유는 무엇인가요?",
+      a: "If I had a job interview, I would be more comfortable being interviewed by one person. First, I can focus on one person. It's more convenient and easier. Also, I can enjoy the conversations. So, I can answer well. That's why I think so.",
+      ako: "취업 면접을 본다면 한 사람에게 면접받는 것이 더 편할 것 같습니다. 우선 한 사람에게만 집중할 수 있어 더 편리하고 쉽습니다. 또한 대화를 즐길 수 있어 답변도 잘 할 수 있습니다. 그것이 제가 그렇게 생각하는 이유입니다." }
+  ]
+},
+{
+  id: 59, theme: "동물원/수족관", tc: "#7c3aed",
+  scenario: "Imagine that a tourism bureau is doing research in your area. You have agreed to participate in a telephone interview about seeing animals at a zoo or an aquarium.",
+  scenarioKo: "관광청이 당신 지역에서 설문조사를 하고 있다고 가정합니다. 당신은 동물원이나 수족관에서 동물 보기에 관한 전화 인터뷰에 참여하기로 했습니다.",
+  qas: [
+    { q: "When was the last time you visited a zoo or an aquarium and how long did you stay?",
+      qko: "마지막으로 동물원이나 수족관에 간 것은 언제였고, 얼마나 머물렀나요?",
+      a: "The last time I visited a zoo was last month and I stayed there for 3 hours. It was fun.",
+      ako: "마지막으로 동물원에 간 것은 지난달이었고, 3시간 정도 머물렀습니다. 재미있었습니다." },
+    { q: "When is the best time of year to visit a zoo or an aquarium? Why?",
+      qko: "동물원이나 수족관을 방문하기 가장 좋은 시기는 언제인가요? 이유는 무엇인가요?",
+      a: "The best time of the year is summer because I have more free time in summer and the weather is nice.",
+      ako: "가장 좋은 시기는 여름입니다. 여름에는 여유 시간이 더 많고 날씨도 좋기 때문입니다." },
+    { q: "Describe your favorite exhibit at a zoo or an aquarium.",
+      qko: "동물원이나 수족관에서 가장 좋아하는 전시를 설명해 주세요.",
+      a: "I will describe my favorite exhibit at an aquarium. It's the fish exhibit. Actually, I love all kind of fish. It's always fun to watch them. Especially, I'm very interested in Dolphins. They are very cute and smart. So when I was little, I went there often to see them. That's all.",
+      ako: "수족관에서 가장 좋아하는 전시를 말씀드리겠습니다. 바로 어류 전시입니다. 사실 저는 모든 종류의 물고기를 좋아해서 보는 것이 항상 재미있습니다. 특히 돌고래에 관심이 많은데 아주 귀엽고 똑똑해서 어렸을 때 자주 보러 갔습니다. 그게 다입니다." }
+  ]
+},
+{
+  id: 60, theme: "고등학교 시절", tc: "#059669",
+  scenario: "Imagine that a British marketing firm is doing research in your country. You have agreed to participate in a telephone interview about high school.",
+  scenarioKo: "영국 마케팅 회사가 당신 나라에서 설문조사를 하고 있다고 가정합니다. 당신은 고등학교 시절에 관한 전화 인터뷰에 참여하기로 했습니다.",
+  qas: [
+    { q: "Did you spend a lot of time studying in high school? Why or why not?",
+      qko: "고등학교 때 공부하는 데 시간을 많이 썼나요? 이유는 무엇인가요?",
+      a: "Yes, I spent a lot of time studying in high school because competition was very high in high school. (I wanted to get into a good university.)",
+      ako: "네, 고등학교 때 공부하는 데 시간을 많이 썼습니다. 고등학교 시절 경쟁이 매우 치열했기 때문입니다 (좋은 대학교에 가고 싶었습니다)." },
+    { q: "What was your favorite subject in high school? Why?",
+      qko: "고등학교 때 가장 좋아했던 과목은 무엇이었나요? 이유는 무엇인가요?",
+      a: "My favorite subject in high school was Math because it was fun. (I was very interested in math.)",
+      ako: "고등학교 때 가장 좋아했던 과목은 수학이었습니다. 재미있었기 때문입니다 (수학에 관심이 많았습니다)." },
+    { q: "Describe your favorite teacher in high school.",
+      qko: "고등학교 때 가장 좋아했던 선생님을 설명해 주세요.",
+      a: "I will describe my favorite teacher in high school. She was a math teacher. First of all, she was really pretty and tall. So, she was really popular. I mean all the students liked her. Also, she was really funny. So her class was very fun/interesting. That's why she's my favorite teacher.",
+      ako: "고등학교 때 가장 좋아했던 선생님을 말씀드리겠습니다. 수학 선생님이셨습니다. 우선 정말 예쁘고 키가 크셔서 인기가 많았습니다. 즉, 모든 학생들이 그분을 좋아했습니다. 또한 정말 재미있으셔서 수업이 아주 즐거웠습니다. 그것이 제가 가장 좋아하는 선생님인 이유입니다." }
+  ]
+},
+{
+  id: 61, theme: "십대와 돈", tc: "#059669",
+  scenario: "Imagine that a British marketing firm is doing research in your country. You have agreed to participate in a telephone interview about teenagers and money.",
+  scenarioKo: "영국 마케팅 회사가 당신 나라에서 설문조사를 하고 있다고 가정합니다. 당신은 십대와 돈에 관한 전화 인터뷰에 참여하기로 했습니다.",
+  qas: [
+    { q: "What kinds of things do teenagers spend money on?",
+      qko: "십대들은 어떤 것에 돈을 쓰나요?",
+      a: "I think teenagers spend money on snacks, books and clothes.",
+      ako: "십대들은 간식, 책, 옷에 돈을 쓰는 것 같습니다." },
+    { q: "Where do teenagers usually go to shop, and why?",
+      qko: "십대들은 보통 어디로 쇼핑하러 가나요? 이유는 무엇인가요?",
+      a: "I think teenagers usually go to shop online/downtown/at a mall because it's convenient.",
+      ako: "십대들은 보통 온라인이나 시내, 쇼핑몰로 쇼핑하러 가는 것 같습니다. 편리하기 때문입니다." },
+    { q: "Describe the types of jobs that teenagers can do to earn money.",
+      qko: "십대들이 돈을 벌기 위해 할 수 있는 일의 종류를 설명해 주세요.",
+      a: "I will describe the types of jobs that teenagers can do to earn money. Actually, in my country, there are not many jobs available for teenagers because employers don't hire teenagers. I mean they prefer adults. But I guess teenagers can work at fast-food restaurants such as McDonald's or clothing stores.",
+      ako: "십대들이 돈을 벌기 위해 할 수 있는 일을 말씀드리겠습니다. 사실 저희 나라에는 십대들이 할 수 있는 일자리가 많지 않습니다. 고용주들이 십대보다 성인을 선호하기 때문입니다. 하지만 맥도날드 같은 패스트푸드점이나 옷가게에서는 일할 수 있을 것 같습니다." }
+  ]
+},
+{
+  id: 62, theme: "식물 키우기", tc: "#db2777",
+  scenario: "Imagine that a Canadian marketing firm is doing research in your country. You have agreed to participate in a telephone interview about plants.",
+  scenarioKo: "캐나다 마케팅 회사가 당신 나라에서 설문조사를 하고 있다고 가정합니다. 당신은 식물에 관한 전화 인터뷰에 참여하기로 했습니다.",
+  qas: [
+    { q: "How many plants do you have? And where do you keep them in your house?",
+      qko: "식물을 몇 개나 키우고 있고, 집 어디에 두나요?",
+      a: "I have two (plants) and I keep them in the living room.",
+      ako: "저는 식물을 두 개 키우고 있고, 거실에 둡니다." },
+    { q: "Have you ever ordered flowers or plants on the Internet? Why or why not?",
+      qko: "인터넷으로 꽃이나 식물을 주문해본 적이 있나요? 이유는 무엇인가요?",
+      a: "Yes, (I have ordered flowers and plants on the Internet) because it's convenient and cheap.",
+      ako: "네, 인터넷으로 꽃이나 식물을 주문해본 적이 있습니다. 편리하고 저렴하기 때문입니다." },
+    { q: "What are the challenges of having plants inside the house?",
+      qko: "집안에서 식물을 키우는 것의 어려운 점은 무엇인가요?",
+      a: "Here are the challenges of having plants inside the house. First, it's hard (for them) to get sunshine. Also, I have to water them (=give them water) often. (But I'm very busy.) So they die easily. Also, my house is small so I don't have enough space for plants. These are the challenges of having plants inside the house.",
+      ako: "집안에서 식물을 키우는 것의 어려운 점은 이렇습니다. 우선 식물이 햇빛을 받기 어렵습니다. 또한 자주 물을 줘야 하는데 (저는 매우 바빠서) 식물이 쉽게 죽습니다. 또한 집이 작아서 식물을 둘 공간이 충분하지 않습니다. 이것이 집안에서 식물을 키우는 것의 어려운 점입니다." }
+  ]
+},
+{
+  id: 63, theme: "독서습관 변화", tc: "#0891b2",
+  scenario: "Imagine that a Canadian marketing firm is doing research in your country. You have agreed to participate in a telephone interview about how people's reading habits change over time.",
+  scenarioKo: "캐나다 마케팅 회사가 당신 나라에서 설문조사를 하고 있다고 가정합니다. 당신은 사람들의 독서습관이 시간이 지나며 어떻게 변하는지에 관한 전화 인터뷰에 참여하기로 했습니다.",
+  qas: [
+    { q: "Did you enjoy reading a book in high school? Why or why not?",
+      qko: "고등학교 때 책 읽는 것을 즐겼나요? 이유는 무엇인가요?",
+      a: "Yes, I enjoyed reading a book in high school because it's fun. I love reading a novel/an essay.",
+      ako: "네, 고등학교 때 책 읽는 것을 즐겼습니다. 재미있기 때문입니다. 저는 소설이나 에세이 읽는 것을 좋아합니다." },
+    { q: "How often did you use your high school library?",
+      qko: "고등학교 도서관을 얼마나 자주 이용했나요?",
+      a: "I used my high school library every day because I loved reading books.",
+      ako: "저는 매일 고등학교 도서관을 이용했습니다. 책 읽는 것을 좋아했기 때문입니다." },
+    { q: "Do you read more now than you did in high school?",
+      qko: "고등학교 때보다 지금 더 많이 읽나요?",
+      a: "Yes, I read more now than I did in high school. In high school, I didn't have enough time to read books because I had to study hard. In my country, it is really hard to get into a good university. But now, I have more free time. So I usually read a novel on weekends.",
+      ako: "네, 고등학교 때보다 지금 더 많이 읽습니다. 고등학교 때는 공부를 열심히 해야 해서 책 읽을 시간이 충분하지 않았습니다. 저희 나라에서는 좋은 대학교에 들어가기가 정말 어렵습니다. 하지만 지금은 여유 시간이 더 많아서 보통 주말에 소설을 읽습니다." }
+  ]
+},
+{
+  id: 64, theme: "재활용 습관 변화", tc: "#d97706",
+  scenario: "Imagine that a Canadian marketing firm is doing research in your country. You have agreed to participate in a telephone interview about recycling in your community.",
+  scenarioKo: "캐나다 마케팅 회사가 당신 나라에서 설문조사를 하고 있다고 가정합니다. 당신은 지역사회의 재활용에 관한 전화 인터뷰에 참여하기로 했습니다.",
+  qas: [
+    { q: "In your community, how often are recycled materials collected?",
+      qko: "당신 지역사회에서는 재활용품을 얼마나 자주 수거하나요?",
+      a: "In my community, recycled materials are collected everyday/once a week.",
+      ako: "저희 지역사회에서는 재활용품을 매일 혹은 일주일에 한 번 수거합니다." },
+    { q: "Do you think parents should teach children about recycling? Why or why not?",
+      qko: "부모가 아이들에게 재활용에 관해 가르쳐야 한다고 생각하나요? 이유는 무엇인가요?",
+      a: "Yes, I think parents should teach children about recycling because they have to care about it. It's important to everybody.",
+      ako: "네, 부모가 아이들에게 재활용을 가르쳐야 한다고 생각합니다. 아이들도 신경 써야 하기 때문입니다. 모두에게 중요한 일입니다." },
+    { q: "How has your recycling habit changed over the years?",
+      qko: "당신의 재활용 습관은 몇 년 동안 어떻게 변했나요?",
+      a: "Well... In the past, I didn't recycle much because I was kind of lazy. Also, I lived in my parents' house. So, my mom did it. But now, I recycle more because I care about the environment. That's it.",
+      ako: "음… 예전에는 제가 좀 게을러서 재활용을 많이 하지 않았습니다. 또한 부모님 집에 살아서 어머니가 하셨습니다. 하지만 지금은 환경을 신경 써서 재활용을 더 많이 합니다. 그게 다입니다." }
+  ]
+},
+{
+  id: 65, theme: "뉴스", tc: "#0891b2",
+  scenario: "Imagine that a new distributor is doing research in your area. You have agreed to participate in a telephone interview about the news.",
+  scenarioKo: "새로운 유통업체가 당신 지역에서 설문조사를 하고 있다고 가정합니다. 당신은 뉴스에 관한 전화 인터뷰에 참여하기로 했습니다.",
+  qas: [
+    { q: "What topics in the news are you most interested in? Why?",
+      qko: "뉴스에서 어떤 주제에 가장 관심이 있나요? 이유는 무엇인가요?",
+      a: "I'm most interested in sports topics because I love sports such as soccer. It's very fun/interesting.",
+      ako: "저는 스포츠 관련 뉴스에 가장 관심이 있습니다. 축구 같은 스포츠를 좋아하기 때문입니다. 아주 재미있습니다." },
+    { q: "Are you signed up to receive electronic alerts when news updates are available? Why or why not?",
+      qko: "뉴스 업데이트가 있을 때 전자 알림을 받도록 등록되어 있나요? 이유는 무엇인가요?",
+      a: "Yes, I am signed up to receive electronic alerts when news updates are available because it's very useful and convenient. (I can get new updates easily.)",
+      ako: "네, 뉴스 업데이트 알림을 받도록 등록되어 있습니다. 매우 유용하고 편리하기 때문입니다 (새 소식을 쉽게 받을 수 있습니다)." },
+    { q: "Do you think watching television is a good way to learn about news? Why or why not?",
+      qko: "TV를 보는 것이 뉴스를 접하는 좋은 방법이라고 생각하나요? 이유는 무엇인가요?",
+      a: "No, I don't think so. I think the Internet (or social media) is better than television because it's more convenient. I don't have to wait for the television program (air time). I mean I can check news /new information on the Internet anytime anywhere using my mobile phone. That's why I think so.",
+      ako: "아니요, 그렇게 생각하지 않습니다. TV보다 인터넷(또는 소셜미디어)이 더 낫다고 생각합니다. 더 편리하기 때문입니다. TV 프로그램 방영 시간을 기다릴 필요 없이 휴대폰으로 언제 어디서나 뉴스나 새로운 정보를 확인할 수 있습니다. 그것이 제가 그렇게 생각하는 이유입니다." }
+  ]
+},
+{
+  id: 66, theme: "라디오 청취", tc: "#0891b2",
+  scenario: "Imagine that a new distributor is doing research in your area. You have agreed to participate in a telephone interview about listening to the radio.",
+  scenarioKo: "새로운 유통업체가 당신 지역에서 설문조사를 하고 있다고 가정합니다. 당신은 라디오 청취에 관한 전화 인터뷰에 참여하기로 했습니다.",
+  qas: [
+    { q: "How often do you listen to the radio?",
+      qko: "라디오를 얼마나 자주 듣나요?",
+      a: "I listen to the radio every day in my room (before I go to sleep.)",
+      ako: "저는 매일 방에서(자기 전에) 라디오를 듣습니다." },
+    { q: "What types of radio programs do you like to listen to?",
+      qko: "어떤 종류의 라디오 프로그램을 즐겨 듣나요?",
+      a: "I like to listen to music programs because I love music.",
+      ako: "저는 음악 프로그램을 즐겨 듣습니다. 음악을 좋아하기 때문입니다." },
+    { q: "When you are at home, do you prefer to watch Television or listen to the radio? Why?",
+      qko: "집에 있을 때 TV를 보는 것과 라디오를 듣는 것 중 어느 쪽을 선호하나요? 이유는 무엇인가요?",
+      a: "When I am home, I prefer to watch Television. TV offers many kinds of programs. I especially love comedy programs such as Moo-han-do-jeon. It's very famous in my country. When I watch it, I can get rid of my stress. But the radio is quite boring.",
+      ako: "집에 있을 때는 TV를 보는 것을 선호합니다. TV는 다양한 종류의 프로그램을 제공합니다. 특히 '무한도전' 같은 코미디 프로그램을 아주 좋아하는데 우리나라에서 매우 유명합니다. 그것을 보면 스트레스를 해소할 수 있습니다. 하지만 라디오는 꽤 지루합니다." }
+  ]
+},
+{
+  id: 67, theme: "우리 동네 (이웃)", tc: "#db2777",
+  scenario: "Imagine that a Canadian marketing firm is doing research in your country. You have agreed to participate in a telephone interview about your neighborhood.",
+  scenarioKo: "캐나다 마케팅 회사가 당신 나라에서 설문조사를 하고 있다고 가정합니다. 당신은 당신의 동네에 관한 전화 인터뷰에 참여하기로 했습니다.",
+  qas: [
+    { q: "How long have you lived in your neighborhood?",
+      qko: "지금 사는 동네에 얼마나 오래 살았나요?",
+      a: "I have lived in my neighborhood for 5 years and I like it.",
+      ako: "저는 지금 사는 동네에서 5년째 살고 있고, 마음에 듭니다." },
+    { q: "What do you usually do in your neighborhood?",
+      qko: "동네에서 보통 무엇을 하나요?",
+      a: "I usually go to a café or a park near my house. I usually hang out there with my friend.",
+      ako: "저는 보통 집 근처의 카페나 공원에 갑니다. 친구와 함께 그곳에서 어울립니다." },
+    { q: "Do you think you are a good neighbor? Why or why not?",
+      qko: "스스로 좋은 이웃이라고 생각하나요? 이유는 무엇인가요?",
+      a: "No, I don't think I am a good neighbor. First of all, I'm very busy with my work nowadays. So, I don't care about the neighbors much. It's all about me these days. I think I'm a little bit selfish but I'm very tired because of work (and I don't have time to interact with neighbors.) That's why I think I don't think I am a good neighbor.",
+      ako: "아니요, 저는 좋은 이웃이 아니라고 생각합니다. 우선 요즘 일 때문에 매우 바빠서 이웃에게 그다지 신경 쓰지 못합니다. 요즘은 제 일에만 신경 쓰게 됩니다. 조금 이기적인 것 같지만 일 때문에 너무 피곤해서 이웃과 교류할 시간이 없습니다. 그것이 제가 좋은 이웃이 아니라고 생각하는 이유입니다." }
+  ]
+},
+{
+  id: 68, theme: "이웃들", tc: "#db2777",
+  scenario: "Imagine that a Canadian marketing firm is doing research in your country. You have agreed to participate in a telephone interview about your neighbors.",
+  scenarioKo: "캐나다 마케팅 회사가 당신 나라에서 설문조사를 하고 있다고 가정합니다. 당신은 이웃들에 관한 전화 인터뷰에 참여하기로 했습니다.",
+  qas: [
+    { q: "How often do you see your neighbors? And where do you usually see them?",
+      qko: "이웃을 얼마나 자주 보고, 보통 어디서 보나요?",
+      a: "I see my neighbor everyday and I usually see them in the elevator.",
+      ako: "저는 매일 이웃을 보고, 보통 엘리베이터에서 봅니다." },
+    { q: "Do you think it is important to know your neighbors? Why or why not?",
+      qko: "이웃을 아는 것이 중요하다고 생각하나요? 이유는 무엇인가요?",
+      a: "Yes, I think it's important to know my neighbors because we can share information and help each other sometimes. (Also, it's safer.)",
+      ako: "네, 이웃을 아는 것이 중요하다고 생각합니다. 정보를 공유하고 가끔 서로 도울 수 있기 때문입니다 (또한 더 안전합니다)." },
+    { q: "Describe a situation when you helped your neighbor or when a neighbor helped you.",
+      qko: "이웃을 도와준 상황이나 이웃에게 도움을 받은 상황을 설명해 주세요.",
+      a: "I will describe a situation when I helped my neighbor. Actually, it was last week. I saw a boy carrying heavy items. So, I helped him carry the items. Also, I held (=stopped) the elevator for him. He really thanked me and I felt good about it. That's all.",
+      ako: "이웃을 도와준 상황을 말씀드리겠습니다. 사실 지난주였습니다. 한 남자아이가 무거운 짐을 들고 있는 것을 보고 짐 옮기는 것을 도와주었습니다. 또한 그를 위해 엘리베이터를 잡아주었습니다. 그는 저에게 정말 고마워했고 저도 기분이 좋았습니다. 그게 다입니다." }
+  ]
+}
+];
+
+
+var P3_POOL = [];
+P3_CARDS.forEach(function(c) {
+  c.qas.forEach(function(qa) {
+    P3_POOL.push({
+      theme: c.theme, tc: c.tc,
+      scenario: c.scenario, scenarioKo: c.scenarioKo,
+      q: qa.q, qko: qa.qko, a: qa.a, ako: qa.ako
+    });
+  });
+});
+
+function p3Shuffle(arr) {
+  var a = arr.slice();
+  for (var i = a.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var t = a[i]; a[i] = a[j]; a[j] = t;
+  }
+  return a;
+}
+
+var p3Queue = p3Shuffle(P3_POOL);
+var p3Idx = 0;
+var p3Phase = 'question';
+var p3Remaining = 20;
+var p3TimerId = null;
+var p3Started = false;
+
+function p3CurrentItem() { return p3Queue[p3Idx]; }
+
+function p3RenderItem() {
+  var it = p3CurrentItem();
+  document.getElementById('p3Counter').textContent = (p3Idx + 1) + ' / ' + P3_POOL.length;
+  var badge = document.getElementById('p3Badge');
+  badge.textContent = it.theme;
+  badge.style.background = it.tc;
+  document.getElementById('p3ScenarioEn').textContent = it.scenario;
+  document.getElementById('p3ScenarioKo').textContent = it.scenarioKo;
+  document.getElementById('p3QText').textContent = it.q;
+  document.getElementById('p3QKo').textContent = it.qko;
+  document.getElementById('p3AEn').textContent = it.a;
+  document.getElementById('p3AKo').textContent = it.ako;
+  document.getElementById('p3SAns').classList.remove('vis');
+  document.getElementById('p3SAnsKo').classList.remove('vis');
+  document.getElementById('p3TimerLabel').textContent = '문제 준비';
+  document.getElementById('p3TimerNum').className = 'timer-num';
+  document.getElementById('p3TimerNum').textContent = p3Remaining;
+  document.getElementById('p3PrevBtn').disabled = (p3Idx === 0);
+}
+
+function p3RevealAnswer() {
+  document.getElementById('p3SAns').classList.add('vis');
+  document.getElementById('p3SAnsKo').classList.add('vis');
+  document.getElementById('p3TimerLabel').textContent = '정답 확인';
+  document.getElementById('p3TimerNum').className = 'timer-num answering';
+  document.getElementById('p3TimerNum').textContent = p3Remaining;
+}
+
+function p3ShowAnswerNow() {
+  if (p3Phase === 'answer') return;
+  p3Phase = 'answer';
+  p3Remaining = 10;
+  p3RevealAnswer();
+}
+
+function p3Next() {
+  p3Idx++;
+  if (p3Idx >= p3Queue.length) {
+    var last = p3Queue[p3Queue.length - 1];
+    var ns;
+    do { ns = p3Shuffle(P3_POOL); } while (P3_POOL.length > 1 && ns[0] === last);
+    p3Queue = ns;
+    p3Idx = 0;
+  }
+  p3Phase = 'question';
+  p3Remaining = 20;
+  p3RenderItem();
+}
+
+function p3Prev() {
+  if (p3Idx === 0) return;
+  p3Idx--;
+  p3Phase = 'question';
+  p3Remaining = 20;
+  p3RenderItem();
+}
+
+function p3Tick() {
+  p3Remaining--;
+  if (p3Remaining <= 0) {
+    if (p3Phase === 'question') {
+      p3Phase = 'answer';
+      p3Remaining = 10;
+      p3RevealAnswer();
+    } else {
+      p3Next();
+    }
+  } else {
+    document.getElementById('p3TimerNum').textContent = p3Remaining;
+  }
+}
+
+function p3StartTimer() {
+  if (p3TimerId) return;
+  p3TimerId = setInterval(p3Tick, 1000);
+}
+function p3StopTimer() {
+  if (p3TimerId) { clearInterval(p3TimerId); p3TimerId = null; }
+}
+
+function p3Pause() {
+  p3StopTimer();
+  document.getElementById('p3PauseBtn').disabled = true;
+  document.getElementById('p3PlayBtn').disabled = false;
+}
+function p3Play() {
+  p3StartTimer();
+  document.getElementById('p3PauseBtn').disabled = false;
+  document.getElementById('p3PlayBtn').disabled = true;
+}
+
+function p3EnsureStarted() {
+  if (!p3Started) {
+    p3Started = true;
+    p3RenderItem();
+    p3Play();
+  }
+}
+</script>
+</body>
+</html>
